@@ -1,0 +1,8 @@
+<resources>
+    <string name="google_maps_key_instructions" templateMergeStrategy="replace"><!--
+
+    --></string>
+    E5:39:0E:DE:15:DE:39:50:20:D3:26:76:61:7B:78:37:02:A7:6E:D7;test.mapapptest
+    <string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyAwktSCcHJxPe34JS4rZYMAqZ1_YSn6cCE</string>
+</resources>
+
