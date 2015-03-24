@@ -51,7 +51,8 @@ import mann.fuelfinder.R;
 public class MapsActivity extends FragmentActivity implements
         LocationListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
-
+    //implements com.google.android.gms.location.LocationListener, GoogleApiClient.ConnectionCallbacks,
+    //GoogleApiClient.OnConnectionFailedListener
     private static final long ONE_MIN = 1000 * 60;
     private static final long TWO_MIN = ONE_MIN * 2;
     private static final long FIVE_MIN = ONE_MIN * 5;
@@ -69,9 +70,11 @@ public class MapsActivity extends FragmentActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
         setUpMapIfNeeded();
 
         mLocationRequest = LocationRequest.create();
@@ -84,14 +87,20 @@ public class MapsActivity extends FragmentActivity implements
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
-    }
 
+
+        /**************************************************************
+         *
+         */
+
+
+    }
+/*
     @Override
     protected void onResume() {
         super.onResume();
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-    }
+        setUpMapIfNeeded();
+    }*/
 
     /**
      * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
@@ -114,6 +123,7 @@ public class MapsActivity extends FragmentActivity implements
             // Try to obtain the map from the SupportMapFragment.
             mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
+            mMap.setMyLocationEnabled(true);
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
                 setUpMap();
@@ -128,7 +138,6 @@ public class MapsActivity extends FragmentActivity implements
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
         //mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
         // Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         //Location here = mMap.getMyLocation();
@@ -143,7 +152,8 @@ public class MapsActivity extends FragmentActivity implements
         //mMap.addMarker(new MarkerOptions().position(userLocation).title("I'm here!"));
     }
 
-/*
+    //------------//------------//---------//----
+
     @Override
     protected void onResume() {
         // TODO Auto-generated method stub
@@ -156,7 +166,7 @@ public class MapsActivity extends FragmentActivity implements
         }
         setUpMapIfNeeded();
     }
-*/
+
     @Override
     protected void onPause() {
         // TODO Auto-generated method stub
@@ -436,5 +446,3 @@ public class MapsActivity extends FragmentActivity implements
         return result;
     }
 }
-
-
