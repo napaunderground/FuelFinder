@@ -21,7 +21,8 @@
             android:inputType="text"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:hint="Enter Year of Manufacturer">
 
         </EditText>
 
@@ -38,7 +39,8 @@
             android:layout_marginLeft="81dp"
             android:layout_marginStart="81dp"
             android:ems="10"
-            android:inputType="text" />
+            android:inputType="text"
+            android:hint="Enter Manufacturer"/>
 
 
         <EditText
@@ -51,7 +53,8 @@
             android:layout_alignLeft="@+id/editTextManufacturer"
             android:layout_alignStart="@+id/editTextManufacturer"
             android:ems="10"
-            android:inputType="text" />
+            android:inputType="text"
+            android:hint="Enter Vehicle Model"/>
 
 
 
@@ -67,7 +70,8 @@
             android:layout_alignRight="@+id/editTextTransmission"
             android:layout_alignEnd="@+id/editTextTransmission"
             android:ems="10"
-            android:inputType="text" />
+            android:inputType="text"
+            android:hint="Enter Fuel Mileage"/>
 
         <EditText
             android:id="@+id/editTextEngineSize"
@@ -78,7 +82,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:ems="10"
-            android:inputType="text" />
+            android:inputType="text"
+            android:hint="Enter Engine Size"/>
 
         <EditText
             android:id="@+id/editTextTransmission"
@@ -90,7 +95,8 @@
             android:layout_alignParentStart="true"
             android:layout_marginTop="40dp"
             android:ems="10"
-            android:inputType="text" />
+            android:inputType="text"
+            android:hint="Enter Transmission Type"/>
 
         <Button
             android:id="@+id/button1"

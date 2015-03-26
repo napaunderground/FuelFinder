@@ -42,13 +42,6 @@ public class SettingsActivity extends Activity {
         mileage = (TextView) findViewById(R.id.editTextFuelMileage);
         engine = (TextView) findViewById(R.id.editTextEngineSize);
         transmission = (TextView) findViewById(R.id.editTextTransmission);
-        /************** set background hint start *************/
-        year.setHint("Year");
-        make.setHint("Make");
-        vehModel.setHint("Model");
-        mileage.setHint("Mileage");
-        engine.setHint("Engine");
-        transmission.setHint("Transmission");
 
         sharedprefs = getSharedPreferences(MyVehicle, 0);
 
