@@ -10,6 +10,18 @@
         android:title="@string/pref_header_notifications" />
 
     <header android:fragment="mann.fuelfinder.Activity.SettingsActivity$DataSyncPreferenceFragment"
+        android:title="@string/pref_header_data_sync" /><header
+        android:fragment="fuelfinder.mann.SettingsActivity$GeneralPreferenceFragment"
+        android:title="@string/pref_header_general" /><header
+        android:fragment="fuelfinder.mann.SettingsActivity$NotificationPreferenceFragment"
+        android:title="@string/pref_header_notifications" /><header
+        android:fragment="fuelfinder.mann.SettingsActivity$DataSyncPreferenceFragment"
+        android:title="@string/pref_header_data_sync" /><header
+        android:fragment="fuelfinder.mann.Activity.SettingsActivity$GeneralPreferenceFragment"
+        android:title="@string/pref_header_general" /><header
+        android:fragment="fuelfinder.mann.Activity.SettingsActivity$NotificationPreferenceFragment"
+        android:title="@string/pref_header_notifications" /><header
+        android:fragment="fuelfinder.mann.Activity.SettingsActivity$DataSyncPreferenceFragment"
         android:title="@string/pref_header_data_sync" />
 
 </preference-headers>

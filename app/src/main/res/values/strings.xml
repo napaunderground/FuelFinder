@@ -12,4 +12,20 @@
     <string name="Transmission">Transmission Type</string>
 
     <string name="save">Save Vehicle Information</string>
+    <string name="title_activity_mileage">MileageActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_start">StartActivity</string>
+    <string name="title_activity_ihttp_callback_listener">IHttpCallbackListener</string>
+    <string name="title_activity_mileage_parser">MileageParser</string>
+    <string name="title_activity_http_request_manager">HttpRequestManager</string>
+    <string name="title_activity_mileage_data_manager">MileageDataManager</string>
+    <string name="title_activity_mileage_search_request_args">MileageSearchRequestArgs</string>
+    <string name="title_activity_urlformat_utility">URLFormatUtility</string>
+    <string name="mfr">Manufacturer</string>
+    <string name="year">Year</string>
+    <string name="model">Vehicle Model</string>
+    <string name="mileage">Fuel Mileage Average</string>
+    <string name="engine">Engine Size</string>
+    <string name="trans">Transmission Type</string>
 </resources>
