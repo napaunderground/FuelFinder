@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
+import fuelfinder.mann.Models.MileageModel;
 import fuelfinder.mann.R;
 
 
@@ -20,6 +21,9 @@ public class SettingsActivity extends Activity {
     private TextView mileage;
     private TextView engine;
     private TextView transmission;
+
+    MileageModel vehicleInfo = new MileageModel();
+
 
     public static final String MyVehicle = "MyVeh";
     public static final String YearOfMfr = "YearKey";
@@ -79,7 +83,12 @@ public class SettingsActivity extends Activity {
         String t = transmission.getText().toString();
         SharedPreferences.Editor editor = sharedprefs.edit();
 
-
+        vehicleInfo.setYear(y);
+        vehicleInfo.setMake(ma);
+        vehicleInfo.setModel(mo);
+        vehicleInfo.setEngine(e);
+        vehicleInfo.setTransmission(t);
+        vehicleInfo.setUserMileage(m);
 
         editor.putString("YearOfMfr", y);
         editor.putString("Manufacturer", ma);
