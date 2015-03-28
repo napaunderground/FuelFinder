@@ -3,6 +3,7 @@ package fuelfinder.mann.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -19,6 +20,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -65,7 +68,10 @@ public class MapsActivity extends FragmentActivity implements
     private GoogleApiClient mGoogleApiClient;
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
-
+    //MyLoc.lat = 38.335555
+    //MyLoc.long = -122.679303
+    // 38.34005734
+    // -122.6760596
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -294,9 +300,16 @@ public class MapsActivity extends FragmentActivity implements
             float accuracy = mCurrentLocation.getAccuracy();
             long time = mCurrentLocation.getTime();
             mMap.addMarker(new MarkerOptions().position(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude())));
-            String DistInfo = getDistanceOnRoad(65.9847, -18.5398, 65.94626187, -18.55788231);
+            mMap.addMarker(new MarkerOptions().position(new LatLng(38.34005734, -122.6760596)));
+            String DistInfo = getDistanceOnRoad(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude(), 38.34005734, -122.6760596);
             String DistInf = String.valueOf(DistInfo);
             mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title(DistInf));
+
+            Polyline line =  mMap.addPolyline(new PolylineOptions()
+                    .add(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()), new LatLng(38.34005734, -122.6760596))
+                    .width(2)
+                    .color(Color.CYAN));
+
             if (accuracy < bestAccuracy) {
                 bestResult = mCurrentLocation;
                 bestAccuracy = accuracy;
