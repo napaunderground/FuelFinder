@@ -10,11 +10,16 @@ public class MileageModel {
         private String year;
         private String make;
         private String carModel;
-        private String options;
+        private String engine;
+        private String transmission;
         private Uri mileageUri;
-        private int mileage;
+        private String mileage;
 
-// Need to make a data input for vehicleInfo that holds make/model/year/options
+    public MileageModel() {
+        mileage = "0";
+    }
+
+    // Need to make a data input for vehicleInfo that holds make/model/year/options
     public Uri getMileageUri()
     {
         return mileageUri;
@@ -55,17 +60,20 @@ public class MileageModel {
         this.carModel = carModel;
     }
 
-    public String getOptions()
+    public String getEngine(String engine) { return engine; }
+
+    public void setEngine(String engine)
     {
-        return options;
+        this.engine = engine;
     }
 
-    public void setOptions(String options)
-    {
-        this.options = options;
-    }
+    public String getTransmission() { return transmission; }
 
-    public void setUserMileage(int mileage)
+    public void setTransmission(String transmission) { this.transmission = transmission; }
+
+    public String getUserMileage() { return mileage; }
+
+    public void setUserMileage(String mileage)
     {
         this.mileage = mileage;
     }

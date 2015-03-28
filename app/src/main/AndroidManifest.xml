@@ -61,11 +61,11 @@
             android:label="@string/title_activity_http_request_manager" >
         </activity>
         <activity
-            android:name="fuelfinder.mann.Service.MileageDataManager"
+            android:name=".Service.VehicleDataManager"
             android:label="@string/title_activity_mileage_data_manager" >
         </activity>
         <activity
-            android:name="fuelfinder.mann.Service.MileageSearchRequestArgs"
+            android:name=".Service.VehicleSearchRequestArgs"
             android:label="@string/title_activity_mileage_search_request_args" >
         </activity>
         <activity
