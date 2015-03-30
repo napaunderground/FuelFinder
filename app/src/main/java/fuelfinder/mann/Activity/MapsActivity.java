@@ -142,6 +142,28 @@ public class MapsActivity extends FragmentActivity implements
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
+
+        //MyLoc.lat = 38.335555
+        //MyLoc.long = -122.679303
+        // 38.34005734
+        // -122.6760596
+        LatLng sourcePosition = new LatLng(38.335555, -122.679303);
+        LatLng destPosition = new LatLng(38.34005734, -122.6760596);
+        GMapV2Direction md = new GMapV2Direction();
+        mMap = ((SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map)).getMap();
+        Document doc = md.getDocument(sourcePosition, destPosition,
+                GMapV2Direction.MODE_DRIVING);
+
+        ArrayList<LatLng> directionPoint = md.getDirection(doc);
+        PolylineOptions rectLine = new PolylineOptions().width(3).color(
+                Color.RED);
+
+        for (int i = 0; i < directionPoint.size(); i++) {
+            rectLine.add(directionPoint.get(i));
+        }
+        Polyline polylin = mMap.addPolyline(rectLine);
+        //mBestReading = bestLastKnownLocation(MIN_LAST_READ_ACCURACY, FIVE_MIN);
         //mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
         // Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         //Location here = mMap.getMyLocation();
@@ -152,7 +174,6 @@ public class MapsActivity extends FragmentActivity implements
         //  Location location = service.getLastKnownLocation(provider);
         //Both are returned as NULL. Hmm.
         //  LatLng userLocation = new LatLng(location.getLatitude(),location.getLongitude());
-
         //mMap.addMarker(new MarkerOptions().position(userLocation).title("I'm here!"));
     }
 
@@ -304,7 +325,6 @@ public class MapsActivity extends FragmentActivity implements
             String DistInfo = getDistanceOnRoad(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude(), 38.34005734, -122.6760596);
             String DistInf = String.valueOf(DistInfo);
             mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title(DistInf));
-
             Polyline line =  mMap.addPolyline(new PolylineOptions()
                     .add(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()), new LatLng(38.34005734, -122.6760596))
                     .width(2)
