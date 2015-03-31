@@ -11,7 +11,8 @@
     <string name="EngineSize">Engine Size</string>
     <string name="Transmission">Transmission Type</string>
 
-    <string name="save">Save Vehicle Information</string>
+    <string name="map">Find Fuel!</string>
+    <string name="enter_another">Enter another vehicle</string>
     <string name="title_activity_mileage">MileageActivity</string>
 
     <string name="hello_world">Hello world!</string>
