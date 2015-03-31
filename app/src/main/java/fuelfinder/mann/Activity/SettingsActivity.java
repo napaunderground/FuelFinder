@@ -15,6 +15,7 @@ import fuelfinder.mann.R;
 
 public class SettingsActivity extends Activity {
 
+    private TextView carName;
     private TextView year;
     private TextView make;
     private TextView vehModel;
@@ -24,7 +25,7 @@ public class SettingsActivity extends Activity {
 
     MileageModel vehicleInfo = new MileageModel();
 
-
+    public static final String CarName = "CarName";
     public static final String MyVehicle = "MyVeh";
     public static final String YearOfMfr = "YearKey";
     public static final String Manufacturer = "MakeKey";
@@ -40,6 +41,7 @@ public class SettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
 
+        carName = (TextView) findViewById(R.id.editTextCarName);
         year = (TextView) findViewById(R.id.editTextYearOfMfr);
         make = (TextView) findViewById(R.id.editTextManufacturer);
         vehModel = (TextView) findViewById(R.id.editTextVehModel);
@@ -47,57 +49,20 @@ public class SettingsActivity extends Activity {
         engine = (TextView) findViewById(R.id.editTextEngineSize);
         transmission = (TextView) findViewById(R.id.editTextTransmission);
 
-        sharedprefs = getSharedPreferences(MyVehicle, 0);
 
-        if(sharedprefs.contains(YearOfMfr))
-        {
-            year.setText(sharedprefs.getString(YearOfMfr, ""));
-        }
-        if(sharedprefs.contains(Manufacturer))
-        {
-            make.setText(sharedprefs.getString(Manufacturer, ""));
-        }
-        if(sharedprefs.contains(VehModel))
-        {
-            vehModel.setText(sharedprefs.getString(VehModel, ""));
-        }
-        if(sharedprefs.contains(FuelMileage))
-        {
-            mileage.setText(sharedprefs.getString(FuelMileage, ""));
-        }
-        if(sharedprefs.contains(EngineSize))
-        {
-            engine.setText(sharedprefs.getString(EngineSize, ""));
-        }
-        if(sharedprefs.contains(Transmission))
-        {
-            transmission.setText(sharedprefs.getString(Transmission, ""));
-        }
+        vehicleInfo.setCarName(carName.toString());
+        vehicleInfo.setYear(year.toString());
+        vehicleInfo.setMake(make.toString());
+        vehicleInfo.setModel(vehModel.toString());
+        vehicleInfo.setEngine(engine.toString());
+        vehicleInfo.setTransmission(transmission.toString());
+        vehicleInfo.setUserMileage(mileage.toString());
+
+      //  SavedVehicleModel.SaveVehicle(vehicleInfo);
     }
+
+
     public void run(View v) {
-        String y = year.getText().toString();
-        String ma = make.getText().toString();
-        String mo = vehModel.getText().toString();
-        String m = mileage.getText().toString();
-        String e = engine.getText().toString();
-        String t = transmission.getText().toString();
-        SharedPreferences.Editor editor = sharedprefs.edit();
-
-        vehicleInfo.setYear(y);
-        vehicleInfo.setMake(ma);
-        vehicleInfo.setModel(mo);
-        vehicleInfo.setEngine(e);
-        vehicleInfo.setTransmission(t);
-        vehicleInfo.setUserMileage(m);
-
-        editor.putString("YearOfMfr", y);
-        editor.putString("Manufacturer", ma);
-        editor.putString("VehModel", mo);
-        editor.putString("FuelMileage", m);
-        editor.putString("EngineSize", e);
-        editor.putString("Transmission", t);
-
-        editor.commit();
 
         SharedPreferences prefs = this.getSharedPreferences("MyVeh", Context.MODE_PRIVATE);
         String miles = prefs.getString("FuelMileage", "0");
@@ -108,9 +73,16 @@ public class SettingsActivity extends Activity {
             setContentView(R.layout.activity_start);
 
             startActivity(new Intent(this, fuelfinder.mann.Activity.MapsActivity.class));
-
         }
     }
+
+
+    public void settings(View v) {
+        setContentView(R.layout.activity_start);
+
+        startActivity(new Intent(this, SettingsActivity.class));
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

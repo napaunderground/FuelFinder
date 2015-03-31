@@ -7,6 +7,7 @@ import android.net.Uri;
  */
 public class MileageModel {
     // An application model to drive the MileageModel view
+        private String carName;
         private String year;
         private String make;
         private String carModel;
@@ -14,9 +15,14 @@ public class MileageModel {
         private String transmission;
         private Uri mileageUri;
         private String mileage;
+        public static final String temp2 = "temp2";
+
+    public void setCarName(String carName) { this.carName = carName; }
+
+    public String getCarName() { return carName; }
 
     public MileageModel() {
-        mileage = "0";
+
     }
 
     // Need to make a data input for vehicleInfo that holds make/model/year/options
@@ -40,17 +46,17 @@ public class MileageModel {
         this.year = year;
     }
 
-    public String getMake()
+    public  String getMake()
     {
         return make;
     }
 
-    public void setMake(String make)
+    public void setMake(String  make)
     {
         this.make = make;
     }
 
-    public String getModel()
+    public String  getModel()
     {
         return carModel;
     }
@@ -60,21 +66,23 @@ public class MileageModel {
         this.carModel = carModel;
     }
 
-    public String getEngine(String engine) { return engine; }
+    public String getEngine() { return engine; }
 
-    public void setEngine(String engine)
+    public void setEngine(String  engine)
     {
         this.engine = engine;
     }
 
-    public String getTransmission() { return transmission; }
+    public String  getTransmission() { return transmission; }
 
     public void setTransmission(String transmission) { this.transmission = transmission; }
 
-    public String getUserMileage() { return mileage; }
+    public String  getUserMileage() { return mileage; }
 
     public void setUserMileage(String mileage)
     {
         this.mileage = mileage;
     }
+
+
 }

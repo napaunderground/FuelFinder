@@ -14,7 +14,7 @@
         android:paddingTop="@dimen/activity_vertical_margin" >
 
         <EditText
-            android:id="@+id/editTextYearOfMfr"
+            android:id="@+id/editTextCarName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -22,9 +22,20 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:hint="Enter Year of Manufacturer">
+            android:hint="Give Your Car a Name!" />
 
-        </EditText>
+
+        <EditText
+            android:id="@+id/editTextYearOfMfr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text"
+            android:layout_below="@+id/editTextCarName"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:hint="Enter Year of Manufacturer" />
+
 
 
 
@@ -33,14 +44,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/editTextYearOfMfr"
-            android:layout_toEndOf="@+id/editTextYearOfMfr"
-            android:layout_marginLeft="81dp"
-            android:layout_marginStart="81dp"
             android:ems="10"
             android:inputType="text"
-            android:hint="Enter Manufacturer"/>
+            android:hint="Enter Manufacturer"
+            android:layout_below="@+id/editTextYearOfMfr"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
 
         <EditText
@@ -48,13 +57,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginTop="43dp"
-            android:layout_below="@+id/editTextManufacturer"
-            android:layout_alignLeft="@+id/editTextManufacturer"
-            android:layout_alignStart="@+id/editTextManufacturer"
+            android:layout_marginTop="22dp"
             android:ems="10"
             android:inputType="text"
-            android:hint="Enter Vehicle Model"/>
+            android:hint="Enter Vehicle Model"
+            android:layout_below="@+id/editTextManufacturer"
+            android:layout_alignLeft="@+id/editTextTransmission"
+            android:layout_alignStart="@+id/editTextTransmission" />
 
 
 
@@ -63,54 +72,62 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_below="@+id/editTextTransmission"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:layout_marginTop="44dp"
-            android:layout_alignRight="@+id/editTextTransmission"
-            android:layout_alignEnd="@+id/editTextTransmission"
             android:ems="10"
             android:inputType="text"
-            android:hint="Enter Fuel Mileage"/>
+            android:hint="Enter Fuel Mileage"
+            android:layout_below="@+id/editTextTransmission"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <EditText
             android:id="@+id/editTextEngineSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_above="@+id/editTextTransmission"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:ems="10"
             android:inputType="text"
-            android:hint="Enter Engine Size"/>
+            android:hint="Enter Engine Size"
+            android:layout_below="@+id/editTextVehModel"
+            android:layout_alignLeft="@+id/editTextManufacturer"
+            android:layout_alignStart="@+id/editTextManufacturer" />
 
         <EditText
             android:id="@+id/editTextTransmission"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_below="@+id/editTextVehModel"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="21dp"
             android:ems="10"
             android:inputType="text"
-            android:hint="Enter Transmission Type"/>
+            android:hint="Enter Transmission Type"
+            android:layout_below="@+id/editTextEngineSize"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <Button
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="run"
-            android:text="@string/save"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="25dp" />
+            android:text="@string/map"
+            android:layout_below="@+id/editTextFuelMileage"
+            android:layout_toRightOf="@+id/editTextFuelMileage"
+            android:layout_toEndOf="@+id/editTextFuelMileage" />
+
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="settings"
+            android:text="@string/enter_another"
+            android:layout_below="@+id/editTextFuelMileage"
+            android:layout_alignLeft="@+id/editTextFuelMileage"
+            android:layout_alignStart="@+id/editTextFuelMileage" />
+
 
          <requestFocus />
-
 
     </RelativeLayout>
 
