@@ -69,6 +69,8 @@ public class SettingsActivity extends Activity {
         int intMiles = Integer.parseInt(miles);
 
         if(intMiles != 0)
+
+
         {
             setContentView(R.layout.activity_start);
 
