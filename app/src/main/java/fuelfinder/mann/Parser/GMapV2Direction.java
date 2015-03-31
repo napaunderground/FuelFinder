@@ -1,4 +1,4 @@
-package fuelfinder.mann.Activity;
+package fuelfinder.mann.Parser;
 
 /**
  * Created by Action Johnny on 3/29/2015.
@@ -81,11 +81,7 @@ public class GMapV2Direction {
     }
 
     public String getDistanceText(Document doc) {
-    /*
-     * while (en.hasMoreElements()) { type type = (type) en.nextElement();
-     *
-     * }
-     */
+
 
         try {
             NodeList nl1;
@@ -125,14 +121,7 @@ public class GMapV2Direction {
         } catch (Exception e) {
             return -1;
         }
-    /*
-     * NodeList nl1 = doc.getElementsByTagName("distance"); Node node1 =
-     * null; if (nl1.getLength() > 0) node1 = nl1.item(nl1.getLength() - 1);
-     * if (node1 != null) { NodeList nl2 = node1.getChildNodes(); Node node2
-     * = nl2.item(getNodeIndex(nl2, "value")); Log.i("DistanceValue",
-     * node2.getTextContent()); return
-     * Integer.parseInt(node2.getTextContent()); } else return 0;
-     */
+
     }
 
     public String getStartAddress(Document doc) {

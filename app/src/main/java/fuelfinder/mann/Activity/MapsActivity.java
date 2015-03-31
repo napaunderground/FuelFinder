@@ -11,11 +11,14 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.FusedLocationProviderApi;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -47,6 +50,7 @@ import java.util.concurrent.TimeUnit;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import fuelfinder.mann.Parser.GMapV2Direction;
 import fuelfinder.mann.R;
 
 public class MapsActivity extends FragmentActivity implements
@@ -62,6 +66,7 @@ public class MapsActivity extends FragmentActivity implements
     private static final float MIN_ACCURACY = 25.0f;
     private static final float MIN_LAST_READ_ACCURACY = 500.0f;
     private final static int REQUEST_RESOLVE_ERROR = 1001;
+    int count = 0;
     //comment
     private LocationRequest mLocationRequest;
     private Location mBestReading;
@@ -77,6 +82,7 @@ public class MapsActivity extends FragmentActivity implements
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         setUpMapIfNeeded();
@@ -85,12 +91,12 @@ public class MapsActivity extends FragmentActivity implements
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         mLocationRequest.setInterval(POLLING_FREQ);
         mLocationRequest.setFastestInterval(FASTEST_UPDATE_FREQ);
-
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
+        buildGoogleApiClient();
+       /* mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
-                .build();
+                .build();*/
 
 
         /**************************************************************
@@ -98,6 +104,14 @@ public class MapsActivity extends FragmentActivity implements
          */
 
 
+    }
+
+    protected synchronized void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
     }
 /*
     @Override
@@ -142,6 +156,7 @@ public class MapsActivity extends FragmentActivity implements
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
+        int count = 0;
 
         //MyLoc.lat = 38.335555
         //MyLoc.long = -122.679303
@@ -163,18 +178,10 @@ public class MapsActivity extends FragmentActivity implements
             rectLine.add(directionPoint.get(i));
         }
         Polyline polylin = mMap.addPolyline(rectLine);
-        //mBestReading = bestLastKnownLocation(MIN_LAST_READ_ACCURACY, FIVE_MIN);
-        //mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
-        // Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        //Location here = mMap.getMyLocation();
-        // LatLng userLocation = new LatLng(here.getLatitude(),here.getLongitude());
-        //LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
-        //  Criteria criteria = new Criteria();
-        //   String provider = service.getBestProvider(criteria, false);
-        //  Location location = service.getLastKnownLocation(provider);
-        //Both are returned as NULL. Hmm.
-        //  LatLng userLocation = new LatLng(location.getLatitude(),location.getLongitude());
-        //mMap.addMarker(new MarkerOptions().position(userLocation).title("I'm here!"));
+
+
+        //mMap.animateCamera(CameraUpdateFactory.zoomBy(8));
+
     }
 
     //------------//------------//---------//----
@@ -260,7 +267,7 @@ public class MapsActivity extends FragmentActivity implements
     }
 
     @Override
-    public void onConnected(Bundle dataBundle) {
+    public void onConnected(Bundle connectionHint) {
         // TODO Auto-generated method stub
         // Get first reading. Get additional location updates if necessary
         if (servicesAvailable()) {
@@ -274,6 +281,7 @@ public class MapsActivity extends FragmentActivity implements
 
                 LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
                 //mMap.addMarker(new MarkerOptions().position(new LatLng(mBestReading.getLatitude(), mBestReading.getLongitude())));
+
                 // Schedule a runnable to unregister location listeners
                 Executors.newScheduledThreadPool(1).schedule(new Runnable() {
 
@@ -335,6 +343,14 @@ public class MapsActivity extends FragmentActivity implements
                 bestAccuracy = accuracy;
                 bestTime = time;
             }
+
+            Location CurrentLocation;
+            CurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            LatLng MyPosition;
+
+            MyPosition = new LatLng(CurrentLocation.getLatitude(), CurrentLocation.getLongitude());
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(MyPosition, 15));
+
         }
 
         // Return best reading or null
