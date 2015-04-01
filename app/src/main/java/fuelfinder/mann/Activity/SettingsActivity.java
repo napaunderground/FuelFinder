@@ -132,11 +132,18 @@ public class SettingsActivity extends Activity {
 
 
     public void settings(View v) {
-        setContentView(R.layout.activity_start);
 
         startActivity(new Intent(this, SettingsActivity.class));
     }
 
+// no need to stop activities???
+    public void stationPicker(View v){
+        // in the future we will have station model data to pass to the mapping application
+        // it will include station location (lat, long)
+        // it will include other data (cost, distance)
+        startActivity(new Intent(this, StationPickerActivity.class));
+        setContentView(R.layout.activity_station_picker);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

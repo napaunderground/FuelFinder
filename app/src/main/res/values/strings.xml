@@ -11,7 +11,9 @@
     <string name="EngineSize">Engine Size</string>
     <string name="Transmission">Transmission Type</string>
 
-    <string name="map">Find Fuel!</string>
+    <string name="picker_page">Picker Page</string>
+    <string name="station_grid">Pick Station Myself</string>
+    <string name="map">Find Me Fuel!</string>
     <string name="enter_another">Enter another vehicle</string>
     <string name="title_activity_mileage">MileageActivity</string>
 
@@ -23,5 +25,6 @@
     <string name="title_activity_mileage_data_manager">MileageDataManager</string>
     <string name="title_activity_mileage_search_request_args">MileageSearchRequestArgs</string>
     <string name="title_activity_urlformat_utility">URLFormatUtility</string>
+    <string name="title_activity_station_picker">StationPickerActivity</string>
 
 </resources>

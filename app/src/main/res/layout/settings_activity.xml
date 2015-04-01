@@ -48,8 +48,10 @@
             android:inputType="text"
             android:hint="Enter Manufacturer"
             android:layout_below="@+id/editTextYearOfMfr"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_toStartOf="@+id/button1"
+            android:layout_toLeftOf="@+id/button1"
+            android:layout_alignRight="@+id/editTextYearOfMfr"
+            android:layout_alignEnd="@+id/editTextYearOfMfr" />
 
 
         <EditText
@@ -57,13 +59,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginTop="22dp"
             android:ems="10"
             android:inputType="text"
             android:hint="Enter Vehicle Model"
             android:layout_below="@+id/editTextManufacturer"
-            android:layout_alignLeft="@+id/editTextTransmission"
-            android:layout_alignStart="@+id/editTextTransmission" />
+            android:layout_toStartOf="@+id/button1"
+            android:layout_toLeftOf="@+id/button1"
+            android:layout_alignRight="@+id/editTextEngineSize"
+            android:layout_alignEnd="@+id/editTextEngineSize" />
 
 
 
@@ -72,7 +75,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginTop="44dp"
             android:ems="10"
             android:inputType="text"
             android:hint="Enter Fuel Mileage"
@@ -97,7 +99,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginTop="21dp"
             android:ems="10"
             android:inputType="text"
             android:hint="Enter Transmission Type"
@@ -111,9 +112,8 @@
             android:layout_height="wrap_content"
             android:onClick="run"
             android:text="@string/map"
-            android:layout_below="@+id/editTextFuelMileage"
-            android:layout_toRightOf="@+id/editTextFuelMileage"
-            android:layout_toEndOf="@+id/editTextFuelMileage" />
+            android:layout_below="@+id/button3"
+            android:layout_centerHorizontal="true" />
 
 
         <Button
@@ -123,8 +123,17 @@
             android:onClick="settings"
             android:text="@string/enter_another"
             android:layout_below="@+id/editTextFuelMileage"
-            android:layout_alignLeft="@+id/editTextFuelMileage"
-            android:layout_alignStart="@+id/editTextFuelMileage" />
+            android:layout_centerHorizontal="true" />
+
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="stationPicker"
+            android:text="@string/station_grid"
+            android:layout_below="@+id/button2"
+            android:layout_centerHorizontal="true" />
 
 
          <requestFocus />
