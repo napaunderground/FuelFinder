@@ -15,6 +15,8 @@ import fuelfinder.mann.R;
 
 public class SettingsActivity extends Activity {
 
+
+    private TextView carName;
     private TextView year;
     private TextView make;
     private TextView vehModel;
@@ -25,6 +27,7 @@ public class SettingsActivity extends Activity {
     MileageModel vehicleInfo = new MileageModel();
 
 
+    public static final String CarName = "CarName";
     public static final String MyVehicle = "MyVeh";
     public static final String YearOfMfr = "YearKey";
     public static final String Manufacturer = "MakeKey";
@@ -40,6 +43,7 @@ public class SettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
 
+        carName = (TextView) findViewById(R.id.editTextCarName);
         year = (TextView) findViewById(R.id.editTextYearOfMfr);
         make = (TextView) findViewById(R.id.editTextManufacturer);
         vehModel = (TextView) findViewById(R.id.editTextVehModel);
@@ -49,6 +53,10 @@ public class SettingsActivity extends Activity {
 
         sharedprefs = getSharedPreferences(MyVehicle, 0);
 
+        if(sharedprefs.contains(CarName))
+        {
+            carName.setText(sharedprefs.getString(CarName, ""));
+        }
         if(sharedprefs.contains(YearOfMfr))
         {
             year.setText(sharedprefs.getString(YearOfMfr, ""));
@@ -75,6 +83,8 @@ public class SettingsActivity extends Activity {
         }
     }
     public void run(View v) {
+
+        String ca = carName.getText().toString();
         String y = year.getText().toString();
         String ma = make.getText().toString();
         String mo = vehModel.getText().toString();
@@ -83,6 +93,7 @@ public class SettingsActivity extends Activity {
         String t = transmission.getText().toString();
         SharedPreferences.Editor editor = sharedprefs.edit();
 
+        vehicleInfo.setCarName(ca);
         vehicleInfo.setYear(y);
         vehicleInfo.setMake(ma);
         vehicleInfo.setModel(mo);
@@ -90,6 +101,7 @@ public class SettingsActivity extends Activity {
         vehicleInfo.setTransmission(t);
         vehicleInfo.setUserMileage(m);
 
+        editor.putString("CarName", ca);
         editor.putString("YearOfMfr", y);
         editor.putString("Manufacturer", ma);
         editor.putString("VehModel", mo);
@@ -112,7 +124,19 @@ public class SettingsActivity extends Activity {
             startActivity(new Intent(this, fuelfinder.mann.Activity.MapsActivity.class));
 
         }
+        else
+        {
+            startActivity(new Intent(this, fuelfinder.mann.Activity.SettingsActivity.class));
+        }
     }
+
+
+    public void settings(View v) {
+        setContentView(R.layout.activity_start);
+
+        startActivity(new Intent(this, SettingsActivity.class));
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
