@@ -66,7 +66,6 @@ public class MapsActivity extends FragmentActivity implements
     private static final float MIN_ACCURACY = 25.0f;
     private static final float MIN_LAST_READ_ACCURACY = 500.0f;
     private final static int REQUEST_RESOLVE_ERROR = 1001;
-    int count = 0;
     //comment
     private LocationRequest mLocationRequest;
     private Location mBestReading;
@@ -97,7 +96,6 @@ public class MapsActivity extends FragmentActivity implements
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();*/
-
 
         /**************************************************************
          *
@@ -162,8 +160,13 @@ public class MapsActivity extends FragmentActivity implements
         //MyLoc.long = -122.679303
         // 38.34005734
         // -122.6760596
-        LatLng sourcePosition = new LatLng(38.335555, -122.679303);
-        LatLng destPosition = new LatLng(38.34005734, -122.6760596);
+        //lat 38.3396367
+        //long -122.7010984
+/*
+        Location myLoc = bestLastKnownLocation(MIN_LAST_READ_ACCURACY, FIVE_MIN);
+
+        LatLng sourcePosition = new LatLng(myLoc.getLatitude(), myLoc.getLongitude());
+        LatLng destPosition = new LatLng(38.33963674, -122.7010984);
         GMapV2Direction md = new GMapV2Direction();
         mMap = ((SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map)).getMap();
@@ -179,7 +182,7 @@ public class MapsActivity extends FragmentActivity implements
         }
         Polyline polylin = mMap.addPolyline(rectLine);
 
-
+*/
         //mMap.animateCamera(CameraUpdateFactory.zoomBy(8));
 
     }
@@ -347,6 +350,26 @@ public class MapsActivity extends FragmentActivity implements
             Location CurrentLocation;
             CurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             LatLng MyPosition;
+
+            LatLng sourcePosition = new LatLng(CurrentLocation.getLatitude(), CurrentLocation.getLongitude());
+            LatLng destPosition = new LatLng(38.33963674, -122.7010984);
+            GMapV2Direction md = new GMapV2Direction();
+            mMap = ((SupportMapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.map)).getMap();
+            Document doc = md.getDocument(sourcePosition, destPosition,
+                    GMapV2Direction.MODE_DRIVING);
+
+            ArrayList<LatLng> directionPoint = md.getDirection(doc);
+            PolylineOptions rectLine = new PolylineOptions().width(3).color(
+                    Color.RED);
+
+            for (int i = 0; i < directionPoint.size(); i++) {
+                rectLine.add(directionPoint.get(i));
+            }
+            Polyline polylin = mMap.addPolyline(rectLine);
+
+            String DistanceInfo = getDistanceOnRoad(CurrentLocation.getLatitude(), CurrentLocation.getLongitude(), 38.33963674, -122.7010984);
+            mMap.addMarker(new MarkerOptions().position(destPosition).title("Distance: " + DistanceInfo));
 
             MyPosition = new LatLng(CurrentLocation.getLatitude(), CurrentLocation.getLongitude());
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(MyPosition, 15));
