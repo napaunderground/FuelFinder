@@ -19,7 +19,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="fuelfinder.mann.Activity.StartActivity"
+            android:name=".Activity.StartActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,28 +36,27 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name="fuelfinder.mann.Activity.SettingsActivity"
+            android:name=".Activity.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
         <activity
-            android:name="fuelfinder.mann.Activity.MapsActivity"
+            android:name=".Activity.MapsActivity"
             android:label="@string/title_activity_maps" >
         </activity>
         <activity
-            android:name="fuelfinder.mann.Activity.MileageActivity"
+            android:name=".Activity.MileageActivity"
             android:label="@string/title_activity_mileage" >
         </activity>
-
         <activity
-            android:name="fuelfinder.mann.Interface.IHttpCallbackListener"
+            android:name=".Interface.IHttpCallbackListener"
             android:label="@string/title_activity_ihttp_callback_listener" >
         </activity>
         <activity
-            android:name="fuelfinder.mann.Parser.MileageParser"
+            android:name=".Parser.MileageParser"
             android:label="@string/title_activity_mileage_parser" >
         </activity>
         <activity
-            android:name="fuelfinder.mann.Service.HttpRequestManager"
+            android:name=".Service.HttpRequestManager"
             android:label="@string/title_activity_http_request_manager" >
         </activity>
         <activity
@@ -69,8 +68,12 @@
             android:label="@string/title_activity_mileage_search_request_args" >
         </activity>
         <activity
-            android:name="fuelfinder.mann.Utility.URLFormatUtility"
+            android:name=".Utility.URLFormatUtility"
             android:label="@string/title_activity_urlformat_utility" >
+        </activity>
+        <activity
+            android:name=".Activity.StationPickerActivity"
+            android:label="@string/title_activity_station_picker" >
         </activity>
     </application>
 
