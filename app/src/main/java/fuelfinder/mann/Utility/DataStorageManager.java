@@ -1,6 +1,10 @@
 package fuelfinder.mann.Utility;
 
 
+import android.content.SharedPreferences;
+
+import fuelfinder.mann.Models.MileageModel;
+
 /**
  * Created by nathan on 3/31/15.
  */
@@ -25,7 +29,6 @@ public class DataStorageManager {
         editor.putString(filename + " FuelMileage", m);
         editor.putString(filename + " EngineSize", e);
         editor.putString(filename + " Transmission", t);
-
 
         editor.commit();
     }

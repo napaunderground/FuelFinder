@@ -13,7 +13,7 @@ public class FuelPriceModel {
     private Location latLong;
 
     public double getPricePerGallon() {
-        return 3.14;//pricePerGallon;
+        return pricePerGallon;//pricePerGallon;
     }
 
     public void setPricePerGallon(double pricePerGallon)
@@ -23,12 +23,11 @@ public class FuelPriceModel {
     public String getStationID() {
         return "SHELL";//stationID;
     }
-    public void setStationID() {
-        this.stationID = stationID;
+    public void setStationID(String Input) {
+        this.stationID = Input;
     }
-    public LatLng getLocation() {
-        LatLng stationPosition = new LatLng(-122.679303, 38.335555);
-        return stationPosition;//latLong;
+    public Location getLocation() {
+        return latLong;//latLong;
     }
     public void setLocation(Location latLong)
     {
