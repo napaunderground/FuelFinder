@@ -11,10 +11,8 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.FusedLocationProviderApi;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -374,6 +372,19 @@ public class MapsActivity extends FragmentActivity implements
             MyPosition = new LatLng(CurrentLocation.getLatitude(), CurrentLocation.getLongitude());
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(MyPosition, 15));
 
+            ////////
+/*
+            GPlacesParser GasStations = new GPlacesParser();
+            Document GDoc = GasStations.getDocument(MyPosition);
+            String Lat = GasStations.getLatitudeText(GDoc);
+            String Long = GasStations.getLongitudeText(GDoc);
+            double Lat1 = Double.parseDouble(Lat);
+            double Long1 = Double.parseDouble(Long);
+
+            mMap.addMarker(new MarkerOptions().position(new LatLng(10,10)).title(Lat));
+            mMap.addMarker(new MarkerOptions().position(new LatLng(Lat1, Long1)).title("Gas here!"));*/
+
+
         }
 
         // Return best reading or null
@@ -516,3 +527,5 @@ public class MapsActivity extends FragmentActivity implements
         return result;
     }
 }
+// http://api.mygasfeed.com /stations/radius/(Latitude)/(Longitude)/(distance)/(fuel type)/(sort by)/z7lq1tt911.json
+//                                                                                                   api key        ?callback=?
