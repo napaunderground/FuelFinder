@@ -21,7 +21,7 @@ public class FuelPriceModel {
         this.pricePerGallon = pricePerGallon;
     }
     public String getStationID() {
-        return "SHELL";//stationID;
+        return stationID;//stationID;
     }
     public void setStationID(String Input) {
         this.stationID = Input;
