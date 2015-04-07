@@ -22,7 +22,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE = "create table "
             + NAME + "(" + VehicleID
             + " integer primary key autoincrement, " + Model
-            + " text not null, " +VehName+ " text not null, " + Year + "integer not null, " + Make + "text not null, " + Mileage + "integer not null, " + Engine + "text not null);";
+            + " text not null, " +VehName+
+            " text not null, " + Year +
+            "integer not null, " + Make +
+            "text not null, " + Mileage +
+            "integer not null, " + Engine +
+            "text not null);";
 
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
