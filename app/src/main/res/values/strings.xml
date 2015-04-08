@@ -26,5 +26,6 @@
     <string name="title_activity_mileage_search_request_args">MileageSearchRequestArgs</string>
     <string name="title_activity_urlformat_utility">URLFormatUtility</string>
     <string name="title_activity_station_picker">StationPickerActivity</string>
+    <string name="title_activity_pick_cheapest">PickCheapest</string>
 
 </resources>

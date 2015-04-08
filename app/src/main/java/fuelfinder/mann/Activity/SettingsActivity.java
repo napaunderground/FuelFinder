@@ -102,6 +102,8 @@ public class SettingsActivity extends Activity {
         pickTheBestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
+                startActivity(new Intent(SettingsActivity.this, PickCheapestActivity.class));
             }
         });
 
@@ -111,6 +113,10 @@ public class SettingsActivity extends Activity {
         pickFourButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
+                startActivity(new Intent(SettingsActivity.this, StationPickerActivity.class));
+                setContentView(R.layout.activity_station_picker);
+
             }
         });
     }
@@ -166,15 +172,6 @@ public class SettingsActivity extends Activity {
     public void settings(View v) {
 
         startActivity(new Intent(this, SettingsActivity.class));
-    }
-
-// no need to stop activities???
-    public void stationPicker(View v){
-        // in the future we will have station model data to pass to the mapping application
-        // it will include station location (lat, long)
-        // it will include other data (cost, distance)
-        startActivity(new Intent(this, StationPickerActivity.class));
-        setContentView(R.layout.activity_station_picker);
     }
 
     @Override
