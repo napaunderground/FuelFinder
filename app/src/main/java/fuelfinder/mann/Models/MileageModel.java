@@ -14,7 +14,7 @@ public class MileageModel {
         private String engine;
         private String transmission;
         private Uri mileageUri;
-        private String mileage;
+        private double mileage;
         private int vehicleID;
         public static final String temp2 = "temp2";
     // private function to store the data to the device
@@ -79,9 +79,9 @@ public class MileageModel {
 
     public void setTransmission(String transmission) { this.transmission = transmission; }
 
-    public String  getUserMileage() { return mileage; }
+    public double  getUserMileage() { return mileage; }
 
-    public void setUserMileage(String mileage)
+    public void setUserMileage(double mileage)
     {
         this.mileage = mileage;
     }

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import fuelfinder.mann.Models.MileageModel;
@@ -15,7 +16,9 @@ import fuelfinder.mann.R;
 
 public class SettingsActivity extends Activity {
 
-
+    private Button moreInputsButton;
+    private Button pickTheBestButton;
+    private Button pickFourButton;
     private TextView carName;
     private TextView year;
     private TextView make;
@@ -43,6 +46,9 @@ public class SettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
 
+        moreInputsButton = (Button)findViewById(R.id.moreInputsButton);
+        pickTheBestButton = (Button)findViewById(R.id.pickTheBestButton);
+        pickFourButton = (Button)findViewById(R.id.pickFourButton);
         carName = (TextView) findViewById(R.id.editTextCarName);
         year = (TextView) findViewById(R.id.editTextYearOfMfr);
         make = (TextView) findViewById(R.id.editTextManufacturer);
@@ -81,6 +87,32 @@ public class SettingsActivity extends Activity {
         {
             transmission.setText(sharedprefs.getString(Transmission, ""));
         }
+
+
+        moreInputsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
+            }
+        });
+
+
+
+        pickTheBestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+
+
+
+        pickFourButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
     }
     public void run(View v) {
 
@@ -99,7 +131,7 @@ public class SettingsActivity extends Activity {
         vehicleInfo.setModel(mo);
         vehicleInfo.setEngine(e);
         vehicleInfo.setTransmission(t);
-        vehicleInfo.setUserMileage(m);
+     //   vehicleInfo.setUserMileage(m);
 
         editor.putString("CarName", ca);
         editor.putString("YearOfMfr", y);
@@ -149,5 +181,13 @@ public class SettingsActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_settings, menu);
         return true;
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        this.finish();
+        startActivity(new Intent(this, fuelfinder.mann.Activity.MapsActivity.class));
+        return;
     }
 }

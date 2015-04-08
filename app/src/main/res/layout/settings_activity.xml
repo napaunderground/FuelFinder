@@ -48,8 +48,8 @@
             android:inputType="text"
             android:hint="Enter Manufacturer"
             android:layout_below="@+id/editTextYearOfMfr"
-            android:layout_toStartOf="@+id/button1"
-            android:layout_toLeftOf="@+id/button1"
+            android:layout_toStartOf="@+id/moreInputsButton"
+            android:layout_toLeftOf="@+id/moreInputsButton"
             android:layout_alignRight="@+id/editTextYearOfMfr"
             android:layout_alignEnd="@+id/editTextYearOfMfr" />
 
@@ -63,8 +63,8 @@
             android:inputType="text"
             android:hint="Enter Vehicle Model"
             android:layout_below="@+id/editTextManufacturer"
-            android:layout_toStartOf="@+id/button1"
-            android:layout_toLeftOf="@+id/button1"
+            android:layout_toStartOf="@+id/moreInputsButton"
+            android:layout_toLeftOf="@+id/moreInputsButton"
             android:layout_alignRight="@+id/editTextEngineSize"
             android:layout_alignEnd="@+id/editTextEngineSize" />
 
@@ -107,32 +107,29 @@
             android:layout_alignParentStart="true" />
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/pickTheBestButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="run"
             android:text="@string/map"
-            android:layout_below="@+id/button3"
+            android:layout_below="@+id/pickFourButton"
             android:layout_centerHorizontal="true" />
 
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/moreInputsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="settings"
             android:text="@string/enter_another"
             android:layout_below="@+id/editTextFuelMileage"
             android:layout_centerHorizontal="true" />
 
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/pickFourButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="stationPicker"
             android:text="@string/station_grid"
-            android:layout_below="@+id/button2"
+            android:layout_below="@+id/moreInputsButton"
             android:layout_centerHorizontal="true" />
 
 
