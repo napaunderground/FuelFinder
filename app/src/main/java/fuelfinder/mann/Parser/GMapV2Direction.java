@@ -109,7 +109,7 @@ public class GMapV2Direction {
      */
     }
 
-    public int getDistanceValue(Document doc) {
+    public double getDistanceValue(Document doc) {
         try {
             NodeList nl1 = doc.getElementsByTagName("distance");
             Node node1 = null;
