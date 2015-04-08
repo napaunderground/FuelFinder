@@ -1,9 +1,19 @@
 package fuelfinder.mann.Utility;
 
+import android.location.Location;
+
+import com.google.android.gms.maps.model.LatLng;
+
+import org.w3c.dom.Document;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.PriorityQueue;
+
+import fuelfinder.mann.Models.FuelPriceModel;
+import fuelfinder.mann.Models.MileageModel;
+import fuelfinder.mann.Parser.GMapV2Direction;
 
 /**
  * Created by Action Johnny on 4/2/2015.
@@ -68,7 +78,80 @@ public class Dijkstra
         return path;
     }
 
+
+    public static ArrayList<FuelPriceModel> GetBestStation(ArrayList<FuelPriceModel> Models, LatLng myLocation){
+
+        double mileage = 10;
+
+        FuelPriceModel M0 = Models.get(0);
+        Location ML0 = M0.getLocation();
+        LatLng StationLoc0 = new LatLng(ML0.getLatitude(), ML0.getLongitude());
+
+        FuelPriceModel M1 = Models.get(1);
+        Location ML1 = M1.getLocation();
+        LatLng StationLoc1 = new LatLng(ML1.getLatitude(), ML1.getLongitude());
+
+        FuelPriceModel M2 = Models.get(2);
+        Location ML2 = M2.getLocation();
+        LatLng StationLoc2 = new LatLng(ML2.getLatitude(), ML2.getLongitude());
+
+        FuelPriceModel M3 = Models.get(3);
+        Location ML3 = M0.getLocation();
+        LatLng StationLoc3 = new LatLng(ML3.getLatitude(), ML3.getLongitude());
+
+        GMapV2Direction DistanceParser = new GMapV2Direction();
+
+        Document Doc0 = DistanceParser.getDocument(myLocation, StationLoc0, "driving");
+        double Distance0 = DistanceParser.getDistanceValue(Doc0);
+
+        Doc0 = DistanceParser.getDocument(myLocation, StationLoc1, "driving");
+        double Distance1 = DistanceParser.getDistanceValue(Doc0);
+
+        Doc0 = DistanceParser.getDocument(myLocation, StationLoc2, "driving");
+        double Distance2 = DistanceParser.getDistanceValue(Doc0);
+
+        Doc0 = DistanceParser.getDocument(myLocation, StationLoc3, "driving");
+        double Distance13 = DistanceParser.getDistanceValue(Doc0);
+
+        Vertex start = new Vertex("start");
+        Vertex v0 = new Vertex(M0.getStationID());
+        Vertex v1 = new Vertex(M1.getStationID());
+        Vertex v2 = new Vertex(M2.getStationID());
+        Vertex v3 = new Vertex(M3.getStationID());
+        Vertex end = new Vertex("end");
+
+        //Replace numbers with cost of gas to get to station and cost of gas @ station.
+        start.adjacencies = new Edge[]{
+                new Edge(v0, 3),
+                new Edge(v1, 2),
+                new Edge(v2, 1),
+                new Edge(v3, 4)
+        };
+        v0.adjacencies = new Edge[]{
+                new Edge(end, 10)
+        };
+        v1.adjacencies = new Edge[]{
+                new Edge(end, 10)
+        };
+        v2.adjacencies = new Edge[]{
+                new Edge(end, 10)
+        };
+        v3.adjacencies = new Edge[]{
+                new Edge(end, 10)
+        };
+        Vertex[] vertices = {start, v0, v1, v2, v3, end};
+        computePaths(start);
+        for (Vertex v : vertices){
+            List<Vertex> path = getShortestPathTo(v);
+        }
+
+        ArrayList<FuelPriceModel> StationOrder = new ArrayList();
+        //DistanceParser.getDocument(myLocation, new LatLng(Mod))
+        MileageModel M = new MileageModel();
+        return StationOrder;
+    }
 /*  SYNTAX FOR CREATION
+
         Vertex v0 = new Vertex("Redvile");
         Vertex v1 = new Vertex("Blueville");
         Vertex v2 = new Vertex("Greenville");
