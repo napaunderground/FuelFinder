@@ -23,7 +23,7 @@ public class MileageModelDataSource {
             MySQLiteHelper.Make, MySQLiteHelper.Mileage,
             MySQLiteHelper.Model, MySQLiteHelper.NAME,
             MySQLiteHelper.VehicleID, MySQLiteHelper.VehName,
-            MySQLiteHelper.Year
+            MySQLiteHelper.Year, MySQLiteHelper.Transmission
     };
 
     public MileageModelDataSource(Context context) {
@@ -38,11 +38,39 @@ public class MileageModelDataSource {
         dbHelper.close();
     }
 
-    public MileageModel createMileageModel(String Engine, String Make, int Mileage, String Model, String Name, int VehicleID, String VehicleName, int Year) {
+    public MileageModel createMileageModel(int Engine, String Make, int Mileage, String Model, String Name, int VehicleID, String VehicleName, int Year, String Transmission) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.VehicleID, VehicleID);
         long insertId = database.insert(MySQLiteHelper.NAME, null,
                 values);
+        ContentValues engValues = new ContentValues();
+        engValues.put(MySQLiteHelper.Engine, Engine);
+        long insertEngine = database.insert(MySQLiteHelper.Engine, null, engValues );
+
+        ContentValues makeValues = new ContentValues();
+        makeValues.put(MySQLiteHelper.Make, Make);
+        long insertMake = database.insert(MySQLiteHelper.Make, null, makeValues );
+
+        ContentValues mileageValues = new ContentValues();
+        mileageValues.put(MySQLiteHelper.Mileage, Mileage);
+        long insertMileage = database.insert(MySQLiteHelper.Mileage, null, mileageValues );
+
+        ContentValues modelValues = new ContentValues();
+        modelValues.put(MySQLiteHelper.Model, Model);
+        long insertModel = database.insert(MySQLiteHelper.Model, null, modelValues );
+
+        ContentValues yearValues = new ContentValues();
+        yearValues.put(MySQLiteHelper.Year, Year);
+        long insertYear = database.insert(MySQLiteHelper.Year, null, yearValues );
+
+        ContentValues nameValues = new ContentValues();
+        nameValues.put(MySQLiteHelper.VehName, VehicleName);
+        long insertName = database.insert(MySQLiteHelper.VehName, null, nameValues );
+
+        ContentValues xValues = new ContentValues();
+        xValues.put(MySQLiteHelper.Transmission, Transmission);
+        long insertTransmission = database.insert(MySQLiteHelper.Transmission, null, xValues );
+
         Cursor cursor = database.query(MySQLiteHelper.NAME,
                 allColumns, MySQLiteHelper.VehicleID + " = " + insertId, null,
                 null, null, null);
@@ -60,7 +88,7 @@ public class MileageModelDataSource {
 
     }
 
-    public List<MileageModel> getAllVehicless() {
+    public List<MileageModel> getAllVehicles() {
         List<MileageModel> Models = new ArrayList<MileageModel>();
 
         Cursor cursor = database.query(MySQLiteHelper.NAME,
@@ -80,7 +108,15 @@ public class MileageModelDataSource {
     private MileageModel cursorToMileageModel(Cursor cursor) {
         MileageModel Model = new MileageModel();
         Model.setVehicleID(cursor.getInt(0));
-        Model.setCarName(cursor.getString(1));
+        Model.setModel(cursor.getString(1));
+        Model.setCarName(cursor.getString(2));
+        Model.setYear(cursor.getString(3));
+        Model.setMake(cursor.getString(4));
+        Model.setUserMileage(cursor.getDouble(5));
+        Model.setEngine(cursor.getString(6));
+        Model.setTransmission(cursor.getString(7));
+
+
         return Model;
     }
 }

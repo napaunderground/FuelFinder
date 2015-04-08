@@ -16,6 +16,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String Make = "Make";
     public static final String Mileage = "Mileage";
     public static final String Engine = "Engine";
+    public static final String Transmission = "Transmission";
 
     private static final String DATABASE_NAME = "VehicleInfo.db";
     private static final int DATABASE_VERSION = 1;
@@ -24,10 +25,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             + " integer primary key autoincrement, " + Model
             + " text not null, " +VehName+
             " text not null, " + Year +
-            "integer not null, " + Make +
-            "text not null, " + Mileage +
-            "integer not null, " + Engine +
-            "text not null);";
+            " integer not null, " + Make +
+            " text not null, " + Mileage +
+            " integer not null, " + Engine +
+            " float not null, " + Transmission +" text not null);";
 
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
