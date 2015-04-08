@@ -53,14 +53,14 @@ public class MileageModelDataSource {
     }
 
     public void deleteMileageModel(MileageModel Model) {
-        long id = Model.getVehicleID();
+        int id = Model.getVehicleID();
         System.out.println("Vehicle deleted with id: " + id);
         database.delete(MySQLiteHelper.NAME, MySQLiteHelper.VehicleID
                 + " = " + id, null);
 
     }
 
-    public List<MileageModel> getAllVehicless() {
+    public List<MileageModel> getAllVehicles() {
         List<MileageModel> Models = new ArrayList<MileageModel>();
 
         Cursor cursor = database.query(MySQLiteHelper.NAME,

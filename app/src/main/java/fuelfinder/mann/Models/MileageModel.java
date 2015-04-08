@@ -15,6 +15,7 @@ public class MileageModel {
         private String transmission;
         private Uri mileageUri;
         private String mileage;
+        private int vehicleID;
         public static final String temp2 = "temp2";
     // private function to store the data to the device
 
@@ -85,5 +86,8 @@ public class MileageModel {
         this.mileage = mileage;
     }
 // public function that calls a private to store the data
-// create internal storage solution to save the value of the current mileage model to the device.
+
+    public void setVehicleID(int vehicleName) {this.vehicleID = vehicleID; }
+
+    public int getVehicleID() { return vehicleID; }
 }
