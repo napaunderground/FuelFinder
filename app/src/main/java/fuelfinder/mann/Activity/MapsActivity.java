@@ -24,22 +24,16 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
@@ -462,6 +456,13 @@ public class MapsActivity extends FragmentActivity implements
         double result = 0;
         result = Double.parseDouble(ParsedString);
         return result;
+    }
+
+    @Override
+    public void onBackPressed() {
+        this.finish();
+        startActivity(new Intent(this, fuelfinder.mann.Activity.SettingsActivity.class));
+        return;
     }
 }
 // http://api.mygasfeed.com /stations/radius/(Latitude)/(Longitude)/(distance)/(fuel type)/(sort by)/z7lq1tt911.json
