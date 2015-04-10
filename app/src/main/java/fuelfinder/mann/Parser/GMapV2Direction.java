@@ -25,13 +25,12 @@ import android.content.Context;
 import android.util.Log;
 
 public class GMapV2Direction {
-    public final static String MODE_DRIVING = "driving";
-    public final static String MODE_WALKING = "walking";
+
 
     public GMapV2Direction() {
     }
 
-    public Document getDocument(LatLng start, LatLng end, String mode) {
+    public Document getDocument(LatLng start, LatLng end) {
         String url = "http://maps.googleapis.com/maps/api/directions/xml?"
                 + "origin=" + start.latitude + "," + start.longitude
                 + "&destination=" + end.latitude + "," + end.longitude

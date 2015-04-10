@@ -3,15 +3,23 @@ package fuelfinder.mann.Models;
 import android.location.Location;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by nathan on 3/31/15.
  */
 public class FuelPriceModel {
-    private String stationID;
-    private double pricePerGallon;
-    private Location latLong;
 
+    @SerializedName("station")
+    public String stationID;
+    @SerializedName("reg_price")
+    public double pricePerGallon;
+    @SerializedName("lat")
+    public double Lat;
+    @SerializedName("lng")
+    public double Lng;
+
+/*
     public double getPricePerGallon() {
         return pricePerGallon;//pricePerGallon;
     }
@@ -32,5 +40,5 @@ public class FuelPriceModel {
     public void setLocation(Location latLong)
     {
         this.latLong = latLong;
-    }
+    }*/
 }

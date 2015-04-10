@@ -30,6 +30,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
+import org.json.JSONException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -42,8 +43,11 @@ import java.util.concurrent.TimeUnit;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import fuelfinder.mann.Models.FuelPriceModel;
+import fuelfinder.mann.Parser.FuelSourceParserV2;
 import fuelfinder.mann.Parser.GMapV2Direction;
 import fuelfinder.mann.R;
+import fuelfinder.mann.Utility.Dijkstra;
 
 public class MapsActivity extends FragmentActivity implements
         LocationListener, GoogleApiClient.ConnectionCallbacks,
@@ -58,6 +62,7 @@ public class MapsActivity extends FragmentActivity implements
     private static final float MIN_ACCURACY = 25.0f;
     private static final float MIN_LAST_READ_ACCURACY = 500.0f;
     private final static int REQUEST_RESOLVE_ERROR = 1001;
+
     //comment
     private LocationRequest mLocationRequest;
     private Location mBestReading;
@@ -259,16 +264,12 @@ public class MapsActivity extends FragmentActivity implements
         if (servicesAvailable()) {
             // Get best last location measurement meeting criteria
             mBestReading = bestLastKnownLocation(MIN_LAST_READ_ACCURACY, FIVE_MIN);
-            //mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
-            //mMap.addMarker(new MarkerOptions().position(new LatLng(mBestReading.getLatitude(), mBestReading.getLongitude())));
             if (null == mBestReading
                     || mBestReading.getAccuracy() > MIN_LAST_READ_ACCURACY
                     || mBestReading.getTime() < System.currentTimeMillis() - TWO_MIN) {
 
                 LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-                //mMap.addMarker(new MarkerOptions().position(new LatLng(mBestReading.getLatitude(), mBestReading.getLongitude())));
 
-                // Schedule a runnable to unregister location listeners
                 Executors.newScheduledThreadPool(1).schedule(new Runnable() {
 
                     @Override
@@ -339,8 +340,7 @@ public class MapsActivity extends FragmentActivity implements
             GMapV2Direction md = new GMapV2Direction();
             mMap = ((SupportMapFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.map)).getMap();
-            Document doc = md.getDocument(sourcePosition, destPosition,
-                    GMapV2Direction.MODE_DRIVING);
+            Document doc = md.getDocument(sourcePosition, destPosition);
 
             ArrayList<LatLng> directionPoint = md.getDirection(doc);
             PolylineOptions rectLine = new PolylineOptions().width(3).color(
@@ -356,18 +356,19 @@ public class MapsActivity extends FragmentActivity implements
 
             MyPosition = new LatLng(CurrentLocation.getLatitude(), CurrentLocation.getLongitude());
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(MyPosition, 15));
+            FuelSourceParserV2 FSP = new FuelSourceParserV2();
+            ArrayList<FuelPriceModel> FPLoc = new ArrayList();
+            try{
+                FPLoc = FSP.JSONtoModel(CurrentLocation);
+            }
+            catch(JSONException e){
 
-            ////////
-/*
-            GPlacesParser GasStations = new GPlacesParser();
-            Document GDoc = GasStations.getDocument(MyPosition);
-            String Lat = GasStations.getLatitudeText(GDoc);
-            String Long = GasStations.getLongitudeText(GDoc);
-            double Lat1 = Double.parseDouble(Lat);
-            double Long1 = Double.parseDouble(Long);
+            }
+            for (int i = 0; i < FPLoc.size(); i++){
+            FuelPriceModel FPM = FPLoc.get(i);
+            LatLng gasLoc = new LatLng(FPM.Lat, FPM.Lng);
 
-            mMap.addMarker(new MarkerOptions().position(new LatLng(10,10)).title(Lat));
-            mMap.addMarker(new MarkerOptions().position(new LatLng(Lat1, Long1)).title("Gas here!"));*/
+            mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID));}
 
 
         }

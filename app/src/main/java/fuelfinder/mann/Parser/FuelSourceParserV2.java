@@ -1,8 +1,11 @@
 package fuelfinder.mann.Parser;
 
+/**
+ * Created by Action Johnny on 4/9/2015.
+ */
 import android.location.Location;
 
-import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.Gson;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -10,9 +13,6 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONObject;
-
-import fuelfinder.mann.Models.FuelPriceModel;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,15 +24,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import fuelfinder.mann.Models.FuelPriceModel;
 
-/**
- * Created by Action Johnny on 4/1/2015.
- */
-public class FuelSourceParser {
+//
+public class FuelSourceParserV2 {
 
-    public FuelSourceParser(){
-
-    }
 
     private static String convertStreamToString(InputStream is) {
 
@@ -57,11 +53,12 @@ public class FuelSourceParser {
     }
 
 
+    // Converts a JSON string to a RecipeModel
+    static public ArrayList<FuelPriceModel> JSONtoModel(Location myLoc) throws JSONException {
 
-    static public ArrayList<FuelPriceModel> JSONtoModel(Location myLoc){
         HttpClient client = new DefaultHttpClient();
 
-        HttpGet request = new HttpGet("http://api.mygasfeed.com/stations/radius/"+myLoc.getLatitude()+"/"+myLoc.getLongitude()+"/3/reg/Price/wr6ntggmbw.json");
+        HttpGet request = new HttpGet("http://api.mygasfeed.com/stations/radius/" + myLoc.getLatitude() + "/" + myLoc.getLongitude() + "/3/reg/Price/wr6ntggmbw.json");
         HttpResponse response;
         String result = null;
         try {
@@ -91,47 +88,24 @@ public class FuelSourceParser {
 
 
         ArrayList<FuelPriceModel> Models = new ArrayList();
-        FuelPriceModel Model = new FuelPriceModel();
-        JSONObject JSON;
-        try{
-            JSON = (JSONObject) new JSONTokener(result).nextValue();
-            JSONArray Array = JSON.getJSONArray("stations");
-            for (int i =0 ; i < 8; i++)
-            {
-                if (Array.get(i) != null)
-                {
-                    JSONObject Station = Array.getJSONObject(i);
-                    double lat;
-                    double lng;
-                    String SLat = (String) Station.get("lat");
-                    String SLng = (String) Station.get("lng");
-                    String Name = (String) Station.get("station");
-                    lat = Double.parseDouble(SLat);
-                    lng = Double.parseDouble(SLng);
-                    // LatLng Loc = new LatLng(lat,lng);
-                    Location location = new Location("StationLocation: " + Integer.toString(i));
-                    location.setLatitude(lat);
-                    location.setLongitude(lng);
-                  //  Model.setStationID(Name);
-                  //  Model.setLocation(location);
-                    Models.add(Model);
-                }
+
+
+        JSONObject json;
+
+        //creating the instance of the Gson parser
+        Gson gson = new Gson();
+        json = (JSONObject) new JSONTokener(result).nextValue();
+        JSONArray array = json.getJSONArray("stations");
+        for (int i = 0; i < array.length(); i++) {
+            if (array.get(i) != null) {
+                JSONObject S = array.getJSONObject(i);
+
+                //invoking the parser and converting JSON string to FuelPriceModel
+                FuelPriceModel model = gson.fromJson(S.toString(), FuelPriceModel.class);
+                Models.add(model);
             }
-
-
-            /*            model.setName((String)recipe.get("name"));
-            model.setCuisine((String) recipe.get("cuisine"));
-            model.setRecipeUri(Uri.parse(((String)recipe.get("thumb"))));*/
-
         }
-        catch(JSONException exception){
-            exception.getCause();
-        }
-
-
         return Models;
-    }
 
+    }
 }
-// http://api.mygasfeed.com /stations/radius/(Latitude)/(Longitude)/(distance)/(fuel type)/(sort by)/z7lq1tt911.json
-//                                                                                                   api key        ?callback=?
