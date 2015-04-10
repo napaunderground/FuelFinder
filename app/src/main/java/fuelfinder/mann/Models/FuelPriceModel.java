@@ -18,27 +18,9 @@ public class FuelPriceModel {
     public double Lat;
     @SerializedName("lng")
     public double Lng;
+    @SerializedName("distance")
+    public String kmDistance;
+    @SerializedName("address")
+    public String address;
 
-/*
-    public double getPricePerGallon() {
-        return pricePerGallon;//pricePerGallon;
-    }
-
-    public void setPricePerGallon(double pricePerGallon)
-    {
-        this.pricePerGallon = pricePerGallon;
-    }
-    public String getStationID() {
-        return stationID;//stationID;
-    }
-    public void setStationID(String Input) {
-        this.stationID = Input;
-    }
-    public Location getLocation() {
-        return latLong;//latLong;
-    }
-    public void setLocation(Location latLong)
-    {
-        this.latLong = latLong;
-    }*/
 }

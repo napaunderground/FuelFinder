@@ -263,7 +263,15 @@ public class MapsActivity extends FragmentActivity implements
         // Get first reading. Get additional location updates if necessary
         if (servicesAvailable()) {
             // Get best last location measurement meeting criteria
-            mBestReading = bestLastKnownLocation(MIN_LAST_READ_ACCURACY, FIVE_MIN);
+            if (bestLastKnownLocation(MIN_LAST_READ_ACCURACY, FIVE_MIN)!= null){
+                mBestReading = bestLastKnownLocation(MIN_LAST_READ_ACCURACY, FIVE_MIN);
+            }
+            else{
+                mBestReading = new Location("");
+                mBestReading.setLongitude(10);
+                mBestReading.setLatitude(10);
+            }
+
             if (null == mBestReading
                     || mBestReading.getAccuracy() > MIN_LAST_READ_ACCURACY
                     || mBestReading.getTime() < System.currentTimeMillis() - TWO_MIN) {
@@ -364,11 +372,15 @@ public class MapsActivity extends FragmentActivity implements
             catch(JSONException e){
 
             }
-            for (int i = 0; i < FPLoc.size(); i++){
-            FuelPriceModel FPM = FPLoc.get(i);
-            LatLng gasLoc = new LatLng(FPM.Lat, FPM.Lng);
+            Dijkstra Dkstra = new Dijkstra();
+            ArrayList<FuelPriceModel> Best = Dkstra.GetBestStation(FPLoc, sourcePosition);
 
-            mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID));}
+            for (int i = 0; i < Best.size(); i++){
+                FuelPriceModel FPM = Best.get(i);
+                LatLng gasLoc = new LatLng(FPM.Lat, FPM.Lng);
+
+                mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID));
+            }
 
 
         }

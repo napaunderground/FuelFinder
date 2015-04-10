@@ -24,7 +24,7 @@ import fuelfinder.mann.Service.CostCalculator;
 class Vertex implements Comparable<Vertex>
 {
     public final String name;
-    public Edge[] adjacencies;
+    public ArrayList<Edge> adjacencies;
     public double minDistance = Double.POSITIVE_INFINITY;
     public Vertex previous;
     public Vertex(String argName) { name = argName; }
@@ -45,6 +45,26 @@ class Edge
 
 public class Dijkstra
 {
+    double StringToDouble(String s1) {
+            /* Parses a string and returns the number in it, returned as a double! */
+        String ParsedString = "";
+        int DotCount = 0;
+        char[] str = s1.toCharArray();
+
+        for (int i = 0; i < str.length;i++) {
+            if (str[i] == '0' || str[i] == '1' || str[i] == '2' || str[i] == '3' || str[i] == '4' || str[i] == '5' || str[i] == '6' || str[i] == '7' || str[i] == '8' || str[i] == '9') {
+                ParsedString += str[i];
+            } else if (str[i] == '.' && DotCount == 0) {
+                ParsedString += '.';
+                DotCount = DotCount + 1;
+            }
+        }
+        double result = 0;
+        result = Double.parseDouble(ParsedString);
+        return result;
+    }
+
+
     public static void computePaths(Vertex source)
     {
         source.minDistance = 0.;
@@ -70,9 +90,10 @@ public class Dijkstra
         }
     }
 
+
     public static Vertex getShortestPathTo(Vertex target)
     {
-        List<Vertex> path = new ArrayList<Vertex>();
+        ArrayList<Vertex> path = new ArrayList<Vertex>();
         for (Vertex vertex = target; vertex != null; vertex = vertex.previous)
             path.add(vertex);
         Collections.reverse(path);
@@ -87,86 +108,50 @@ public class Dijkstra
         Vertex start = new Vertex("start");
         Vertex end = new Vertex("end");
         double mileage = 10;
-        ArrayList<Double> Distances = new ArrayList();
-        GMapV2Direction DistanceParser = new GMapV2Direction();
+        //ArrayList<Double> Distances = new ArrayList();
+        //GMapV2Direction DistanceParser = new GMapV2Direction();
         ArrayList<Vertex> Nodes = new ArrayList();
+        Nodes.add(start);
+        Nodes.add(end);
+        Dijkstra d = new Dijkstra();
+
         for (int p = 0; p < Models.size(); p++){
 
-            LatLng stationLoc = new LatLng(Models.get(p).Lat, Models.get(p).Lng);
-            Document Doc = DistanceParser.getDocument(myLocation, stationLoc);
-            double Distance = DistanceParser.getDistanceValue(Doc);
-            Distances.add(Distance);
-            Vertex V = new Vertex(Models.get(p).stationID);
-            V.adjacencies = new Edge[]{
-                    new Edge(start, C.findCost(Mileage, Distances.get(p),Models.get(p).pricePerGallon)),
-                    new Edge(end, Models.get(p).pricePerGallon)
-            };
+            Vertex V = new Vertex(Integer.toString(p));
+            V.adjacencies.add(new Edge(end, Models.get(p).pricePerGallon));
             Nodes.add(V);
+            V.adjacencies.clear();
 
         }
-
 
 
         ArrayList<FuelPriceModel> StationOrder = new ArrayList();
-/*
-        FuelPriceModel M1 = Models.get(1);
-        Location ML1 = M1.getLocation();
-        LatLng StationLoc1 = new LatLng(ML1.getLatitude(), ML1.getLongitude());
-
-        FuelPriceModel M2 = Models.get(2);
-        Location ML2 = M2.getLocation();
-        LatLng StationLoc2 = new LatLng(ML2.getLatitude(), ML2.getLongitude());
-
-        FuelPriceModel M3 = Models.get(3);
-        Location ML3 = M0.getLocation();
-        LatLng StationLoc3 = new LatLng(ML3.getLatitude(), ML3.getLongitude());
-
-        GMapV2Direction DistanceParser = new GMapV2Direction();
-
-        Document Doc0 = DistanceParser.getDocument(myLocation, StationLoc0);
-        double Distance0 = DistanceParser.getDistanceValue(Doc0);
-
-        Doc0 = DistanceParser.getDocument(myLocation, StationLoc1);
-        double Distance1 = DistanceParser.getDistanceValue(Doc0);
-
-        Doc0 = DistanceParser.getDocument(myLocation, StationLoc2);
-        double Distance2 = DistanceParser.getDistanceValue(Doc0);
-
-        Doc0 = DistanceParser.getDocument(myLocation, StationLoc3);
-        double Distance13 = DistanceParser.getDistanceValue(Doc0);
-
-        Vertex start = new Vertex("start");
-        Vertex v0 = new Vertex(M0.getStationID());
-        Vertex v1 = new Vertex(M1.getStationID());
-        Vertex v2 = new Vertex(M2.getStationID());
-        Vertex v3 = new Vertex(M3.getStationID());
-        Vertex end = new Vertex("end");
-
-        //Replace numbers with cost of gas to get to station and cost of gas @ station.
-        start.adjacencies = new Edge[]{
-                new Edge(v0, 3),
-                new Edge(v1, 2),
-                new Edge(v2, 1),
-                new Edge(v3, 4)
-        };
-        v0.adjacencies = new Edge[]{
-                new Edge(end, 10)
-        };
-        v1.adjacencies = new Edge[]{
-                new Edge(end, 10)
-        };
-        v2.adjacencies = new Edge[]{
-                new Edge(end, 10)
-        };
-        v3.adjacencies = new Edge[]{
-                new Edge(end, 10)
-        };
-        Vertex[] vertices = {start, v0, v1, v2, v3, end};
-        computePaths(start);
-        for (Vertex v : vertices){
-            List<Vertex> path = getShortestPathTo(v);
+        for(int z = 0; z < Nodes.size();z++){
+            start.adjacencies.add(
+                    new Edge(Nodes.get(z),
+                    C.findCost(Mileage, (d.StringToDouble(Models.get(z).kmDistance))/1.60934,
+                    Models.get(z).pricePerGallon)
+                    )
+            );
         }
-*/
+
+                /*new Edge(Nodes.get(1), C.findCost(Mileage, d.StringToDouble(Models.get(1).kmDistance),Models.get(1).pricePerGallon)),
+                new Edge(Nodes.get(2), C.findCost(Mileage, d.StringToDouble(Models.get(2).kmDistance),Models.get(2).pricePerGallon)),
+                new Edge(Nodes.get(3), C.findCost(Mileage, d.StringToDouble(Models.get(3).kmDistance),Models.get(3).pricePerGallon)),
+                new Edge(Nodes.get(4), C.findCost(Mileage, d.StringToDouble(Models.get(4).kmDistance),Models.get(4).pricePerGallon)),
+                new Edge(Nodes.get(5), C.findCost(Mileage, d.StringToDouble(Models.get(5).kmDistance),Models.get(5).pricePerGallon)),
+                new Edge(Nodes.get(6), C.findCost(Mileage, d.StringToDouble(Models.get(6).kmDistance),Models.get(6).pricePerGallon)),
+                new Edge(Nodes.get(7), C.findCost(Mileage, d.StringToDouble(Models.get(7).kmDistance),Models.get(7).pricePerGallon))*/
+
+
+
+
+        computePaths(start);
+        Vertex OptimalStation = new Vertex("");
+        for (int i = 0; i < Nodes.size(); i++){
+            OptimalStation = getShortestPathTo(Nodes.get(i));
+        }
+        StationOrder.add(Models.get(Integer.parseInt(OptimalStation.name)));
 
 
         return StationOrder;
