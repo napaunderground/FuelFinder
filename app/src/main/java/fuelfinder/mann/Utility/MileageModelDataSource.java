@@ -1,13 +1,13 @@
 package fuelfinder.mann.Utility;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import fuelfinder.mann.Models.MileageModel;
 
@@ -110,10 +110,10 @@ public class MileageModelDataSource {
         Model.setVehicleID(cursor.getInt(0));
         Model.setModel(cursor.getString(1));
         Model.setCarName(cursor.getString(2));
-        Model.setYear(cursor.getString(3));
+        Model.setYear(cursor.getInt(3));
         Model.setMake(cursor.getString(4));
         Model.setUserMileage(cursor.getDouble(5));
-        Model.setEngine(cursor.getString(6));
+        Model.setEngine(cursor.getDouble(6));
         Model.setTransmission(cursor.getString(7));
 
 

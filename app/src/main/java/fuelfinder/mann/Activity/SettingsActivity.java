@@ -1,13 +1,12 @@
 package fuelfinder.mann.Activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import fuelfinder.mann.Models.MileageModel;
@@ -19,44 +18,44 @@ public class SettingsActivity extends Activity {
     private Button moreInputsButton;
     private Button pickTheBestButton;
     private Button pickFourButton;
-    private TextView carName;
-    private TextView year;
-    private TextView make;
-    private TextView vehModel;
-    private TextView mileage;
-    private TextView engine;
-    private TextView transmission;
+    private TextView tCarName;
+    private TextView tYear;
+    private TextView tMake;
+    private TextView tVehModel;
+    private TextView tMileage;
+    private TextView tEngine;
+    private TextView tTransmission;
 
     MileageModel vehicleInfo = new MileageModel();
 
+    /*
+        public static final String CarName = "CarName";
+        public static final String MyVehicle = "MyVeh";
+        public static final String YearOfMfr = "YearKey";
+        public static final String Manufacturer = "MakeKey";
+        public static final String VehModel = "ModelKey";
+        public static final String FuelMileage = "MileageKey";
+        public static final String EngineSize = "Engine SizeKey";
+        public static final String Transmission = "TransmissionKey";
 
-    public static final String CarName = "CarName";
-    public static final String MyVehicle = "MyVeh";
-    public static final String YearOfMfr = "YearKey";
-    public static final String Manufacturer = "MakeKey";
-    public static final String VehModel = "ModelKey";
-    public static final String FuelMileage = "MileageKey";
-    public static final String EngineSize = "Engine SizeKey";
-    public static final String Transmission = "TransmissionKey";
-
-    SharedPreferences sharedprefs;
-
+        SharedPreferences sharedprefs;
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
 
-        moreInputsButton = (Button)findViewById(R.id.moreInputsButton);
-        pickTheBestButton = (Button)findViewById(R.id.pickTheBestButton);
-        pickFourButton = (Button)findViewById(R.id.pickFourButton);
-        carName = (TextView) findViewById(R.id.editTextCarName);
-        year = (TextView) findViewById(R.id.editTextYearOfMfr);
-        make = (TextView) findViewById(R.id.editTextManufacturer);
-        vehModel = (TextView) findViewById(R.id.editTextVehModel);
-        mileage = (TextView) findViewById(R.id.editTextFuelMileage);
-        engine = (TextView) findViewById(R.id.editTextEngineSize);
-        transmission = (TextView) findViewById(R.id.editTextTransmission);
-
+        moreInputsButton = (Button) findViewById(R.id.moreInputsButton);
+        pickTheBestButton = (Button) findViewById(R.id.pickTheBestButton);
+        pickFourButton = (Button) findViewById(R.id.pickFourButton);
+        tCarName = (EditText) findViewById(R.id.editTextCarName);
+        tYear = (EditText) findViewById(R.id.editTextYearOfMfr);
+        tMake = (EditText) findViewById(R.id.editTextManufacturer);
+        tVehModel = (EditText) findViewById(R.id.editTextVehModel);
+        tMileage = (EditText) findViewById(R.id.editTextFuelMileage);
+        tEngine = (EditText) findViewById(R.id.editTextEngineSize);
+        tTransmission = (EditText) findViewById(R.id.editTextTransmission);
+/*
         sharedprefs = getSharedPreferences(MyVehicle, 0);
 
         if(sharedprefs.contains(CarName))
@@ -87,17 +86,25 @@ public class SettingsActivity extends Activity {
         {
             transmission.setText(sharedprefs.getString(Transmission, ""));
         }
-
+*/
 
         moreInputsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
+                setModel(vehicleInfo);
+
+                double currMileage = vehicleInfo.getUserMileage();
+                if(currMileage == 0)
+                {
+                    finish();
+                    startActivity(new Intent(SettingsActivity.this, MapsActivity.class));
+                }
+                else {
+                    finish();
+                    startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
+                }
             }
         });
-
-
 
         pickTheBestButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,8 +113,6 @@ public class SettingsActivity extends Activity {
                 startActivity(new Intent(SettingsActivity.this, PickCheapestActivity.class));
             }
         });
-
-
 
 
         pickFourButton.setOnClickListener(new View.OnClickListener() {
@@ -119,9 +124,9 @@ public class SettingsActivity extends Activity {
 
             }
         });
-    }
-    public void run(View v) {
-
+        //   }
+        //   public void run(View v) {
+/*
         String ca = carName.getText().toString();
         String y = year.getText().toString();
         String ma = make.getText().toString();
@@ -150,30 +155,59 @@ public class SettingsActivity extends Activity {
         editor.commit();
 
         SharedPreferences prefs = this.getSharedPreferences("MyVeh", Context.MODE_PRIVATE);
+
+
         String miles = prefs.getString("FuelMileage", "0");
         int intMiles = Integer.parseInt(miles);
+*/
 
-        if(intMiles != 0)
+
+    }
+    public void setModel(MileageModel currVeh)
+    {
+        // should this be decomposed more????
 
 
-        {
-            setContentView(R.layout.activity_start);
+        MileageModel vehicleInfo = currVeh;
 
-            startActivity(new Intent(this, fuelfinder.mann.Activity.MapsActivity.class));
+        int year;
+        double engine;
+        double mileage;
 
+        try {
+            year = Integer.parseInt(tYear.getText().toString());
+        } catch (final NumberFormatException e) {
+            year = 0;
         }
-        else
-        {
-            startActivity(new Intent(this, fuelfinder.mann.Activity.SettingsActivity.class));
+        try {
+            engine = Double.parseDouble(tEngine.getText().toString());
+        } catch (final NumberFormatException e) {
+            engine = 0;
         }
+        try {
+            mileage = Double.parseDouble(tMileage.getText().toString());
+        } catch  (final NumberFormatException e) {
+            mileage = 0;
+        }
+
+        vehicleInfo.setCarName(String.valueOf(tCarName));
+        vehicleInfo.setYear(year);
+        vehicleInfo.setMake(String.valueOf(tMake));
+        vehicleInfo.setModel(String.valueOf(tVehModel));
+        vehicleInfo.setEngine(engine);
+        vehicleInfo.setTransmission(String.valueOf(tTransmission));
+        vehicleInfo.setUserMileage(mileage);
     }
 
 
-    public void settings(View v) {
 
-        startActivity(new Intent(this, SettingsActivity.class));
-    }
+    /*
 
+        public void settings(View v) {
+
+            startActivity(new Intent(this, SettingsActivity.class));
+        }
+    */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_settings, menu);
