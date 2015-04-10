@@ -45,31 +45,31 @@ public class MileageModelDataSource {
                 values);
         ContentValues engValues = new ContentValues();
         engValues.put(MySQLiteHelper.Engine, Engine);
-        long insertEngine = database.insert(MySQLiteHelper.Engine, null, engValues );
+        long insertEngine = database.insert(MySQLiteHelper.NAME, null, engValues );
 
         ContentValues makeValues = new ContentValues();
         makeValues.put(MySQLiteHelper.Make, Make);
-        long insertMake = database.insert(MySQLiteHelper.Make, null, makeValues );
+        long insertMake = database.insert(MySQLiteHelper.NAME, null, makeValues);
 
         ContentValues mileageValues = new ContentValues();
         mileageValues.put(MySQLiteHelper.Mileage, Mileage);
-        long insertMileage = database.insert(MySQLiteHelper.Mileage, null, mileageValues );
+        long insertMileage = database.insert(MySQLiteHelper.NAME, null, mileageValues );
 
         ContentValues modelValues = new ContentValues();
         modelValues.put(MySQLiteHelper.Model, Model);
-        long insertModel = database.insert(MySQLiteHelper.Model, null, modelValues );
+        long insertModel = database.insert(MySQLiteHelper.NAME, null, modelValues);
 
         ContentValues yearValues = new ContentValues();
         yearValues.put(MySQLiteHelper.Year, Year);
-        long insertYear = database.insert(MySQLiteHelper.Year, null, yearValues );
+        long insertYear = database.insert(MySQLiteHelper.NAME, null, yearValues);
 
         ContentValues nameValues = new ContentValues();
         nameValues.put(MySQLiteHelper.VehName, VehicleName);
-        long insertName = database.insert(MySQLiteHelper.VehName, null, nameValues );
+        long insertName = database.insert(MySQLiteHelper.NAME, null, nameValues);
 
         ContentValues xValues = new ContentValues();
         xValues.put(MySQLiteHelper.Transmission, Transmission);
-        long insertTransmission = database.insert(MySQLiteHelper.Transmission, null, xValues );
+        long insertTransmission = database.insert(MySQLiteHelper.NAME, null, xValues );
 
         Cursor cursor = database.query(MySQLiteHelper.NAME,
                 allColumns, MySQLiteHelper.VehicleID + " = " + insertId, null,

@@ -14,6 +14,7 @@ import java.util.PriorityQueue;
 import fuelfinder.mann.Models.FuelPriceModel;
 import fuelfinder.mann.Models.MileageModel;
 import fuelfinder.mann.Parser.GMapV2Direction;
+import fuelfinder.mann.Service.CostCalculator;
 
 /**
  * Created by Action Johnny on 4/2/2015.
@@ -69,24 +70,45 @@ public class Dijkstra
         }
     }
 
-    public static List<Vertex> getShortestPathTo(Vertex target)
+    public static Vertex getShortestPathTo(Vertex target)
     {
         List<Vertex> path = new ArrayList<Vertex>();
         for (Vertex vertex = target; vertex != null; vertex = vertex.previous)
             path.add(vertex);
         Collections.reverse(path);
-        return path;
+        return path.get(1);
     }
 
 
     public static ArrayList<FuelPriceModel> GetBestStation(ArrayList<FuelPriceModel> Models, LatLng myLocation){
+        double Mileage = 10;
+        CostCalculator C = new CostCalculator();
 
+        Vertex start = new Vertex("start");
+        Vertex end = new Vertex("end");
         double mileage = 10;
+        ArrayList<Double> Distances = new ArrayList();
+        GMapV2Direction DistanceParser = new GMapV2Direction();
+        ArrayList<Vertex> Nodes = new ArrayList();
+        for (int p = 0; p < Models.size(); p++){
 
-        FuelPriceModel M0 = Models.get(0);
-        Location ML0 = M0.getLocation();
-        LatLng StationLoc0 = new LatLng(ML0.getLatitude(), ML0.getLongitude());
+            LatLng stationLoc = new LatLng(Models.get(p).Lat, Models.get(p).Lng);
+            Document Doc = DistanceParser.getDocument(myLocation, stationLoc);
+            double Distance = DistanceParser.getDistanceValue(Doc);
+            Distances.add(Distance);
+            Vertex V = new Vertex(Models.get(p).stationID);
+            V.adjacencies = new Edge[]{
+                    new Edge(start, C.findCost(Mileage, Distances.get(p),Models.get(p).pricePerGallon)),
+                    new Edge(end, Models.get(p).pricePerGallon)
+            };
+            Nodes.add(V);
 
+        }
+
+
+
+        ArrayList<FuelPriceModel> StationOrder = new ArrayList();
+/*
         FuelPriceModel M1 = Models.get(1);
         Location ML1 = M1.getLocation();
         LatLng StationLoc1 = new LatLng(ML1.getLatitude(), ML1.getLongitude());
@@ -101,16 +123,16 @@ public class Dijkstra
 
         GMapV2Direction DistanceParser = new GMapV2Direction();
 
-        Document Doc0 = DistanceParser.getDocument(myLocation, StationLoc0, "driving");
+        Document Doc0 = DistanceParser.getDocument(myLocation, StationLoc0);
         double Distance0 = DistanceParser.getDistanceValue(Doc0);
 
-        Doc0 = DistanceParser.getDocument(myLocation, StationLoc1, "driving");
+        Doc0 = DistanceParser.getDocument(myLocation, StationLoc1);
         double Distance1 = DistanceParser.getDistanceValue(Doc0);
 
-        Doc0 = DistanceParser.getDocument(myLocation, StationLoc2, "driving");
+        Doc0 = DistanceParser.getDocument(myLocation, StationLoc2);
         double Distance2 = DistanceParser.getDistanceValue(Doc0);
 
-        Doc0 = DistanceParser.getDocument(myLocation, StationLoc3, "driving");
+        Doc0 = DistanceParser.getDocument(myLocation, StationLoc3);
         double Distance13 = DistanceParser.getDistanceValue(Doc0);
 
         Vertex start = new Vertex("start");
@@ -144,10 +166,9 @@ public class Dijkstra
         for (Vertex v : vertices){
             List<Vertex> path = getShortestPathTo(v);
         }
+*/
 
-        ArrayList<FuelPriceModel> StationOrder = new ArrayList();
-        //DistanceParser.getDocument(myLocation, new LatLng(Mod))
-        MileageModel M = new MileageModel();
+
         return StationOrder;
     }
 /*  SYNTAX FOR CREATION
