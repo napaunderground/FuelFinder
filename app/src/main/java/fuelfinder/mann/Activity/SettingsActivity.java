@@ -159,16 +159,6 @@ public class SettingsActivity extends Activity {
         String miles = prefs.getString("FuelMileage", "0");
         int intMiles = Integer.parseInt(miles);
 */
-        vehicleInfo.setCarName(String.valueOf(tCarName));
-        int year = Integer.parseInt(String.valueOf(tYear));
-        vehicleInfo.setYear(year);
-        vehicleInfo.setMake(String.valueOf(tMake));
-        vehicleInfo.setModel(String.valueOf(tVehModel));
-        double engine = Double.parseDouble(String.valueOf(tEngine));
-        vehicleInfo.setEngine(engine);
-        vehicleInfo.setTransmission(String.valueOf(tTransmission));
-        double mileage = Double.parseDouble(String.valueOf(tMileage));
-        vehicleInfo.setUserMileage(mileage);
 
         if (mileage != 0)
 
@@ -181,6 +171,23 @@ public class SettingsActivity extends Activity {
             startActivity(new Intent(this, fuelfinder.mann.Activity.SettingsActivity.class));
         }
     }
+    public void setModel(MileageModel currVeh)
+    {
+        MileageModel vehicleInfo = currVeh;
+
+        vehicleInfo.setCarName(String.valueOf(tCarName));
+        int year = Integer.parseInt(String.valueOf(tYear));
+        vehicleInfo.setYear(year);
+        vehicleInfo.setMake(String.valueOf(tMake));
+        vehicleInfo.setModel(String.valueOf(tVehModel));
+        double engine = Double.parseDouble(String.valueOf(tEngine));
+        vehicleInfo.setEngine(engine);
+        vehicleInfo.setTransmission(String.valueOf(tTransmission));
+        double mileage = Double.parseDouble(String.valueOf(tMileage));
+        vehicleInfo.setUserMileage(mileage);
+
+    }
+
 
 
     /*
