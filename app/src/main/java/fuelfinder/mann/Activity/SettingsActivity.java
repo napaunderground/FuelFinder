@@ -90,11 +90,20 @@ public class SettingsActivity extends Activity {
         moreInputsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
+                setModel(vehicleInfo);
+
+                double currMpg = vehicleInfo.getUserMileage();
+                if(currMpg == 0)
+                {
+                    finish();
+                    startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
+                }
+                else {
+                    finish();
+                    startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
+                }
             }
         });
-
 
         pickTheBestButton.setOnClickListener(new View.OnClickListener() {
             @Override
