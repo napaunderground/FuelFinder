@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import fuelfinder.mann.Models.MileageModel;
@@ -47,13 +48,13 @@ public class SettingsActivity extends Activity {
         moreInputsButton = (Button) findViewById(R.id.moreInputsButton);
         pickTheBestButton = (Button) findViewById(R.id.pickTheBestButton);
         pickFourButton = (Button) findViewById(R.id.pickFourButton);
-        tCarName = (TextView) findViewById(R.id.editTextCarName);
-        tYear = (TextView) findViewById(R.id.editTextYearOfMfr);
-        tMake = (TextView) findViewById(R.id.editTextManufacturer);
-        tVehModel = (TextView) findViewById(R.id.editTextVehModel);
-        tMileage = (TextView) findViewById(R.id.editTextFuelMileage);
-        tEngine = (TextView) findViewById(R.id.editTextEngineSize);
-        tTransmission = (TextView) findViewById(R.id.editTextTransmission);
+        tCarName = (EditText) findViewById(R.id.editTextCarName);
+        tYear = (EditText) findViewById(R.id.editTextYearOfMfr);
+        tMake = (EditText) findViewById(R.id.editTextManufacturer);
+        tVehModel = (EditText) findViewById(R.id.editTextVehModel);
+        tMileage = (EditText) findViewById(R.id.editTextFuelMileage);
+        tEngine = (EditText) findViewById(R.id.editTextEngineSize);
+        tTransmission = (EditText) findViewById(R.id.editTextTransmission);
 /*
         sharedprefs = getSharedPreferences(MyVehicle, 0);
 
@@ -90,15 +91,15 @@ public class SettingsActivity extends Activity {
         moreInputsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setModel(vehicleInfo);
 
-                double currMpg = vehicleInfo.getUserMileage();
-                if(currMpg == 0)
+                double currMileage = Double.parseDouble(tMileage.getText().toString());
+                if(currMileage == 0)
                 {
                     finish();
                     startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
                 }
                 else {
+                    setModel(vehicleInfo);
                     finish();
                     startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
                 }
@@ -160,30 +161,21 @@ public class SettingsActivity extends Activity {
         int intMiles = Integer.parseInt(miles);
 */
 
-        if (mileage != 0)
 
-        {
-            setContentView(R.layout.activity_start);
-
-            startActivity(new Intent(this, fuelfinder.mann.Activity.MapsActivity.class));
-
-        } else {
-            startActivity(new Intent(this, fuelfinder.mann.Activity.SettingsActivity.class));
-        }
     }
     public void setModel(MileageModel currVeh)
     {
         MileageModel vehicleInfo = currVeh;
 
         vehicleInfo.setCarName(String.valueOf(tCarName));
-        int year = Integer.parseInt(String.valueOf(tYear));
+        int year = Integer.parseInt(tYear.getText().toString());
         vehicleInfo.setYear(year);
         vehicleInfo.setMake(String.valueOf(tMake));
         vehicleInfo.setModel(String.valueOf(tVehModel));
-        double engine = Double.parseDouble(String.valueOf(tEngine));
+        double engine = Double.parseDouble(tEngine.getText().toString());
         vehicleInfo.setEngine(engine);
         vehicleInfo.setTransmission(String.valueOf(tTransmission));
-        double mileage = Double.parseDouble(String.valueOf(tMileage));
+        double mileage = Double.parseDouble(tMileage.getText().toString());
         vehicleInfo.setUserMileage(mileage);
 
     }
