@@ -8,10 +8,10 @@ import android.net.Uri;
 public class MileageModel {
     // An application model to drive the MileageModel view
         private String carName;
-        private String year;
+        private int year;
         private String make;
         private String carModel;
-        private String engine;
+        private double engine;
         private String transmission;
         private Uri mileageUri;
         private double mileage;
@@ -38,12 +38,12 @@ public class MileageModel {
         this.mileageUri = mileageUri;
     }
 
-    public String getYear()
+    public int getYear()
     {
         return year;
     }
 
-    public void setYear(String year)
+    public void setYear(int year)
     {
         this.year = year;
     }
@@ -68,9 +68,9 @@ public class MileageModel {
         this.carModel = carModel;
     }
 
-    public String getEngine() { return engine; }
+    public double getEngine() { return engine; }
 
-    public void setEngine(String  engine)
+    public void setEngine(double  engine)
     {
         this.engine = engine;
     }
@@ -85,7 +85,7 @@ public class MileageModel {
     {
         this.mileage = mileage;
     }
-// public function that calls a private to store the data
+
 
     public void setVehicleID(int vehicleName) {this.vehicleID = vehicleID; }
 
