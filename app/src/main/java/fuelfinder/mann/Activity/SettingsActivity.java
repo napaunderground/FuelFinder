@@ -91,15 +91,15 @@ public class SettingsActivity extends Activity {
         moreInputsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setModel(vehicleInfo);
 
-                double currMileage = Double.parseDouble(tMileage.getText().toString());
+                double currMileage = vehicleInfo.getUserMileage();
                 if(currMileage == 0)
                 {
                     finish();
-                    startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
+                    startActivity(new Intent(SettingsActivity.this, MapsActivity.class));
                 }
                 else {
-                    setModel(vehicleInfo);
                     finish();
                     startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
                 }
@@ -165,19 +165,38 @@ public class SettingsActivity extends Activity {
     }
     public void setModel(MileageModel currVeh)
     {
+        // should this be decomposed more????
+
+
         MileageModel vehicleInfo = currVeh;
 
+        int year;
+        double engine;
+        double mileage;
+
+        try {
+            year = Integer.parseInt(tYear.getText().toString());
+        } catch (final NumberFormatException e) {
+            year = 0;
+        }
+        try {
+            engine = Double.parseDouble(tEngine.getText().toString());
+        } catch (final NumberFormatException e) {
+            engine = 0;
+        }
+        try {
+            mileage = Double.parseDouble(tMileage.getText().toString());
+        } catch  (final NumberFormatException e) {
+            mileage = 0;
+        }
+
         vehicleInfo.setCarName(String.valueOf(tCarName));
-        int year = Integer.parseInt(tYear.getText().toString());
         vehicleInfo.setYear(year);
         vehicleInfo.setMake(String.valueOf(tMake));
         vehicleInfo.setModel(String.valueOf(tVehModel));
-        double engine = Double.parseDouble(tEngine.getText().toString());
         vehicleInfo.setEngine(engine);
         vehicleInfo.setTransmission(String.valueOf(tTransmission));
-        double mileage = Double.parseDouble(tMileage.getText().toString());
         vehicleInfo.setUserMileage(mileage);
-
     }
 
 

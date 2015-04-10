@@ -24,7 +24,13 @@ public class MileageModel {
     public String getCarName() { return carName; }
 
     public MileageModel() {
-
+        carName = "Name";
+        year = 0;
+        make = "none";
+        carModel = "none";
+        engine = 0;
+        transmission = "none";
+        mileage = 0;
     }
 
     // Need to make a data input for vehicleInfo that holds make/model/year/options
