@@ -422,7 +422,7 @@ public class MapsActivity extends FragmentActivity implements
         catch(JSONException e){
         }
         LatLng sourcePosition = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
-        Dijkstra Dkstra = new Dijkstra();
+       /* Dijkstra Dkstra = new Dijkstra();
         ArrayList<FuelPriceModel> Best = Dkstra.GetBestStation(FPLoc, mCurrentLocation);
 
         for (int i = 0; i < Best.size(); i++){
@@ -430,7 +430,7 @@ public class MapsActivity extends FragmentActivity implements
             LatLng gasLoc = new LatLng(FPM.Lat, FPM.Lng);
 
             mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID));
-        }
+        }*/
     }
 
 
