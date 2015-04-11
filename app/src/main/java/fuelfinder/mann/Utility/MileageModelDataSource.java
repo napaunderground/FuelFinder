@@ -21,7 +21,7 @@ public class MileageModelDataSource {
     private MySQLiteHelper dbHelper;
     private String[] allColumns = { MySQLiteHelper.Engine,
             MySQLiteHelper.Make, MySQLiteHelper.Mileage,
-            MySQLiteHelper.Model, MySQLiteHelper.NAME,
+            MySQLiteHelper.Model,
             MySQLiteHelper.VehicleID, MySQLiteHelper.VehName,
             MySQLiteHelper.Year, MySQLiteHelper.Transmission
     };

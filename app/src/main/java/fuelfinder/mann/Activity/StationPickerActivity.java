@@ -29,6 +29,7 @@ public class StationPickerActivity extends Activity {
             public void onClick(View v) {
                 finish();
                 startActivity(new Intent(StationPickerActivity.this, PickCheapestActivity.class));
+
             }
         });
 
