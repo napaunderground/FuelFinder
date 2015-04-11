@@ -24,7 +24,6 @@ public class MileageModel {
     public String getCarName() { return carName; }
 
     public MileageModel() {
-        vehicleID = 0;
         carName = "Name";
         year = 0;
         make = "none";
@@ -93,10 +92,8 @@ public class MileageModel {
         this.mileage = mileage;
     }
 
-    public MileageModel getMileageModel() { return this; }
 
     public void setVehicleID(int vehicleName) {this.vehicleID = vehicleID; }
 
     public int getVehicleID() { return vehicleID; }
-
 }
