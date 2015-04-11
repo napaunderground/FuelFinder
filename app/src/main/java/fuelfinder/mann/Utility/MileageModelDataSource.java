@@ -42,11 +42,12 @@ public class MileageModelDataSource {
     public MileageModel createMileageModel(double Engine, String Make, double Mileage, String Model, String Name, int VehicleID, String VehicleName, int Year, String Transmission) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.VehicleID, VehicleID);
+        //TODO:  unknown death at this point
         long insertId = database.insert(MySQLiteHelper.NAME, null,
                 values);
         ContentValues engValues = new ContentValues();
         engValues.put(MySQLiteHelper.Engine, Engine);
-      //TODO:  unknown death at this point
+     
 
         long insertEngine = database.insert(MySQLiteHelper.NAME, null, engValues );
 
