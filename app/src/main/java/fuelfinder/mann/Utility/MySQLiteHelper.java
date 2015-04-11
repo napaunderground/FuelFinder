@@ -8,6 +8,8 @@ import android.util.Log;
  */
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
+    public static final String LOG_TAG = "DBAdapter";
+
     public static final String NAME = "VehicleInfo";
     public static final String VehicleID = "VehicleID";
     public static final String Model = "Model";
@@ -18,6 +20,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String Engine = "Engine";
     public static final String Transmission = "Transmission";
 
+    public static final String VEHICLE_TABLE = "tbl_veh";
+    public static final String[] ALL_TABLES = { VEHICLE_TABLE };
+
     private static final String DATABASE_NAME = "VehicleInfo.db";
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_CREATE = "create table "
@@ -27,8 +32,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             " text not null, " + Year +
             " integer not null, " + Make +
             " text not null, " + Mileage +
-            " integer not null, " + Engine +
-            " float not null, " + Transmission +" text not null);";
+            " double not null, " + Engine +
+            " double not null, " + Transmission +" text not null);";
 
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
