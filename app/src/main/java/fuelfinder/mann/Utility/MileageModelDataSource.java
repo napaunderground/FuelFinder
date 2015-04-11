@@ -30,7 +30,6 @@ public class MileageModelDataSource {
         dbHelper = new MySQLiteHelper(context);
     }
 
-
     public void open() throws SQLException {
         database = dbHelper.getWritableDatabase();
     }
@@ -39,16 +38,13 @@ public class MileageModelDataSource {
         dbHelper.close();
     }
 
-    public MileageModel createMileageModel(double Engine, String Make, double Mileage, String Model, String Name, int VehicleID, String VehicleName, int Year, String Transmission) {
+    public MileageModel createMileageModel(int Engine, String Make, int Mileage, String Model, String Name, int VehicleID, String VehicleName, int Year, String Transmission) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.VehicleID, VehicleID);
-        //TODO:  unknown death at this point
         long insertId = database.insert(MySQLiteHelper.NAME, null,
                 values);
         ContentValues engValues = new ContentValues();
         engValues.put(MySQLiteHelper.Engine, Engine);
-     
-
         long insertEngine = database.insert(MySQLiteHelper.NAME, null, engValues );
 
         ContentValues makeValues = new ContentValues();

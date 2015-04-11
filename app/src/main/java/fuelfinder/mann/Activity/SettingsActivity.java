@@ -1,7 +1,6 @@
 package fuelfinder.mann.Activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 
 import fuelfinder.mann.Models.MileageModel;
 import fuelfinder.mann.R;
-import fuelfinder.mann.Utility.MileageModelDataSource;
 
 
 public class SettingsActivity extends Activity {
@@ -27,8 +25,6 @@ public class SettingsActivity extends Activity {
     private TextView tMileage;
     private TextView tEngine;
     private TextView tTransmission;
-
-    public int counter = 0;
 
     MileageModel vehicleInfo = new MileageModel();
 
@@ -48,8 +44,6 @@ public class SettingsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
-
-
 
         moreInputsButton = (Button) findViewById(R.id.moreInputsButton);
         pickTheBestButton = (Button) findViewById(R.id.pickTheBestButton);
@@ -100,24 +94,14 @@ public class SettingsActivity extends Activity {
                 setModel(vehicleInfo);
 
                 double currMileage = vehicleInfo.getUserMileage();
-                if (currMileage == 0) {
+                if(currMileage == 0)
+                {
                     finish();
                     startActivity(new Intent(SettingsActivity.this, MapsActivity.class));
-                } else if (counter < 8) {
-
-// TODO: explain to me what Name is suppose to be.  I cant seem to figure it out.
-                    Context context = null;
-                    MileageModel temp = new MileageModel();
-                    MileageModelDataSource data = new MileageModelDataSource(context);
-                data.createMileageModel(vehicleInfo.getEngine(), vehicleInfo.getMake(),
-                        vehicleInfo.getUserMileage(), vehicleInfo.getModel(),
-                        vehicleInfo.getCarName(), counter, vehicleInfo.getCarName(),
-                        vehicleInfo.getYear(), vehicleInfo.getTransmission());
-                counter++;
-      //          finish();
-                startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
-                } else {
-                    //goto pick vehicle screen yet to be implemented
+                }
+                else {
+                    finish();
+                    startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
                 }
             }
         });
