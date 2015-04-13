@@ -48,6 +48,7 @@ import fuelfinder.mann.Parser.FuelSourceParserV2;
 import fuelfinder.mann.Parser.GMapV2Direction;
 import fuelfinder.mann.R;
 import fuelfinder.mann.Utility.Dijkstra;
+import fuelfinder.mann.Utility.GasStationHandler;
 
 public class MapsActivity extends FragmentActivity implements
         LocationListener, GoogleApiClient.ConnectionCallbacks,
@@ -311,15 +312,7 @@ public class MapsActivity extends FragmentActivity implements
         if (mCurrentLocation != null) {
             float accuracy = mCurrentLocation.getAccuracy();
             long time = mCurrentLocation.getTime();
-            mMap.addMarker(new MarkerOptions().position(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude())));
-            mMap.addMarker(new MarkerOptions().position(new LatLng(38.34005734, -122.6760596)));
-            String DistInfo = getDistanceOnRoad(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude(), 38.34005734, -122.6760596);
-            String DistInf = String.valueOf(DistInfo);
-            mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title(DistInf));
-            Polyline line =  mMap.addPolyline(new PolylineOptions()
-                    .add(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()), new LatLng(38.34005734, -122.6760596))
-                    .width(2)
-                    .color(Color.CYAN));
+            //mMap.addMarker(new MarkerOptions().position(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude())));
 
             if (accuracy < bestAccuracy) {
                 bestResult = mCurrentLocation;
@@ -332,23 +325,7 @@ public class MapsActivity extends FragmentActivity implements
             LatLng MyPosition;
 
             LatLng sourcePosition = new LatLng(CurrentLocation.getLatitude(), CurrentLocation.getLongitude());
-            LatLng destPosition = new LatLng(38.33963674, -122.7010984);
-            GMapV2Direction md = new GMapV2Direction();
-            mMap = ((SupportMapFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.map)).getMap();
-            Document doc = md.getDocument(sourcePosition, destPosition);
 
-            ArrayList<LatLng> directionPoint = md.getDirection(doc);
-            PolylineOptions rectLine = new PolylineOptions().width(3).color(
-                    Color.RED);
-
-            for (int i = 0; i < directionPoint.size(); i++) {
-                rectLine.add(directionPoint.get(i));
-            }
-            Polyline polylin = mMap.addPolyline(rectLine);
-
-            String DistanceInfo = getDistanceOnRoad(CurrentLocation.getLatitude(), CurrentLocation.getLongitude(), 38.33963674, -122.7010984);
-            mMap.addMarker(new MarkerOptions().position(destPosition).title("Distance: " + DistanceInfo));
 
             MyPosition = new LatLng(CurrentLocation.getLatitude(), CurrentLocation.getLongitude());
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(MyPosition, 15));
@@ -360,12 +337,38 @@ public class MapsActivity extends FragmentActivity implements
             catch(JSONException e){
 
             }
+            /*
             for (int i = 0; i < FPLoc.size(); i++){
                 FuelPriceModel FPM = FPLoc.get(i);
                 LatLng gasLoc = new LatLng(FPM.Lat, FPM.Lng);
 
-                mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID));}
+                mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID));}*/
+            GasStationHandler Handle = new GasStationHandler();
+            ArrayList<FuelPriceModel> bestStations = new ArrayList<>();
+            bestStations = Handle.getBestStations(FPLoc, 10.0);
+            FuelPriceModel FPM = bestStations.get(0);
+            LatLng gasLoc = new LatLng(FPM.Lat, FPM.Lng);
+            mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID));
 
+
+            /////////////////////////////////////////////////////////
+           // LatLng destPosition = new LatLng(38.33963674, -122.7010984);
+            GMapV2Direction md = new GMapV2Direction();
+            mMap = ((SupportMapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.map)).getMap();
+            Document doc = md.getDocument(sourcePosition, gasLoc);
+
+            ArrayList<LatLng> directionPoint = md.getDirection(doc);
+            PolylineOptions rectLine = new PolylineOptions().width(3).color(
+                    Color.RED);
+
+            for (int i = 0; i < directionPoint.size(); i++) {
+                rectLine.add(directionPoint.get(i));
+            }
+            Polyline polylin = mMap.addPolyline(rectLine);
+
+            String DistanceInfo = getDistanceOnRoad(CurrentLocation.getLatitude(), CurrentLocation.getLongitude(), gasLoc.latitude, gasLoc.longitude);
+            mMap.addMarker(new MarkerOptions().position(gasLoc).title("Distance: " + DistanceInfo));
 
         }
 
