@@ -53,8 +53,9 @@ import fuelfinder.mann.Utility.GasStationHandler;
 public class MapsActivity extends FragmentActivity implements
         LocationListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
-    //implements com.google.android.gms.location.LocationListener, GoogleApiClient.ConnectionCallbacks,
-    //GoogleApiClient.OnConnectionFailedListener
+
+
+    private static final double MILEAGE_VALUE = 10.0;
     private static final long ONE_MIN = 1000 * 60;
     private static final long TWO_MIN = ONE_MIN * 2;
     private static final long FIVE_MIN = ONE_MIN * 5;
@@ -63,17 +64,11 @@ public class MapsActivity extends FragmentActivity implements
     private static final float MIN_ACCURACY = 25.0f;
     private static final float MIN_LAST_READ_ACCURACY = 500.0f;
     private final static int REQUEST_RESOLVE_ERROR = 1001;
-
-    //comment
     private LocationRequest mLocationRequest;
     private Location mBestReading;
     private GoogleApiClient mGoogleApiClient;
-
+    String StationNum;
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
-    //MyLoc.lat = 38.335555
-    //MyLoc.long = -122.679303
-    // 38.34005734
-    // -122.6760596
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -89,6 +84,8 @@ public class MapsActivity extends FragmentActivity implements
         mLocationRequest.setInterval(POLLING_FREQ);
         mLocationRequest.setFastestInterval(FASTEST_UPDATE_FREQ);
         buildGoogleApiClient();
+        StationNum = getIntent().getExtras().getString("station");
+
 
 
     }
@@ -137,38 +134,12 @@ public class MapsActivity extends FragmentActivity implements
     }
 
     /**
-     * This is where we can add markers or lines, add listeners or move the camera. In this case, we
-     * just add a marker near Africa.
+     * This is where we can add markers or lines, add listeners or move the camera.
      * <p/>
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
-    private void setUpMap() {
-        int count = 0;
-
-        //MyLoc.lat = 38.335555
-        //MyLoc.long = -122.679303
-        // 38.34005734
-        // -122.6760596
-        //lat 38.3396367
-        //long -122.7010984
-/*
-        Location myLoc = bestLastKnownLocation(MIN_LAST_READ_ACCURACY, FIVE_MIN);
-        LatLng sourcePosition = new LatLng(myLoc.getLatitude(), myLoc.getLongitude());
-        LatLng destPosition = new LatLng(38.33963674, -122.7010984);
-        GMapV2Direction md = new GMapV2Direction();
-        mMap = ((SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map)).getMap();
-        Document doc = md.getDocument(sourcePosition, destPosition,
-                GMapV2Direction.MODE_DRIVING);
-        ArrayList<LatLng> directionPoint = md.getDirection(doc);
-        PolylineOptions rectLine = new PolylineOptions().width(3).color(
-                Color.RED);
-        for (int i = 0; i < directionPoint.size(); i++) {
-            rectLine.add(directionPoint.get(i));
-        }
-        Polyline polylin = mMap.addPolyline(rectLine);
-*/
-        //mMap.animateCamera(CameraUpdateFactory.zoomBy(8));
+    private void setUpMap()
+    {
 
     }
 
@@ -312,7 +283,6 @@ public class MapsActivity extends FragmentActivity implements
         if (mCurrentLocation != null) {
             float accuracy = mCurrentLocation.getAccuracy();
             long time = mCurrentLocation.getTime();
-            //mMap.addMarker(new MarkerOptions().position(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude())));
 
             if (accuracy < bestAccuracy) {
                 bestResult = mCurrentLocation;
@@ -345,14 +315,15 @@ public class MapsActivity extends FragmentActivity implements
                 mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID));}*/
             GasStationHandler Handle = new GasStationHandler();
             ArrayList<FuelPriceModel> bestStations = new ArrayList<>();
-            bestStations = Handle.getBestStations(FPLoc, 10.0);
-            FuelPriceModel FPM = bestStations.get(0);
+            bestStations = Handle.getBestStations(FPLoc, MILEAGE_VALUE);
+            int SN = Integer.parseInt(StationNum);
+            FuelPriceModel FPM = bestStations.get(SN);
             LatLng gasLoc = new LatLng(FPM.Lat, FPM.Lng);
             mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID));
 
 
             /////////////////////////////////////////////////////////
-           // LatLng destPosition = new LatLng(38.33963674, -122.7010984);
+
             GMapV2Direction md = new GMapV2Direction();
             mMap = ((SupportMapFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.map)).getMap();
