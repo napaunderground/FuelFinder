@@ -42,7 +42,6 @@ public class SettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
 
-
         moreInputsButton = (Button) findViewById(R.id.moreInputsButton);
         pickTheBestButton = (Button) findViewById(R.id.pickTheBestButton);
         pickFourButton = (Button) findViewById(R.id.pickFourButton);
