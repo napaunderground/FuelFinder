@@ -307,12 +307,6 @@ public class MapsActivity extends FragmentActivity implements
             catch(JSONException e){
 
             }
-            /*
-            for (int i = 0; i < FPLoc.size(); i++){
-                FuelPriceModel FPM = FPLoc.get(i);
-                LatLng gasLoc = new LatLng(FPM.Lat, FPM.Lng);
-
-                mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID));}*/
             GasStationHandler Handle = new GasStationHandler();
             ArrayList<FuelPriceModel> bestStations = new ArrayList<>();
             bestStations = Handle.getBestStations(FPLoc, MILEAGE_VALUE);

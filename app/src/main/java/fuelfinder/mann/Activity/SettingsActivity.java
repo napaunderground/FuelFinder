@@ -9,11 +9,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.List;
+
+import fuelfinder.mann.Models.MileageDBModel;
 import fuelfinder.mann.Models.MileageModel;
 import fuelfinder.mann.R;
+import fuelfinder.mann.Utility.MileageDataSource;
 
 
 public class SettingsActivity extends Activity {
+
+    private MileageDataSource datasource;
 
     private Button moreInputsButton;
     private Button pickTheBestButton;
@@ -28,18 +34,6 @@ public class SettingsActivity extends Activity {
 
     MileageModel vehicleInfo = new MileageModel();
 
-    /*
-        public static final String CarName = "CarName";
-        public static final String MyVehicle = "MyVeh";
-        public static final String YearOfMfr = "YearKey";
-        public static final String Manufacturer = "MakeKey";
-        public static final String VehModel = "ModelKey";
-        public static final String FuelMileage = "MileageKey";
-        public static final String EngineSize = "Engine SizeKey";
-        public static final String Transmission = "TransmissionKey";
-
-        SharedPreferences sharedprefs;
-    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,38 +49,13 @@ public class SettingsActivity extends Activity {
         tMileage = (EditText) findViewById(R.id.editTextFuelMileage);
         tEngine = (EditText) findViewById(R.id.editTextEngineSize);
         tTransmission = (EditText) findViewById(R.id.editTextTransmission);
-/*
-        sharedprefs = getSharedPreferences(MyVehicle, 0);
 
-        if(sharedprefs.contains(CarName))
-        {
-            carName.setText(sharedprefs.getString(CarName, ""));
-        }
-        if(sharedprefs.contains(YearOfMfr))
-        {
-            year.setText(sharedprefs.getString(YearOfMfr, ""));
-        }
-        if(sharedprefs.contains(Manufacturer))
-        {
-            make.setText(sharedprefs.getString(Manufacturer, ""));
-        }
-        if(sharedprefs.contains(VehModel))
-        {
-            vehModel.setText(sharedprefs.getString(VehModel, ""));
-        }
-        if(sharedprefs.contains(FuelMileage))
-        {
-            mileage.setText(sharedprefs.getString(FuelMileage, ""));
-        }
-        if(sharedprefs.contains(EngineSize))
-        {
-            engine.setText(sharedprefs.getString(EngineSize, ""));
-        }
-        if(sharedprefs.contains(Transmission))
-        {
-            transmission.setText(sharedprefs.getString(Transmission, ""));
-        }
-*/
+
+        datasource = new MileageDataSource(this);
+        datasource.open();
+
+        List<MileageDBModel> values = datasource.getAllComments();
+
 
         moreInputsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,12 +74,19 @@ public class SettingsActivity extends Activity {
                 }
             }
         });
+        final Intent mIntent = new Intent(this, MapsActivity.class);
 
         pickTheBestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mIntent.putExtra("station", "0");
+                MileageDBModel DBModel = null;
+                String Mileage = tMileage.getText().toString();
+                DBModel = datasource.createMileage(Mileage);
+
+
                 finish();
-                startActivity(new Intent(SettingsActivity.this, PickCheapestActivity.class));
+                startActivity(mIntent);
             }
         });
 
@@ -118,48 +94,15 @@ public class SettingsActivity extends Activity {
         pickFourButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MileageDBModel DBModel = null;
+                String Mileage = tMileage.getText().toString();
+                DBModel = datasource.createMileage(Mileage);
                 finish();
                 startActivity(new Intent(SettingsActivity.this, StationPickerActivity.class));
                 setContentView(R.layout.activity_station_picker);
 
             }
         });
-        //   }
-        //   public void run(View v) {
-/*
-        String ca = carName.getText().toString();
-        String y = year.getText().toString();
-        String ma = make.getText().toString();
-        String mo = vehModel.getText().toString();
-        String m = mileage.getText().toString();
-        String e = engine.getText().toString();
-        String t = transmission.getText().toString();
-        SharedPreferences.Editor editor = sharedprefs.edit();
-
-        vehicleInfo.setCarName(ca);
-        vehicleInfo.setYear(y);
-        vehicleInfo.setMake(ma);
-        vehicleInfo.setModel(mo);
-        vehicleInfo.setEngine(e);
-        vehicleInfo.setTransmission(t);
-     //   vehicleInfo.setUserMileage(m);
-
-        editor.putString("CarName", ca);
-        editor.putString("YearOfMfr", y);
-        editor.putString("Manufacturer", ma);
-        editor.putString("VehModel", mo);
-        editor.putString("FuelMileage", m);
-        editor.putString("EngineSize", e);
-        editor.putString("Transmission", t);
-
-        editor.commit();
-
-        SharedPreferences prefs = this.getSharedPreferences("MyVeh", Context.MODE_PRIVATE);
-
-
-        String miles = prefs.getString("FuelMileage", "0");
-        int intMiles = Integer.parseInt(miles);
-*/
 
 
     }
@@ -221,4 +164,17 @@ public class SettingsActivity extends Activity {
         startActivity(new Intent(this, fuelfinder.mann.Activity.MapsActivity.class));
         return;
     }
+
+    @Override
+    protected void onResume() {
+        datasource.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        datasource.close();
+        super.onPause();
+    }
+
 }

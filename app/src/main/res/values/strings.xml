@@ -27,5 +27,6 @@
     <string name="title_activity_urlformat_utility">URLFormatUtility</string>
     <string name="title_activity_station_picker">StationPickerActivity</string>
     <string name="title_activity_pick_cheapest">PickCheapest</string>
+    <string name="Price1">$ %1$s </string>
 
 </resources>
