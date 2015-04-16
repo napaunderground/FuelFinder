@@ -41,4 +41,17 @@ public class StartActivity extends ActionBarActivity {
     }
 
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+
+
 }

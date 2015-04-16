@@ -26,4 +26,16 @@ public class PickCheapestActivity extends Activity {
         startActivity(new Intent(this, fuelfinder.mann.Activity.SettingsActivity.class));
         return;
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
 }

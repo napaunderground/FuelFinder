@@ -52,4 +52,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + NAME);
         onCreate(db);
     }
+
+    public static String getDATABASE_NAME() { return DATABASE_NAME; }
 }

@@ -59,11 +59,6 @@ public class StationPickerActivity extends Activity {
 
 
 
-
-// need to figure out how to set the destination based on the station
-// number picked in the prior step
-
-
     public void station1(View v)
     {
         setContentView(R.layout.activity_start);
@@ -88,5 +83,18 @@ public class StationPickerActivity extends Activity {
 
         startActivity(new Intent(this, MapsActivity.class));
     }
+
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
 
 }

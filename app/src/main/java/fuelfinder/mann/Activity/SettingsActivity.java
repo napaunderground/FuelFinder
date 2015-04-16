@@ -17,6 +17,7 @@ import fuelfinder.mann.Utility.MileageModelDataSource;
 
 public class SettingsActivity extends Activity {
 
+    private MileageModelDataSource datasource;
     private Button moreInputsButton;
     private Button pickTheBestButton;
     private Button pickFourButton;
@@ -49,7 +50,8 @@ public class SettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
 
-
+        datasource = new MileageModelDataSource(this);
+        datasource.open();
 
         moreInputsButton = (Button) findViewById(R.id.moreInputsButton);
         pickTheBestButton = (Button) findViewById(R.id.pickTheBestButton);
@@ -105,14 +107,17 @@ public class SettingsActivity extends Activity {
                     startActivity(new Intent(SettingsActivity.this, MapsActivity.class));
                 } else if (counter < 8) {
 
-// TODO: explain to me what Name is suppose to be.  I cant seem to figure it out.
                     Context context = null;
-                    MileageModel temp = new MileageModel();
-                    MileageModelDataSource data = new MileageModelDataSource(context);
-                data.createMileageModel(vehicleInfo.getEngine(), vehicleInfo.getMake(),
+
+                    // TODO Show Nick this is where the error was.  The new declaration here of
+                    // data was leaving "datasource" un-set aka null...was previously "data"
+
+         //           MileageModelDataSource data = new MileageModelDataSource(context);
+                    // was it really here ->
+                        datasource.createMileageModel(vehicleInfo.getEngine(), vehicleInfo.getMake(),
                         vehicleInfo.getUserMileage(), vehicleInfo.getModel(),
-                        vehicleInfo.getCarName(), counter, vehicleInfo.getCarName(),
-                        vehicleInfo.getYear(), vehicleInfo.getTransmission());
+                        counter, vehicleInfo.getCarName(), vehicleInfo.getYear(),
+                        vehicleInfo.getTransmission(), vehicleInfo.getVehicleID());
                 counter++;
       //          finish();
                 startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
@@ -237,4 +242,19 @@ public class SettingsActivity extends Activity {
         startActivity(new Intent(this, fuelfinder.mann.Activity.MapsActivity.class));
         return;
     }
+
+
+    @Override
+    protected void onResume() {
+        datasource.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        datasource.close();
+        super.onPause();
+    }
+
 }
+
