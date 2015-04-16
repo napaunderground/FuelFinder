@@ -1,27 +1,39 @@
 package fuelfinder.mann.Utility;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
 /**
- * Created by Action Johnny on 4/15/2015.
+ * Created by Action Johnny on 4/2/2015.
  */
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
-    public static final String TABLE_NAME = "MileageInfo";
-    public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_MILEAGE = "Mileage";
+    public static final String LOG_TAG = "DBAdapter";
 
-    private static final String DATABASE_NAME = "MileageInfo.db";
+    public static final String NAME = "VehicleInfo";
+    public static final String VehicleID = "VehicleID";
+    public static final String Model = "Model";
+    public static final String VehName = "VehName";
+    public static final String Year = "Year";
+    public static final String Make = "Make";
+    public static final String Mileage = "Mileage";
+    public static final String Engine = "Engine";
+    public static final String Transmission = "Transmission";
+
+    public static final String VEHICLE_TABLE = "tbl_veh";
+    public static final String[] ALL_TABLES = { VEHICLE_TABLE };
+
+    private static final String DATABASE_NAME = "VehicleInfo.db";
     private static final int DATABASE_VERSION = 1;
-
-    // create database sql statement
     private static final String DATABASE_CREATE = "create table "
-            + TABLE_NAME + "(" + COLUMN_ID
-            + " integer primary key autoincrement, " + COLUMN_MILEAGE
-            + " text not null);";
+            + NAME + "(" + VehicleID
+            + " integer primary key autoincrement, " + Model
+            + " text not null, " +VehName+
+            " text not null, " + Year +
+            " integer not null, " + Make +
+            " text not null, " + Mileage +
+            " double not null, " + Engine +
+            " double not null, " + Transmission +" text not null);";
 
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -33,11 +45,13 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade (SQLiteDatabase db, int oldVersion,
-                           int newVersion) {
-        Log.w(MySQLiteHelper.class.getName(), "Upgrading database from version "
-                + oldVersion + " to " + newVersion + ", which will destroy all old data.");
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.w(MySQLiteHelper.class.getName(),
+                "Upgrading database from version " + oldVersion + " to "
+                        + newVersion + ", which will destroy all old data");
+        db.execSQL("DROP TABLE IF EXISTS " + NAME);
         onCreate(db);
     }
+
+    public static String getDATABASE_NAME() { return DATABASE_NAME; }
 }

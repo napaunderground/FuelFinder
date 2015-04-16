@@ -96,4 +96,8 @@ public class MileageModel {
     public void setVehicleID(int vehicleName) {this.vehicleID = vehicleID; }
 
     public int getVehicleID() { return vehicleID; }
+
+    public MileageModel getMileageModel(){
+        return this;
+    }
 }

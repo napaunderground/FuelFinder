@@ -85,6 +85,12 @@ public class MapsActivity extends FragmentActivity implements
         mLocationRequest.setFastestInterval(FASTEST_UPDATE_FREQ);
         buildGoogleApiClient();
         StationNum = getIntent().getExtras().getString("station");
+        /*if (StationNum != null){
+        StationNum = getIntent().getExtras().getString("station");
+        }
+        else{
+            StationNum = "0";
+        }*/
 
 
 
@@ -313,7 +319,7 @@ public class MapsActivity extends FragmentActivity implements
             int SN = Integer.parseInt(StationNum);
             FuelPriceModel FPM = bestStations.get(SN);
             LatLng gasLoc = new LatLng(FPM.Lat, FPM.Lng);
-            mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID));
+            mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID).snippet("Price Per Gallon: " + Double.toString(FPM.pricePerGallon)));
 
 
             /////////////////////////////////////////////////////////
@@ -333,8 +339,8 @@ public class MapsActivity extends FragmentActivity implements
             Polyline polylin = mMap.addPolyline(rectLine);
 
             String DistanceInfo = getDistanceOnRoad(CurrentLocation.getLatitude(), CurrentLocation.getLongitude(), gasLoc.latitude, gasLoc.longitude);
-            mMap.addMarker(new MarkerOptions().position(gasLoc).title("Distance: " + DistanceInfo));
-
+            //mMap.addMarker(new MarkerOptions().position(new LatLng(0,0)).title(DistanceInfo));
+            //mMap.addMarker(new MarkerOptions().position(new LatLng(0,10)).title(FPM.kmDistance));
         }
 
         // Return best reading or null
@@ -425,7 +431,7 @@ public class MapsActivity extends FragmentActivity implements
 
     @Override
     public void onBackPressed() {
-        this.finish();
+        finish();
         startActivity(new Intent(this, fuelfinder.mann.Activity.SettingsActivity.class));
         return;
     }

@@ -1,6 +1,7 @@
 package fuelfinder.mann.Activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,15 +12,13 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import fuelfinder.mann.Models.MileageDBModel;
 import fuelfinder.mann.Models.MileageModel;
 import fuelfinder.mann.R;
-import fuelfinder.mann.Utility.MileageDataSource;
+import fuelfinder.mann.Utility.MileageModelDataSource;
 
 
 public class SettingsActivity extends Activity {
 
-    private MileageDataSource datasource;
 
     private Button moreInputsButton;
     private Button pickTheBestButton;
@@ -31,13 +30,17 @@ public class SettingsActivity extends Activity {
     private TextView tMileage;
     private TextView tEngine;
     private TextView tTransmission;
-
+    private MileageModelDataSource datasource;
     MileageModel vehicleInfo = new MileageModel();
+    public int counter = 0;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
+
 
         moreInputsButton = (Button) findViewById(R.id.moreInputsButton);
         pickTheBestButton = (Button) findViewById(R.id.pickTheBestButton);
@@ -50,11 +53,10 @@ public class SettingsActivity extends Activity {
         tEngine = (EditText) findViewById(R.id.editTextEngineSize);
         tTransmission = (EditText) findViewById(R.id.editTextTransmission);
 
-
-        datasource = new MileageDataSource(this);
+        datasource = new MileageModelDataSource(this);
         datasource.open();
 
-        List<MileageDBModel> values = datasource.getAllComments();
+
 
 
         moreInputsButton.setOnClickListener(new View.OnClickListener() {
@@ -68,10 +70,25 @@ public class SettingsActivity extends Activity {
                     finish();
                     startActivity(new Intent(SettingsActivity.this, MapsActivity.class));
                 }
-                else {
-                    finish();
+                else if (counter < 8){
+                    Context context = null;
+
+                    // TODO Show Nick this is where the error was.  The new declaration here of
+                    // data was leaving "datasource" un-set aka null...was previously "data"
+
+                    //           MileageModelDataSource data = new MileageModelDataSource(context);
+                    // was it really here ->
+                    datasource.createMileageModel(vehicleInfo.getEngine(), vehicleInfo.getMake(),
+                            vehicleInfo.getUserMileage(), vehicleInfo.getModel(),
+                            counter, vehicleInfo.getCarName(), vehicleInfo.getYear(),
+                            vehicleInfo.getTransmission(), vehicleInfo.getVehicleID());
+                    counter++;
+                    //          finish();
                     startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
+                } else {
+                    //goto pick vehicle screen yet to be implemented
                 }
+
             }
         });
         final Intent mIntent = new Intent(this, MapsActivity.class);
@@ -80,9 +97,6 @@ public class SettingsActivity extends Activity {
             @Override
             public void onClick(View v) {
                 mIntent.putExtra("station", "0");
-                MileageDBModel DBModel = null;
-                String Mileage = tMileage.getText().toString();
-                DBModel = datasource.createMileage(Mileage);
 
 
                 finish();
@@ -94,9 +108,6 @@ public class SettingsActivity extends Activity {
         pickFourButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MileageDBModel DBModel = null;
-                String Mileage = tMileage.getText().toString();
-                DBModel = datasource.createMileage(Mileage);
                 finish();
                 startActivity(new Intent(SettingsActivity.this, StationPickerActivity.class));
                 setContentView(R.layout.activity_station_picker);
