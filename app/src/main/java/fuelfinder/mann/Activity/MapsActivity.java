@@ -344,8 +344,6 @@ public class MapsActivity extends FragmentActivity implements
             Polyline polylin = mMap.addPolyline(rectLine);
 
             String DistanceInfo = getDistanceOnRoad(CurrentLocation.getLatitude(), CurrentLocation.getLongitude(), gasLoc.latitude, gasLoc.longitude);
-            //mMap.addMarker(new MarkerOptions().position(new LatLng(0,0)).title(DistanceInfo));
-            //mMap.addMarker(new MarkerOptions().position(new LatLng(0,10)).title(FPM.kmDistance));
         }
 
         // Return best reading or null
