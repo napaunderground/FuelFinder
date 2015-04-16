@@ -23,7 +23,7 @@ public class MileageModel {
 
     public String getCarName() { return carName; }
 
-    public MileageModel() {
+   /* public MileageModel() {
         carName = "Name";
         year = 0;
         make = "none";
@@ -31,7 +31,7 @@ public class MileageModel {
         engine = 0;
         transmission = "none";
         mileage = 0;
-    }
+    }*/
 
     // Need to make a data input for vehicleInfo that holds make/model/year/options
     public Uri getMileageUri()
@@ -85,7 +85,7 @@ public class MileageModel {
 
     public void setTransmission(String transmission) { this.transmission = transmission; }
 
-    public double  getUserMileage() { return mileage; }
+    public double  getUserMileage() { return this.mileage; }
 
     public void setUserMileage(double mileage)
     {

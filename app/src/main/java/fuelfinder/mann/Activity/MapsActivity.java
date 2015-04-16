@@ -49,12 +49,13 @@ import fuelfinder.mann.Parser.GMapV2Direction;
 import fuelfinder.mann.R;
 import fuelfinder.mann.Utility.Dijkstra;
 import fuelfinder.mann.Utility.GasStationHandler;
+import fuelfinder.mann.Utility.MileageModelDataSource;
 
 public class MapsActivity extends FragmentActivity implements
         LocationListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
-
+    private MileageModelDataSource datasource;
     private static final double MILEAGE_VALUE = 10.0;
     private static final long ONE_MIN = 1000 * 60;
     private static final long TWO_MIN = ONE_MIN * 2;
@@ -85,6 +86,8 @@ public class MapsActivity extends FragmentActivity implements
         mLocationRequest.setFastestInterval(FASTEST_UPDATE_FREQ);
         buildGoogleApiClient();
         StationNum = getIntent().getExtras().getString("station");
+        datasource = new MileageModelDataSource(this);
+        datasource.open();
         /*if (StationNum != null){
         StationNum = getIntent().getExtras().getString("station");
         }
@@ -315,11 +318,13 @@ public class MapsActivity extends FragmentActivity implements
             }
             GasStationHandler Handle = new GasStationHandler();
             ArrayList<FuelPriceModel> bestStations = new ArrayList<>();
-            bestStations = Handle.getBestStations(FPLoc, MILEAGE_VALUE);
+            double ML;
+            ML = datasource.getAllVehicles().get(0).getUserMileage();
+            bestStations = Handle.getBestStations(FPLoc, ML);
             int SN = Integer.parseInt(StationNum);
             FuelPriceModel FPM = bestStations.get(SN);
             LatLng gasLoc = new LatLng(FPM.Lat, FPM.Lng);
-            mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID).snippet("Price Per Gallon: " + Double.toString(FPM.pricePerGallon)));
+            mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID).snippet("Price Per Gallon: " + Double.toString(FPM.pricePerGallon) + "| Distance: " + FPM.kmDistance));
 
 
             /////////////////////////////////////////////////////////

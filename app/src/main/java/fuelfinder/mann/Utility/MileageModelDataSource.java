@@ -81,7 +81,7 @@ public class MileageModelDataSource{
         values.put(MySQLiteHelper.VehName, VehicleName);
         values.put(MySQLiteHelper.Mileage, Mileage);
         open();
-        database.insert("VehicleInfo.db", null, values);
+        database.insert("VehicleInfo", null, values);
         close();
 
         String test = "test";
@@ -122,15 +122,14 @@ public class MileageModelDataSource{
 
     private MileageModel cursorToMileageModel(Cursor cursor) {
         MileageModel Model = new MileageModel();
-        Model.setVehicleID(cursor.getInt(0));
-        Model.setModel(cursor.getString(1));
-        Model.setCarName(cursor.getString(2));
-        Model.setYear(cursor.getInt(3));
-        Model.setMake(cursor.getString(4));
-        Model.setUserMileage(cursor.getDouble(5));
-        Model.setEngine(cursor.getDouble(6));
-        Model.setTransmission(cursor.getString(7));
-
+        Model.setVehicleID(cursor.getInt(cursor.getColumnIndex("VehicleID")));
+        Model.setModel(cursor.getString(cursor.getColumnIndex("Model")));
+        Model.setCarName(cursor.getString(cursor.getColumnIndex("VehName")));
+        Model.setYear(cursor.getInt(cursor.getColumnIndex("Year")));
+        Model.setMake(cursor.getString(cursor.getColumnIndex("Make")));
+        Model.setUserMileage(cursor.getDouble(cursor.getColumnIndex("Mileage")));
+        Model.setEngine(cursor.getDouble(cursor.getColumnIndex("Engine")));
+        Model.setTransmission(cursor.getString(cursor.getColumnIndex("Transmission")));
 
         return Model;
     }

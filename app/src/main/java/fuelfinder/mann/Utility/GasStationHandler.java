@@ -1,5 +1,11 @@
 package fuelfinder.mann.Utility;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Bundle;
+
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -13,15 +19,26 @@ import fuelfinder.mann.Service.CostCalculator;
 
 
 
-public class GasStationHandler {
-
+public class GasStationHandler{
+    private MileageModelDataSource datasource;
     public class IndexInfo{
         int index;
         double priceInfo;
 
     }
 
+
+    public void onCreate(Bundle savedInstanceState) {
+
+
+        datasource.open();
+
+    }
+
+
+
     public ArrayList<FuelPriceModel> getBestStations(ArrayList<FuelPriceModel> Stations, double Mileage){
+
         double CheapVal1 = 1000;
         double CheapVal2 = 1000;
         double CheapVal3 = 1000;
@@ -57,7 +74,6 @@ public class GasStationHandler {
                 Index4 = Prices.get(p).index;
             }
         }
-
         BestStations.add(Stations.get(Index1));
         BestStations.add(Stations.get(Index2));
         BestStations.add(Stations.get(Index3));
