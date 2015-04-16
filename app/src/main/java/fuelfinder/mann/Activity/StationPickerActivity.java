@@ -46,11 +46,7 @@ public class StationPickerActivity extends Activity implements com.google.androi
     private LocationRequest mLocationRequest;
     private Location mBestReading;
     private GoogleApiClient mGoogleApiClient;
-    Location mCurrentLocation;
-    String Choice1Cost;
-    String Choice2Cost;
-    String Choice3Cost;
-    String Choice4Cost;
+
 
     private Button firstChoice;
     private Button secondChoice;

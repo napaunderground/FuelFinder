@@ -32,7 +32,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             " text not null, " + Year +
             " integer not null, " + Make +
             " text not null, " + Mileage +
-            " double not null, " + Engine +
+            " real not null, " + Engine +
             " double not null, " + Transmission +" text not null);";
 
     public MySQLiteHelper(Context context) {

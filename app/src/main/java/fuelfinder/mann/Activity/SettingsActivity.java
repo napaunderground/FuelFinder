@@ -15,6 +15,7 @@ import java.util.List;
 import fuelfinder.mann.Models.MileageModel;
 import fuelfinder.mann.R;
 import fuelfinder.mann.Utility.MileageModelDataSource;
+import fuelfinder.mann.Utility.MySQLiteHelper;
 
 
 public class SettingsActivity extends Activity {
@@ -33,7 +34,7 @@ public class SettingsActivity extends Activity {
     private MileageModelDataSource datasource;
     MileageModel vehicleInfo = new MileageModel();
     public int counter = 0;
-
+    MySQLiteHelper Helper;
 
 
     @Override
@@ -52,6 +53,8 @@ public class SettingsActivity extends Activity {
         tMileage = (EditText) findViewById(R.id.editTextFuelMileage);
         tEngine = (EditText) findViewById(R.id.editTextEngineSize);
         tTransmission = (EditText) findViewById(R.id.editTextTransmission);
+        //Helper = new MySQLiteHelper(this);
+
 
         datasource = new MileageModelDataSource(this);
         datasource.open();
@@ -71,17 +74,18 @@ public class SettingsActivity extends Activity {
                     startActivity(new Intent(SettingsActivity.this, MapsActivity.class));
                 }
                 else if (counter < 8){
-                    Context context = null;
 
                     // TODO Show Nick this is where the error was.  The new declaration here of
                     // data was leaving "datasource" un-set aka null...was previously "data"
 
                     //           MileageModelDataSource data = new MileageModelDataSource(context);
                     // was it really here ->
+
                     datasource.createMileageModel(vehicleInfo.getEngine(), vehicleInfo.getMake(),
                             vehicleInfo.getUserMileage(), vehicleInfo.getModel(),
                             counter, vehicleInfo.getCarName(), vehicleInfo.getYear(),
                             vehicleInfo.getTransmission(), vehicleInfo.getVehicleID());
+
                     counter++;
                     //          finish();
                     startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
@@ -96,6 +100,7 @@ public class SettingsActivity extends Activity {
         pickTheBestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 mIntent.putExtra("station", "0");
 
 
@@ -108,6 +113,7 @@ public class SettingsActivity extends Activity {
         pickFourButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 finish();
                 startActivity(new Intent(SettingsActivity.this, StationPickerActivity.class));
                 setContentView(R.layout.activity_station_picker);
