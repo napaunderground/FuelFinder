@@ -4,6 +4,7 @@ package fuelfinder.mann.Parser;
  * Created by Action Johnny on 4/9/2015.
  */
 import android.location.Location;
+import android.os.StrictMode;
 
 import com.google.gson.Gson;
 
@@ -55,6 +56,9 @@ public class FuelSourceParserV2 {
 
     // Converts a JSON string to a RecipeModel
     static public ArrayList<FuelPriceModel> JSONtoModel(Location myLoc) throws JSONException {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy);
 
         HttpClient client = new DefaultHttpClient();
 

@@ -88,12 +88,6 @@ public class MapsActivity extends FragmentActivity implements
         StationNum = getIntent().getExtras().getString("station");
         datasource = new MileageModelDataSource(this);
         datasource.open();
-        /*if (StationNum != null){
-        StationNum = getIntent().getExtras().getString("station");
-        }
-        else{
-            StationNum = "0";
-        }*/
 
 
 
