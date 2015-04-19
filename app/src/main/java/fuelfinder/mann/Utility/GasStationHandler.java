@@ -3,14 +3,30 @@ package fuelfinder.mann.Utility;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.location.Location;
 import android.os.Bundle;
 
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import fuelfinder.mann.Models.FuelPriceModel;
+import fuelfinder.mann.Parser.GMapV2Direction;
 import fuelfinder.mann.Service.CostCalculator;
 
 /**
@@ -37,7 +53,7 @@ public class GasStationHandler{
 
 
 
-    public ArrayList<FuelPriceModel> getBestStations(ArrayList<FuelPriceModel> Stations, double Mileage){
+    public ArrayList<FuelPriceModel> getBestStations(ArrayList<FuelPriceModel> Stations, double Mileage, Location myLoc){
 
         double CheapVal1 = 1000;
         double CheapVal2 = 1000;
@@ -47,11 +63,12 @@ public class GasStationHandler{
         int Index2 = 0;
         int Index3 = 0;
         int Index4 = 0;
+        GMapV2Direction GMV2D = new GMapV2Direction();
         ArrayList<FuelPriceModel> BestStations = new ArrayList();
         ArrayList<IndexInfo> Prices = new ArrayList();
         CostCalculator C = new CostCalculator();
         for (int i = 0; i < Stations.size(); i++){
-            double Price = C.findCost(Mileage,StringToDouble(Stations.get(i).kmDistance),Stations.get(i).pricePerGallon) + Stations.get(i).pricePerGallon;
+            double Price = C.findCost(Mileage,StringToDouble(Stations.get(i).kmDistance)*0.621371,Stations.get(i).pricePerGallon) + Stations.get(i).pricePerGallon;
             IndexInfo II = new IndexInfo();
             II.index = i; II.priceInfo = Price;
             Prices.add(II);
@@ -101,4 +118,47 @@ public class GasStationHandler{
         result = Double.parseDouble(ParsedString);
         return result;
     }
+
+
+    private String getDistanceOnRoad(double latitude, double longitude,
+                                     double prelatitute, double prelongitude) {
+        /*
+        * returns the distance by road between two lat/longs
+         */
+        String result_in_mi = "";
+        String url = "http://maps.google.com/maps/api/directions/xml?origin="
+                + latitude + "," + longitude + "&destination=" + prelatitute
+                + "," + prelongitude + "&sensor=false&units=imperial";
+        String tag[] = {"text"};
+        HttpResponse response = null;
+        try {
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpContext localContext = new BasicHttpContext();
+            HttpPost httpPost = new HttpPost(url);
+            response = httpClient.execute(httpPost, localContext);
+            InputStream is = response.getEntity().getContent();
+            DocumentBuilder builder = DocumentBuilderFactory.newInstance()
+                    .newDocumentBuilder();
+            Document doc = builder.parse(is);
+            if (doc != null) {
+                NodeList nl;
+                ArrayList args = new ArrayList();
+                for (String s : tag) {
+                    nl = doc.getElementsByTagName(s);
+                    if (nl.getLength() > 0) {
+                        Node node = nl.item(nl.getLength() - 1);
+                        args.add(node.getTextContent());
+                    } else {
+                        args.add(" - ");
+                    }
+                }
+                result_in_mi = String.format("%s", args.get(0));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result_in_mi;
+    }
+
+
 }
