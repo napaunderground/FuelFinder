@@ -1,7 +1,6 @@
 package fuelfinder.mann.Activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,8 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import java.util.List;
 
 import fuelfinder.mann.Models.MileageModel;
 import fuelfinder.mann.R;
@@ -74,12 +71,6 @@ public class SettingsActivity extends Activity {
                     startActivity(new Intent(SettingsActivity.this, MapsActivity.class));
                 }
                 else if (counter < 8){
-
-                    // TODO Show Nick this is where the error was.  The new declaration here of
-                    // data was leaving "datasource" un-set aka null...was previously "data"
-
-                    //           MileageModelDataSource data = new MileageModelDataSource(context);
-                    // was it really here ->
 
                     datasource.createMileageModel(vehicleInfo.getEngine(), vehicleInfo.getMake(),
                             vehicleInfo.getUserMileage(), vehicleInfo.getModel(),
