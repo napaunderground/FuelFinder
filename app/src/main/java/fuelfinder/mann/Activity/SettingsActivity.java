@@ -17,7 +17,8 @@ import fuelfinder.mann.Utility.MySQLiteHelper;
 
 public class SettingsActivity extends Activity {
 
-
+    String myLat;
+    String myLng;
     private Button moreInputsButton;
     private Button pickTheBestButton;
     private Button pickFourButton;
@@ -39,6 +40,8 @@ public class SettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
 
+        myLat = getIntent().getStringExtra("mLat");
+        myLng = getIntent().getStringExtra("mLng");
 
         moreInputsButton = (Button) findViewById(R.id.moreInputsButton);
         pickTheBestButton = (Button) findViewById(R.id.pickTheBestButton);
@@ -55,7 +58,6 @@ public class SettingsActivity extends Activity {
 
         datasource = new MileageModelDataSource(this);
         datasource.open();
-
 
 
 
@@ -94,19 +96,20 @@ public class SettingsActivity extends Activity {
 
                 mIntent.putExtra("station", "0");
 
-
                 finish();
                 startActivity(mIntent);
             }
         });
 
+        final Intent StationIntent = new Intent(this, StationPickerActivity.class);
 
         pickFourButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                StationIntent.putExtra("mLat", myLat);
+                StationIntent.putExtra("mLng", myLng);
                 finish();
-                startActivity(new Intent(SettingsActivity.this, StationPickerActivity.class));
+                startActivity(StationIntent);
                 setContentView(R.layout.activity_station_picker);
 
             }
