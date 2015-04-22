@@ -7,7 +7,6 @@
     tools:context="fuelfinder.mann.Activity.StationPickerActivity"
     android:background="@color/green">
 
-
         <Button
             android:background="@color/purple"
             android:layout_alignParentRight="true"

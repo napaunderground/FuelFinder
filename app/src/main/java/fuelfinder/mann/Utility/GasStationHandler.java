@@ -13,6 +13,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
+import org.json.JSONException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -25,7 +26,9 @@ import java.util.Comparator;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import fuelfinder.mann.Models.DirectionsMatrixModel;
 import fuelfinder.mann.Models.FuelPriceModel;
+import fuelfinder.mann.Parser.DirectionsMatrixParser;
 import fuelfinder.mann.Parser.GMapV2Direction;
 import fuelfinder.mann.Service.CostCalculator;
 
@@ -65,10 +68,18 @@ public class GasStationHandler{
         int Index4 = 0;
         GMapV2Direction GMV2D = new GMapV2Direction();
         ArrayList<FuelPriceModel> BestStations = new ArrayList();
+        DirectionsMatrixParser DMP = new DirectionsMatrixParser();
+        ArrayList<DirectionsMatrixModel> DMArray = new ArrayList();
+        try {
+            DMArray = DMP.JSONtoModel(myLoc, Stations);
+        }
+        catch(JSONException e){
+
+        }
         ArrayList<IndexInfo> Prices = new ArrayList();
         CostCalculator C = new CostCalculator();
         for (int i = 0; i < Stations.size(); i++){
-            double Price = C.findCost(Mileage,StringToDouble(Stations.get(i).kmDistance)*0.621371,Stations.get(i).pricePerGallon) + Stations.get(i).pricePerGallon;
+            double Price = C.findCost(Mileage,DMArray.get(i).kmDistance*0.621371,Stations.get(i).pricePerGallon) + Stations.get(i).pricePerGallon;
             IndexInfo II = new IndexInfo();
             II.index = i; II.priceInfo = Price;
             Prices.add(II);
@@ -95,6 +106,52 @@ public class GasStationHandler{
         BestStations.add(Stations.get(Index2));
         BestStations.add(Stations.get(Index3));
         BestStations.add(Stations.get(Index4));
+        return BestStations;
+
+    }
+
+    public ArrayList<Integer> getBestStationIndex(ArrayList<FuelPriceModel> Stations, double Mileage, Location myLoc){
+
+        double CheapVal1 = 1000;
+        double CheapVal2 = 1000;
+        double CheapVal3 = 1000;
+        double CheapVal4 = 1000;
+        int Index1 = 0;
+        int Index2 = 0;
+        int Index3 = 0;
+        int Index4 = 0;
+        GMapV2Direction GMV2D = new GMapV2Direction();
+        ArrayList<Integer> BestStations = new ArrayList();
+        ArrayList<IndexInfo> Prices = new ArrayList();
+        CostCalculator C = new CostCalculator();
+        for (int i = 0; i < Stations.size(); i++){
+            double Price = C.findCost(Mileage,StringToDouble(Stations.get(i).kmDistance)*0.621371,Stations.get(i).pricePerGallon) + Stations.get(i).pricePerGallon;
+            IndexInfo II = new IndexInfo();
+            II.index = i; II.priceInfo = Price;
+            Prices.add(II);
+        }
+        for (int p = 0; p < Prices.size(); p++){
+            if (Prices.get(p).priceInfo < CheapVal1){
+                CheapVal1 = Prices.get(p).priceInfo;
+                Index1 = Prices.get(p).index;
+            }
+            else if(Prices.get(p).priceInfo < CheapVal2){
+                CheapVal2 = Prices.get(p).priceInfo;
+                Index2 = Prices.get(p).index;
+            }
+            else if(Prices.get(p).priceInfo < CheapVal3){
+                CheapVal3 = Prices.get(p).priceInfo;
+                Index3 = Prices.get(p).index;
+            }
+            else if(Prices.get(p).priceInfo < CheapVal4){
+                CheapVal4 = Prices.get(p).priceInfo;
+                Index4 = Prices.get(p).index;
+            }
+        }
+        BestStations.add((Index1));
+        BestStations.add((Index2));
+        BestStations.add((Index3));
+        BestStations.add((Index4));
         return BestStations;
 
     }

@@ -170,7 +170,7 @@ public class StationPickerActivity extends Activity {
             public void onClick(View v) {
 
                 mIntent.putExtra("station", "0");
-                finish();
+                //finish();
                 startActivity(mIntent);
 
             }
@@ -181,7 +181,7 @@ public class StationPickerActivity extends Activity {
             public void onClick(View v) {
 
                 mIntent.putExtra("station", "1");
-                finish();
+                //finish();
                 startActivity(mIntent);
             }
         });
@@ -191,7 +191,7 @@ public class StationPickerActivity extends Activity {
             public void onClick(View v) {
 
                 mIntent.putExtra("station", "2");
-                finish();
+               // finish();
                 startActivity(mIntent);
             }
         });
@@ -201,7 +201,7 @@ public class StationPickerActivity extends Activity {
             public void onClick(View v) {
 
                 mIntent.putExtra("station", "3");
-                finish();
+                //finish();
                 startActivity(mIntent);
             }
         });

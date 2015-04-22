@@ -317,7 +317,7 @@ public class MapsActivity extends FragmentActivity implements
             int SN = Integer.parseInt(StationNum);
             FuelPriceModel FPM = bestStations.get(SN);
             LatLng gasLoc = new LatLng(FPM.Lat, FPM.Lng);
-            mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID).snippet("Price Per Gallon: $" + Double.toString(FPM.pricePerGallon) + " | Distance: " + Double.toString((StringToDouble(FPM.kmDistance)*0.621371)) + " miles"));
+            mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID).snippet("Price Per Gallon: $" + Double.toString(FPM.pricePerGallon) + " | Distance: " + getDistanceOnRoad(CurrentLocation.getLatitude(),CurrentLocation.getLongitude(),gasLoc.latitude,gasLoc.longitude)));
 
 
             /////////////////////////////////////////////////////////
@@ -336,7 +336,7 @@ public class MapsActivity extends FragmentActivity implements
             }
             Polyline polylin = mMap.addPolyline(rectLine);
 
-            String DistanceInfo = getDistanceOnRoad(CurrentLocation.getLatitude(), CurrentLocation.getLongitude(), gasLoc.latitude, gasLoc.longitude);
+
         }
 
         // Return best reading or null
@@ -428,7 +428,7 @@ public class MapsActivity extends FragmentActivity implements
     @Override
     public void onBackPressed() {
         finish();
-        startActivity(new Intent(this, fuelfinder.mann.Activity.SettingsActivity.class));
+        //startActivity(new Intent(this, fuelfinder.mann.Activity.SettingsActivity.class));
         return;
     }
 }
