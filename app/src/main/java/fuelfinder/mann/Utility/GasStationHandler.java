@@ -39,20 +39,12 @@ import fuelfinder.mann.Service.CostCalculator;
 
 
 public class GasStationHandler{
-    private MileageModelDataSource datasource;
     public class IndexInfo{
         int index;
         double priceInfo;
 
     }
 
-
-    public void onCreate(Bundle savedInstanceState) {
-
-
-        datasource.open();
-
-    }
 
 
 
@@ -66,7 +58,7 @@ public class GasStationHandler{
         int Index2 = 0;
         int Index3 = 0;
         int Index4 = 0;
-        GMapV2Direction GMV2D = new GMapV2Direction();
+
         ArrayList<FuelPriceModel> BestStations = new ArrayList();
         DirectionsMatrixParser DMP = new DirectionsMatrixParser();
         ArrayList<DirectionsMatrixModel> DMArray = new ArrayList();
@@ -110,51 +102,7 @@ public class GasStationHandler{
 
     }
 
-    public ArrayList<Integer> getBestStationIndex(ArrayList<FuelPriceModel> Stations, double Mileage, Location myLoc){
 
-        double CheapVal1 = 1000;
-        double CheapVal2 = 1000;
-        double CheapVal3 = 1000;
-        double CheapVal4 = 1000;
-        int Index1 = 0;
-        int Index2 = 0;
-        int Index3 = 0;
-        int Index4 = 0;
-        GMapV2Direction GMV2D = new GMapV2Direction();
-        ArrayList<Integer> BestStations = new ArrayList();
-        ArrayList<IndexInfo> Prices = new ArrayList();
-        CostCalculator C = new CostCalculator();
-        for (int i = 0; i < Stations.size(); i++){
-            double Price = C.findCost(Mileage,StringToDouble(Stations.get(i).kmDistance)*0.621371,Stations.get(i).pricePerGallon) + Stations.get(i).pricePerGallon;
-            IndexInfo II = new IndexInfo();
-            II.index = i; II.priceInfo = Price;
-            Prices.add(II);
-        }
-        for (int p = 0; p < Prices.size(); p++){
-            if (Prices.get(p).priceInfo < CheapVal1){
-                CheapVal1 = Prices.get(p).priceInfo;
-                Index1 = Prices.get(p).index;
-            }
-            else if(Prices.get(p).priceInfo < CheapVal2){
-                CheapVal2 = Prices.get(p).priceInfo;
-                Index2 = Prices.get(p).index;
-            }
-            else if(Prices.get(p).priceInfo < CheapVal3){
-                CheapVal3 = Prices.get(p).priceInfo;
-                Index3 = Prices.get(p).index;
-            }
-            else if(Prices.get(p).priceInfo < CheapVal4){
-                CheapVal4 = Prices.get(p).priceInfo;
-                Index4 = Prices.get(p).index;
-            }
-        }
-        BestStations.add((Index1));
-        BestStations.add((Index2));
-        BestStations.add((Index3));
-        BestStations.add((Index4));
-        return BestStations;
-
-    }
 
 
     public double StringToDouble(String s1) {
@@ -176,46 +124,6 @@ public class GasStationHandler{
         return result;
     }
 
-
-    private String getDistanceOnRoad(double latitude, double longitude,
-                                     double prelatitute, double prelongitude) {
-        /*
-        * returns the distance by road between two lat/longs
-         */
-        String result_in_mi = "";
-        String url = "http://maps.google.com/maps/api/directions/xml?origin="
-                + latitude + "," + longitude + "&destination=" + prelatitute
-                + "," + prelongitude + "&sensor=false&units=imperial";
-        String tag[] = {"text"};
-        HttpResponse response = null;
-        try {
-            HttpClient httpClient = new DefaultHttpClient();
-            HttpContext localContext = new BasicHttpContext();
-            HttpPost httpPost = new HttpPost(url);
-            response = httpClient.execute(httpPost, localContext);
-            InputStream is = response.getEntity().getContent();
-            DocumentBuilder builder = DocumentBuilderFactory.newInstance()
-                    .newDocumentBuilder();
-            Document doc = builder.parse(is);
-            if (doc != null) {
-                NodeList nl;
-                ArrayList args = new ArrayList();
-                for (String s : tag) {
-                    nl = doc.getElementsByTagName(s);
-                    if (nl.getLength() > 0) {
-                        Node node = nl.item(nl.getLength() - 1);
-                        args.add(node.getTextContent());
-                    } else {
-                        args.add(" - ");
-                    }
-                }
-                result_in_mi = String.format("%s", args.get(0));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result_in_mi;
-    }
 
 
 }

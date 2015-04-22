@@ -112,8 +112,6 @@ public class DirectionsMatrixParser {
         JSONArray EleArray = RowObj.getJSONArray("elements");
         JSONObject EleObj = EleArray.getJSONObject(0);
 
-        int lp = 9;
-        int dd = 28 + 49;
         for (int i = 0; i < EleArray.length(); i++) {
             if (EleArray.get(i) != null) {
 
@@ -121,13 +119,6 @@ public class DirectionsMatrixParser {
                 JSONObject S = EleArray.getJSONObject(i);
                 JSONObject DistVal = S.getJSONObject("distance");
 
-
-
-
-
-                int dsaf = 0;
-                int dddd = 2313;
-                dsaf+=dddd;
                 //invoking the parser and converting JSON string to FuelPriceModel
                 DirectionsMatrixModel model = gson.fromJson(DistVal.toString(), DirectionsMatrixModel.class);
                 Models.add(model);
