@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -36,8 +37,8 @@ import fuelfinder.mann.Utility.MileageModelDataSource;
 public class StationPickerActivity extends Activity {
 
     private MileageModelDataSource datasource;
-    String myLat ="";
-    String myLng ="";
+    String myLat = "";
+    String myLng = "";
 
     String Choice1Cost;
     String Choice2Cost;
@@ -99,8 +100,8 @@ public class StationPickerActivity extends Activity {
         }
         GasStationHandler Handle = new GasStationHandler();
         ArrayList<FuelPriceModel> bestStations = new ArrayList<>();
-        double ML = datasource.getAllVehicles().get(0).getUserMileage();
-        bestStations = Handle.getBestStations(FPLoc, ML, mCurrentLocation);
+        double MileageValue = datasource.getAllVehicles().get(0).getUserMileage();
+        bestStations = Handle.getBestStations(FPLoc, MileageValue, mCurrentLocation);
 
         Choice1Cost ="$" +  Double.toString(bestStations.get(0).pricePerGallon);
         Choice2Cost ="$" +  Double.toString(bestStations.get(1).pricePerGallon);
@@ -121,15 +122,11 @@ public class StationPickerActivity extends Activity {
 
         CostCalculator C = new CostCalculator();
 
-        double TC1 = C.findCost(ML, StringToDouble(bestStations.get(0).kmDistance)*0.621371, bestStations.get(0).pricePerGallon) + bestStations.get(0).pricePerGallon;
-        double TC2 = C.findCost(ML, StringToDouble(bestStations.get(1).kmDistance)*0.621371, bestStations.get(1).pricePerGallon) + bestStations.get(1).pricePerGallon;
-        double TC3 = C.findCost(ML, StringToDouble(bestStations.get(2).kmDistance)*0.621371, bestStations.get(2).pricePerGallon) + bestStations.get(2).pricePerGallon;
-        double TC4 = C.findCost(ML, StringToDouble(bestStations.get(3).kmDistance)*0.621371, bestStations.get(3).pricePerGallon) + bestStations.get(3).pricePerGallon;
+        double TC1 = C.findCost(MileageValue, StringToDouble(bestStations.get(0).kmDistance)*0.621371, bestStations.get(0).pricePerGallon) + bestStations.get(0).pricePerGallon;
+        double TC2 = C.findCost(MileageValue, StringToDouble(bestStations.get(1).kmDistance)*0.621371, bestStations.get(1).pricePerGallon) + bestStations.get(1).pricePerGallon;
+        double TC3 = C.findCost(MileageValue, StringToDouble(bestStations.get(2).kmDistance)*0.621371, bestStations.get(2).pricePerGallon) + bestStations.get(2).pricePerGallon;
+        double TC4 = C.findCost(MileageValue, StringToDouble(bestStations.get(3).kmDistance)*0.621371, bestStations.get(3).pricePerGallon) + bestStations.get(3).pricePerGallon;
 
-        //double number = 651.5176515121351;
-
-        //number = Math.round(number * 100);
-        //number = number/100;
 
         TC1 = Math.round(TC1*100);
         TC1=TC1/100;
@@ -159,9 +156,18 @@ public class StationPickerActivity extends Activity {
         TotalCostView4 = (TextView) findViewById(R.id.textView15);
         TotalCostView4.setText(TotalCost4);
 
+        firstChoice = (Button) findViewById(R.id.checkBox);
+        firstChoice.setText(bestStations.get(0).stationID+Html.fromHtml("<br /><small>Best Total Cost</small>"));
 
-        //Resources res = getResources();
-        //String Price1Text = String.format(res.getString(R.string.Price1), Choice1Cost);
+        secondChoice = (Button) findViewById(R.id.checkBox2);
+        secondChoice.setText(bestStations.get(1).stationID+Html.fromHtml("<br /><small>2nd Best Total Cost</small>"));
+
+
+        thirdChoice = (Button) findViewById(R.id.checkBox3);
+        thirdChoice.setText(bestStations.get(2).stationID+Html.fromHtml("<br /><small>3rd Best Total Cost</small>"));
+
+        fourthChoice = (Button) findViewById(R.id.checkBox4);
+        fourthChoice.setText(bestStations.get(3).stationID+ Html.fromHtml("<br /><small>4th Best Total Cost</small>"));
 
         final Intent mIntent = new Intent(this, MapsActivity.class);
 
