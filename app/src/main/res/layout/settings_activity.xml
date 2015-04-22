@@ -70,7 +70,6 @@
             android:layout_alignEnd="@+id/editTextEngineSize" />
 
 
-
         <EditText
             android:id="@+id/editTextFuelMileage"
             android:layout_width="wrap_content"

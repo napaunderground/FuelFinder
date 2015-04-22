@@ -16,10 +16,13 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -37,6 +40,7 @@ import org.w3c.dom.NodeList;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
@@ -300,7 +304,11 @@ public class MapsActivity extends FragmentActivity implements
 
 
             MyPosition = new LatLng(CurrentLocation.getLatitude(), CurrentLocation.getLongitude());
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(MyPosition, 15));
+           // mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(MyPosition, 15));
+            //////
+
+
+            /////
             FuelSourceParserV2 FSP = new FuelSourceParserV2();
             ArrayList<FuelPriceModel> FPLoc = new ArrayList();
             try{
@@ -317,8 +325,16 @@ public class MapsActivity extends FragmentActivity implements
             int SN = Integer.parseInt(StationNum);
             FuelPriceModel FPM = bestStations.get(SN);
             LatLng gasLoc = new LatLng(FPM.Lat, FPM.Lng);
-            mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID).snippet("Price Per Gallon: $" + Double.toString(FPM.pricePerGallon) + " | Distance: " + getDistanceOnRoad(CurrentLocation.getLatitude(),CurrentLocation.getLongitude(),gasLoc.latitude,gasLoc.longitude)));
-
+            Marker m1 = mMap.addMarker(new MarkerOptions().position(sourcePosition));
+            Marker m2 = mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID).snippet("Price Per Gallon: $" + Double.toString(FPM.pricePerGallon) + " | Distance: " + getDistanceOnRoad(CurrentLocation.getLatitude(),CurrentLocation.getLongitude(),gasLoc.latitude,gasLoc.longitude)));
+////////
+            LatLngBounds.Builder b = new LatLngBounds.Builder();
+            b.include(m1.getPosition());
+            b.include(m2.getPosition());
+            LatLngBounds bounds = b.build();
+//Change the padding as per needed
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 340,340,5);
+            mMap.animateCamera(cu);
 
             /////////////////////////////////////////////////////////
 
@@ -424,6 +440,8 @@ public class MapsActivity extends FragmentActivity implements
         result = Double.parseDouble(ParsedString);
         return result;
     }
+
+
 
     @Override
     public void onBackPressed() {
