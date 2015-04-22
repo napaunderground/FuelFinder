@@ -56,7 +56,6 @@ public class MapsActivity extends FragmentActivity implements
         GoogleApiClient.OnConnectionFailedListener {
 
     private MileageModelDataSource datasource;
-    private static final double MILEAGE_VALUE = 10.0;
     private static final long ONE_MIN = 1000 * 60;
     private static final long TWO_MIN = ONE_MIN * 2;
     private static final long FIVE_MIN = ONE_MIN * 5;
@@ -314,11 +313,11 @@ public class MapsActivity extends FragmentActivity implements
             ArrayList<FuelPriceModel> bestStations = new ArrayList<>();
             double ML;
             ML = datasource.getAllVehicles().get(0).getUserMileage();
-            bestStations = Handle.getBestStations(FPLoc, ML);
+            bestStations = Handle.getBestStations(FPLoc, ML, CurrentLocation);
             int SN = Integer.parseInt(StationNum);
             FuelPriceModel FPM = bestStations.get(SN);
             LatLng gasLoc = new LatLng(FPM.Lat, FPM.Lng);
-            mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID).snippet("Price Per Gallon: " + Double.toString(FPM.pricePerGallon) + "| Distance: " + FPM.kmDistance));
+            mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID).snippet("Price Per Gallon: $" + Double.toString(FPM.pricePerGallon) + " | Distance: " + getDistanceOnRoad(CurrentLocation.getLatitude(),CurrentLocation.getLongitude(),gasLoc.latitude,gasLoc.longitude)));
 
 
             /////////////////////////////////////////////////////////
@@ -337,7 +336,7 @@ public class MapsActivity extends FragmentActivity implements
             }
             Polyline polylin = mMap.addPolyline(rectLine);
 
-            String DistanceInfo = getDistanceOnRoad(CurrentLocation.getLatitude(), CurrentLocation.getLongitude(), gasLoc.latitude, gasLoc.longitude);
+
         }
 
         // Return best reading or null
@@ -429,7 +428,7 @@ public class MapsActivity extends FragmentActivity implements
     @Override
     public void onBackPressed() {
         finish();
-        startActivity(new Intent(this, fuelfinder.mann.Activity.SettingsActivity.class));
+        //startActivity(new Intent(this, fuelfinder.mann.Activity.SettingsActivity.class));
         return;
     }
 }

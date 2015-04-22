@@ -100,13 +100,12 @@ public class StationPickerActivity extends Activity {
         GasStationHandler Handle = new GasStationHandler();
         ArrayList<FuelPriceModel> bestStations = new ArrayList<>();
         double ML = datasource.getAllVehicles().get(0).getUserMileage();
-        bestStations = Handle.getBestStations(FPLoc, ML);
+        bestStations = Handle.getBestStations(FPLoc, ML, mCurrentLocation);
 
         Choice1Cost ="$" +  Double.toString(bestStations.get(0).pricePerGallon);
         Choice2Cost ="$" +  Double.toString(bestStations.get(1).pricePerGallon);
         Choice3Cost ="$" +  Double.toString(bestStations.get(2).pricePerGallon);
         Choice4Cost ="$" +  Double.toString(bestStations.get(3).pricePerGallon);
-
 
         priceView1 = (TextView) findViewById(R.id.textView10);
         priceView1.setText(Choice1Cost);
@@ -122,10 +121,26 @@ public class StationPickerActivity extends Activity {
 
         CostCalculator C = new CostCalculator();
 
-        double TC1 = C.findCost(ML, StringToDouble(bestStations.get(0).kmDistance), bestStations.get(0).pricePerGallon) + bestStations.get(0).pricePerGallon;
-        double TC2 = C.findCost(ML, StringToDouble(bestStations.get(1).kmDistance), bestStations.get(1).pricePerGallon) + bestStations.get(1).pricePerGallon;
-        double TC3 = C.findCost(ML, StringToDouble(bestStations.get(2).kmDistance), bestStations.get(2).pricePerGallon) + bestStations.get(2).pricePerGallon;
-        double TC4 = C.findCost(ML, StringToDouble(bestStations.get(3).kmDistance), bestStations.get(3).pricePerGallon) + bestStations.get(3).pricePerGallon;
+        double TC1 = C.findCost(ML, StringToDouble(bestStations.get(0).kmDistance)*0.621371, bestStations.get(0).pricePerGallon) + bestStations.get(0).pricePerGallon;
+        double TC2 = C.findCost(ML, StringToDouble(bestStations.get(1).kmDistance)*0.621371, bestStations.get(1).pricePerGallon) + bestStations.get(1).pricePerGallon;
+        double TC3 = C.findCost(ML, StringToDouble(bestStations.get(2).kmDistance)*0.621371, bestStations.get(2).pricePerGallon) + bestStations.get(2).pricePerGallon;
+        double TC4 = C.findCost(ML, StringToDouble(bestStations.get(3).kmDistance)*0.621371, bestStations.get(3).pricePerGallon) + bestStations.get(3).pricePerGallon;
+
+        //double number = 651.5176515121351;
+
+        //number = Math.round(number * 100);
+        //number = number/100;
+
+        TC1 = Math.round(TC1*100);
+        TC1=TC1/100;
+        TC2 = Math.round(TC2*100);
+        TC2=TC2/100;
+        TC3 = Math.round(TC3*100);
+        TC3=TC3/100;
+        TC4 = Math.round(TC4*100);
+        TC4=TC4/100;
+
+
 
         TotalCost1 ="$" +  Double.toString(TC1);
         TotalCost2 ="$" +  Double.toString(TC2);
@@ -155,7 +170,7 @@ public class StationPickerActivity extends Activity {
             public void onClick(View v) {
 
                 mIntent.putExtra("station", "0");
-                finish();
+                //finish();
                 startActivity(mIntent);
 
             }
@@ -166,7 +181,7 @@ public class StationPickerActivity extends Activity {
             public void onClick(View v) {
 
                 mIntent.putExtra("station", "1");
-                finish();
+                //finish();
                 startActivity(mIntent);
             }
         });
@@ -176,7 +191,7 @@ public class StationPickerActivity extends Activity {
             public void onClick(View v) {
 
                 mIntent.putExtra("station", "2");
-                finish();
+               // finish();
                 startActivity(mIntent);
             }
         });
@@ -186,7 +201,7 @@ public class StationPickerActivity extends Activity {
             public void onClick(View v) {
 
                 mIntent.putExtra("station", "3");
-                finish();
+                //finish();
                 startActivity(mIntent);
             }
         });
