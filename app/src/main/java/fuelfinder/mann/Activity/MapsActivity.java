@@ -4,11 +4,13 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.Display;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -333,7 +335,12 @@ public class MapsActivity extends FragmentActivity implements
             b.include(m2.getPosition());
             LatLngBounds bounds = b.build();
 //Change the padding as per needed
-            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 340,340,5);
+            Display display = getWindowManager().getDefaultDisplay();
+            Point Size = new Point();
+            display.getSize(Size);
+            int W = Size.x;
+            int H = Size.y;
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, (W*4)/5,(H*4)/5,5);
             mMap.animateCamera(cu);
 
             /////////////////////////////////////////////////////////
