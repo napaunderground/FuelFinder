@@ -4,11 +4,13 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.Display;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -16,10 +18,13 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -37,6 +42,7 @@ import org.w3c.dom.NodeList;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
@@ -56,7 +62,6 @@ public class MapsActivity extends FragmentActivity implements
         GoogleApiClient.OnConnectionFailedListener {
 
     private MileageModelDataSource datasource;
-    private static final double MILEAGE_VALUE = 10.0;
     private static final long ONE_MIN = 1000 * 60;
     private static final long TWO_MIN = ONE_MIN * 2;
     private static final long FIVE_MIN = ONE_MIN * 5;
@@ -301,7 +306,11 @@ public class MapsActivity extends FragmentActivity implements
 
 
             MyPosition = new LatLng(CurrentLocation.getLatitude(), CurrentLocation.getLongitude());
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(MyPosition, 15));
+           // mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(MyPosition, 15));
+            //////
+
+
+            /////
             FuelSourceParserV2 FSP = new FuelSourceParserV2();
             ArrayList<FuelPriceModel> FPLoc = new ArrayList();
             try{
@@ -314,12 +323,25 @@ public class MapsActivity extends FragmentActivity implements
             ArrayList<FuelPriceModel> bestStations = new ArrayList<>();
             double ML;
             ML = datasource.getAllVehicles().get(0).getUserMileage();
-            bestStations = Handle.getBestStations(FPLoc, ML);
+            bestStations = Handle.getBestStations(FPLoc, ML, CurrentLocation);
             int SN = Integer.parseInt(StationNum);
             FuelPriceModel FPM = bestStations.get(SN);
             LatLng gasLoc = new LatLng(FPM.Lat, FPM.Lng);
-            mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID).snippet("Price Per Gallon: " + Double.toString(FPM.pricePerGallon) + "| Distance: " + FPM.kmDistance));
-
+            Marker m1 = mMap.addMarker(new MarkerOptions().position(sourcePosition));
+            Marker m2 = mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID).snippet("Price Per Gallon: $" + Double.toString(FPM.pricePerGallon) + " | Distance: " + getDistanceOnRoad(CurrentLocation.getLatitude(),CurrentLocation.getLongitude(),gasLoc.latitude,gasLoc.longitude)));
+////////
+            LatLngBounds.Builder b = new LatLngBounds.Builder();
+            b.include(m1.getPosition());
+            b.include(m2.getPosition());
+            LatLngBounds bounds = b.build();
+//Change the padding as per needed
+            Display display = getWindowManager().getDefaultDisplay();
+            Point Size = new Point();
+            display.getSize(Size);
+            int W = Size.x;
+            int H = Size.y;
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, (W*4)/5,(H*4)/5,5);
+            mMap.animateCamera(cu);
 
             /////////////////////////////////////////////////////////
 
@@ -337,7 +359,7 @@ public class MapsActivity extends FragmentActivity implements
             }
             Polyline polylin = mMap.addPolyline(rectLine);
 
-            String DistanceInfo = getDistanceOnRoad(CurrentLocation.getLatitude(), CurrentLocation.getLongitude(), gasLoc.latitude, gasLoc.longitude);
+
         }
 
         // Return best reading or null
@@ -426,10 +448,12 @@ public class MapsActivity extends FragmentActivity implements
         return result;
     }
 
+
+
     @Override
     public void onBackPressed() {
         finish();
-        startActivity(new Intent(this, fuelfinder.mann.Activity.SettingsActivity.class));
+        //startActivity(new Intent(this, fuelfinder.mann.Activity.SettingsActivity.class));
         return;
     }
 }
