@@ -28,6 +28,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import fuelfinder.mann.Models.DirectionsMatrixModel;
 import fuelfinder.mann.Models.FuelPriceModel;
+import fuelfinder.mann.Models.StationInfoModel;
 import fuelfinder.mann.Parser.DirectionsMatrixParser;
 import fuelfinder.mann.Parser.GMapV2Direction;
 import fuelfinder.mann.Service.CostCalculator;
@@ -48,7 +49,7 @@ public class GasStationHandler{
 
 
 
-    public ArrayList<FuelPriceModel> getBestStations(ArrayList<FuelPriceModel> Stations, double Mileage, Location myLoc){
+    public ArrayList<StationInfoModel> getBestStations(ArrayList<FuelPriceModel> Stations, double Mileage, Location myLoc){
 
         double CheapVal1 = 1000;
         double CheapVal2 = 1000;
@@ -59,7 +60,8 @@ public class GasStationHandler{
         int Index3 = 0;
         int Index4 = 0;
 
-        ArrayList<FuelPriceModel> BestStations = new ArrayList();
+
+        ArrayList<StationInfoModel> BestStations = new ArrayList();
         DirectionsMatrixParser DMP = new DirectionsMatrixParser();
         ArrayList<DirectionsMatrixModel> DMArray = new ArrayList();
         try {
@@ -94,10 +96,27 @@ public class GasStationHandler{
                 Index4 = Prices.get(p).index;
             }
         }
-        BestStations.add(Stations.get(Index1));
-        BestStations.add(Stations.get(Index2));
-        BestStations.add(Stations.get(Index3));
-        BestStations.add(Stations.get(Index4));
+
+
+        StationInfoModel SIM0 = new StationInfoModel();
+        StationInfoModel SIM1= new StationInfoModel();
+        StationInfoModel SIM2= new StationInfoModel();
+        StationInfoModel SIM3= new StationInfoModel();
+
+        SIM0.FPM = Stations.get(Index1);
+        SIM1.FPM = Stations.get(Index2);
+        SIM2.FPM = Stations.get(Index3);
+        SIM3.FPM = Stations.get(Index4);
+        SIM0.distance = (DMArray.get(Index1).kmDistance * 0.621371)/1000;
+        SIM1.distance = (DMArray.get(Index2).kmDistance * 0.621371)/1000;
+        SIM2.distance = (DMArray.get(Index3).kmDistance * 0.621371)/1000;
+        SIM3.distance = (DMArray.get(Index4).kmDistance * 0.621371)/1000;
+
+
+        BestStations.add(SIM0);
+        BestStations.add(SIM1);
+        BestStations.add(SIM2);
+        BestStations.add(SIM3);
         return BestStations;
 
     }
