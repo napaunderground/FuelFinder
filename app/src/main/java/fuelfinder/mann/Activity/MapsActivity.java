@@ -22,6 +22,7 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -329,7 +330,7 @@ public class MapsActivity extends FragmentActivity implements
             FuelPriceModel FPM = bestStations.get(SN).FPM;
             LatLng gasLoc = new LatLng(FPM.Lat, FPM.Lng);
             Marker m1 = mMap.addMarker(new MarkerOptions().position(sourcePosition));
-            Marker m2 = mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID).snippet("Price Per Gallon: $" + Double.toString(FPM.pricePerGallon) + " | Distance: " + getDistanceOnRoad(CurrentLocation.getLatitude(),CurrentLocation.getLongitude(),gasLoc.latitude,gasLoc.longitude)));
+            Marker m2 = mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID).snippet("Price Per Gallon: $" + Double.toString(FPM.pricePerGallon) + " | Distance: " + getDistanceOnRoad(CurrentLocation.getLatitude(),CurrentLocation.getLongitude(),gasLoc.latitude,gasLoc.longitude)).icon(BitmapDescriptorFactory.fromResource(R.mipmap.station)));
 ////////
             LatLngBounds.Builder b = new LatLngBounds.Builder();
             b.include(m1.getPosition());

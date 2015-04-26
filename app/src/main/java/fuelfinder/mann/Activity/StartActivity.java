@@ -1,8 +1,6 @@
 package fuelfinder.mann.Activity;
 
 
-
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -31,7 +29,6 @@ public class StartActivity extends ActionBarActivity implements
     private LocationRequest mLocationRequest;
     private LocationManager locationManager;
     private String provider;
-   // private Intent mIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
