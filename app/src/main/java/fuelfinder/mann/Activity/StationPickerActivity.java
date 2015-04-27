@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import fuelfinder.mann.Models.StationInfoModel;
 import fuelfinder.mann.R;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -49,6 +50,8 @@ public class StationPickerActivity extends Activity {
     String TotalCost2;
     String TotalCost3;
     String TotalCost4;
+
+    View mapView;
 
     private Button firstChoice;
     private Button secondChoice;
@@ -99,14 +102,14 @@ public class StationPickerActivity extends Activity {
 
         }
         GasStationHandler Handle = new GasStationHandler();
-        ArrayList<FuelPriceModel> bestStations = new ArrayList<>();
+        ArrayList<StationInfoModel> bestStations = new ArrayList<>();
         double MileageValue = datasource.getAllVehicles().get(0).getUserMileage();
         bestStations = Handle.getBestStations(FPLoc, MileageValue, mCurrentLocation);
 
-        Choice1Cost ="$" +  Double.toString(bestStations.get(0).pricePerGallon);
-        Choice2Cost ="$" +  Double.toString(bestStations.get(1).pricePerGallon);
-        Choice3Cost ="$" +  Double.toString(bestStations.get(2).pricePerGallon);
-        Choice4Cost ="$" +  Double.toString(bestStations.get(3).pricePerGallon);
+        Choice1Cost ="$" +  Double.toString(bestStations.get(0).FPM.pricePerGallon);
+        Choice2Cost ="$" +  Double.toString(bestStations.get(1).FPM.pricePerGallon);
+        Choice3Cost ="$" +  Double.toString(bestStations.get(2).FPM.pricePerGallon);
+        Choice4Cost ="$" +  Double.toString(bestStations.get(3).FPM.pricePerGallon);
 
         priceView1 = (TextView) findViewById(R.id.textView10);
         priceView1.setText(Choice1Cost);
@@ -122,10 +125,10 @@ public class StationPickerActivity extends Activity {
 
         CostCalculator C = new CostCalculator();
 
-        double TC1 = C.findCost(MileageValue, StringToDouble(bestStations.get(0).kmDistance)*0.621371, bestStations.get(0).pricePerGallon) + bestStations.get(0).pricePerGallon;
-        double TC2 = C.findCost(MileageValue, StringToDouble(bestStations.get(1).kmDistance)*0.621371, bestStations.get(1).pricePerGallon) + bestStations.get(1).pricePerGallon;
-        double TC3 = C.findCost(MileageValue, StringToDouble(bestStations.get(2).kmDistance)*0.621371, bestStations.get(2).pricePerGallon) + bestStations.get(2).pricePerGallon;
-        double TC4 = C.findCost(MileageValue, StringToDouble(bestStations.get(3).kmDistance)*0.621371, bestStations.get(3).pricePerGallon) + bestStations.get(3).pricePerGallon;
+        double TC1 = C.findCost(MileageValue, (bestStations.get(0).distance), bestStations.get(0).FPM.pricePerGallon);//+ bestStations.get(0).FPM.pricePerGallon;
+        double TC2 = C.findCost(MileageValue, (bestStations.get(1).distance), bestStations.get(1).FPM.pricePerGallon);//+ bestStations.get(1).FPM.pricePerGallon;
+        double TC3 = C.findCost(MileageValue, (bestStations.get(2).distance), bestStations.get(2).FPM.pricePerGallon);// + bestStations.get(2).FPM.pricePerGallon;
+        double TC4 = C.findCost(MileageValue, (bestStations.get(3).distance), bestStations.get(3).FPM.pricePerGallon);// + bestStations.get(3).FPM.pricePerGallon;
 
 
         TC1 = Math.round(TC1*100);
@@ -157,17 +160,20 @@ public class StationPickerActivity extends Activity {
         TotalCostView4.setText(TotalCost4);
 
         firstChoice = (Button) findViewById(R.id.checkBox);
-        firstChoice.setText(bestStations.get(0).stationID+Html.fromHtml("<br /><small>Best Total Cost</small>"));
+        firstChoice.setText(bestStations.get(0).FPM.stationID+Html.fromHtml("<br /><small>Best Total Cost</small>"));
 
         secondChoice = (Button) findViewById(R.id.checkBox2);
-        secondChoice.setText(bestStations.get(1).stationID+Html.fromHtml("<br /><small>2nd Best Total Cost</small>"));
+        secondChoice.setText(bestStations.get(1).FPM.stationID+Html.fromHtml("<br /><small>2nd Best Total Cost</small>"));
 
 
         thirdChoice = (Button) findViewById(R.id.checkBox3);
-        thirdChoice.setText(bestStations.get(2).stationID+Html.fromHtml("<br /><small>3rd Best Total Cost</small>"));
+        thirdChoice.setText(bestStations.get(2).FPM.stationID+Html.fromHtml("<br /><small>3rd Best Total Cost</small>"));
 
         fourthChoice = (Button) findViewById(R.id.checkBox4);
-        fourthChoice.setText(bestStations.get(3).stationID+ Html.fromHtml("<br /><small>4th Best Total Cost</small>"));
+        fourthChoice.setText(bestStations.get(3).FPM.stationID+ Html.fromHtml("<br /><small>4th Best Total Cost</small>"));
+
+        mapView = (View) findViewById(R.id.mapView);
+        //mapView.
 
         final Intent mIntent = new Intent(this, MapsActivity.class);
 

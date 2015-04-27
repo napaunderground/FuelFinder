@@ -22,6 +22,7 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -50,6 +51,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import fuelfinder.mann.Models.FuelPriceModel;
+import fuelfinder.mann.Models.StationInfoModel;
 import fuelfinder.mann.Parser.FuelSourceParserV2;
 import fuelfinder.mann.Parser.GMapV2Direction;
 import fuelfinder.mann.R;
@@ -320,15 +322,15 @@ public class MapsActivity extends FragmentActivity implements
 
             }
             GasStationHandler Handle = new GasStationHandler();
-            ArrayList<FuelPriceModel> bestStations = new ArrayList<>();
+            ArrayList<StationInfoModel> bestStations = new ArrayList<>();
             double ML;
             ML = datasource.getAllVehicles().get(0).getUserMileage();
             bestStations = Handle.getBestStations(FPLoc, ML, CurrentLocation);
             int SN = Integer.parseInt(StationNum);
-            FuelPriceModel FPM = bestStations.get(SN);
+            FuelPriceModel FPM = bestStations.get(SN).FPM;
             LatLng gasLoc = new LatLng(FPM.Lat, FPM.Lng);
             Marker m1 = mMap.addMarker(new MarkerOptions().position(sourcePosition));
-            Marker m2 = mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID).snippet("Price Per Gallon: $" + Double.toString(FPM.pricePerGallon) + " | Distance: " + getDistanceOnRoad(CurrentLocation.getLatitude(),CurrentLocation.getLongitude(),gasLoc.latitude,gasLoc.longitude)));
+            Marker m2 = mMap.addMarker(new MarkerOptions().position(gasLoc).title(FPM.stationID).snippet("Price Per Gallon: $" + Double.toString(FPM.pricePerGallon) + " | Distance: " + getDistanceOnRoad(CurrentLocation.getLatitude(),CurrentLocation.getLongitude(),gasLoc.latitude,gasLoc.longitude)).icon(BitmapDescriptorFactory.fromResource(R.mipmap.station)));
 ////////
             LatLngBounds.Builder b = new LatLngBounds.Builder();
             b.include(m1.getPosition());

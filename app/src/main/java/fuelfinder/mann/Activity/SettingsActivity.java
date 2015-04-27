@@ -172,7 +172,6 @@ public class SettingsActivity extends Activity {
     @Override
     public void onBackPressed() {
         this.finish();
-        startActivity(new Intent(this, fuelfinder.mann.Activity.MapsActivity.class));
         return;
     }
 
