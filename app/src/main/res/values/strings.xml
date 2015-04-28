@@ -45,4 +45,12 @@
     <string name="hintEngineSize">Enter Engine Size</string>
     <string name="hintTransmission">Enter Transmission Type</string>
 
+
+
+
+    <string name="spinner_title">Select Category</string>
+    <string name="selectVehicle">selectVehicle</string>
+    <string name="title_activity_select_from_database">selectFromDatabase</string>
+
+
 </resources>
