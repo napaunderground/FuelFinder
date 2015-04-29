@@ -11,6 +11,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import fuelfinder.mann.Models.StationInfoModel;
@@ -67,6 +68,11 @@ public class StationPickerActivity extends Activity {
     private TextView TotalCostView2;
     private TextView TotalCostView3;
     private TextView TotalCostView4;
+
+    private ImageView StationLogo1;
+    private ImageView StationLogo2;
+    private ImageView StationLogo3;
+    private ImageView StationLogo4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,19 +166,74 @@ public class StationPickerActivity extends Activity {
         TotalCostView4.setText(TotalCost4);
 
         firstChoice = (Button) findViewById(R.id.checkBox);
-        firstChoice.setText(bestStations.get(0).FPM.stationID+Html.fromHtml("<br /><small>Best Total Cost</small>"));
+        firstChoice.setText(bestStations.get(0).FPM.stationID+Html.fromHtml("<br /><small>Best Cost</small>"));
 
         secondChoice = (Button) findViewById(R.id.checkBox2);
-        secondChoice.setText(bestStations.get(1).FPM.stationID+Html.fromHtml("<br /><small>2nd Best Total Cost</small>"));
+        secondChoice.setText(bestStations.get(1).FPM.stationID+Html.fromHtml("<br /><small>2nd Cost</small>"));
 
 
         thirdChoice = (Button) findViewById(R.id.checkBox3);
-        thirdChoice.setText(bestStations.get(2).FPM.stationID+Html.fromHtml("<br /><small>3rd Best Total Cost</small>"));
+        thirdChoice.setText(bestStations.get(2).FPM.stationID+Html.fromHtml("<br /><small>3rd Cost</small>"));
 
         fourthChoice = (Button) findViewById(R.id.checkBox4);
-        fourthChoice.setText(bestStations.get(3).FPM.stationID+ Html.fromHtml("<br /><small>4th Best Total Cost</small>"));
+        fourthChoice.setText(bestStations.get(3).FPM.stationID+ Html.fromHtml("<br /><small>4th Cost</small>"));
 
-        mapView = (View) findViewById(R.id.mapView);
+        StationLogo1 = (ImageView) findViewById(R.id.imageView);
+        if(bestStations.get(0).FPM.stationID.equals("Shell")){
+            StationLogo1.setImageResource(R.mipmap.shell);}
+        else if (bestStations.get(0).FPM.stationID.equals("Valero")){
+            StationLogo1.setImageResource(R.mipmap.valero);}
+        else if (bestStations.get(0).FPM.stationID.equals("Exxon")){
+            StationLogo1.setImageResource(R.mipmap.exxon);}
+        else if (bestStations.get(0).FPM.stationID.equals("Chevron")){
+            StationLogo1.setImageResource(R.mipmap.chevron);}
+        else if (bestStations.get(0).FPM.stationID.equals("7-Eleven")){
+            StationLogo1.setImageResource(R.mipmap.seveneleven);}
+        else{
+            StationLogo1.setImageResource(R.mipmap.ic_launcher);}
+
+
+        StationLogo2 = (ImageView) findViewById(R.id.imageView2);
+        if(bestStations.get(1).FPM.stationID.equals("Shell")){
+            StationLogo2.setImageResource(R.mipmap.shell);}
+        else if (bestStations.get(1).FPM.stationID.equals("Valero")){
+            StationLogo2.setImageResource(R.mipmap.valero);}
+        else if (bestStations.get(1).FPM.stationID.equals("Exxon")){
+            StationLogo2.setImageResource(R.mipmap.exxon);}
+        else if (bestStations.get(1).FPM.stationID.equals("Chevron")){
+            StationLogo2.setImageResource(R.mipmap.chevron);}
+        else if (bestStations.get(1).FPM.stationID.equals("7-Eleven")){
+            StationLogo2.setImageResource(R.mipmap.seveneleven);}
+        else{
+            StationLogo2.setImageResource(R.mipmap.ic_launcher);}
+
+        StationLogo3 = (ImageView) findViewById(R.id.imageView3);
+        if(bestStations.get(2).FPM.stationID.equals("Shell")){
+            StationLogo3.setImageResource(R.mipmap.shell);}
+        else if (bestStations.get(2).FPM.stationID.equals("Valero")){
+            StationLogo3.setImageResource(R.mipmap.valero);}
+        else if (bestStations.get(2).FPM.stationID.equals("Exxon")){
+            StationLogo3.setImageResource(R.mipmap.exxon);}
+        else if (bestStations.get(2).FPM.stationID.equals("Chevron")){
+            StationLogo3.setImageResource(R.mipmap.chevron);}
+        else if (bestStations.get(2).FPM.stationID.equals("7-Eleven")){
+            StationLogo3.setImageResource(R.mipmap.seveneleven);}
+        else{
+            StationLogo3.setImageResource(R.mipmap.ic_launcher);}
+
+        StationLogo4 = (ImageView) findViewById(R.id.imageView4);
+        if(bestStations.get(3).FPM.stationID.equals("Shell")){
+            StationLogo4.setImageResource(R.mipmap.shell);}
+        else if (bestStations.get(3).FPM.stationID.equals("Valero")){
+            StationLogo4.setImageResource(R.mipmap.valero);}
+        else if (bestStations.get(3).FPM.stationID.equals("Exxon")){
+            StationLogo4.setImageResource(R.mipmap.exxon);}
+        else if (bestStations.get(3).FPM.stationID.equals("Chevron")){
+            StationLogo4.setImageResource(R.mipmap.chevron);}
+        else if (bestStations.get(3).FPM.stationID.equals("7-Eleven")){
+            StationLogo4.setImageResource(R.mipmap.seveneleven);}
+        else{
+            StationLogo4.setImageResource(R.mipmap.ic_launcher);}
         //mapView.
 
         final Intent mIntent = new Intent(this, MapsActivity.class);
