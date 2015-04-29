@@ -334,13 +334,6 @@
         android:layout_alignLeft="@+id/textView8"
         android:layout_alignStart="@+id/textView8" />
 
-    <com.google.android.gms.maps.MapView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/mapView1"
-        android:layout_below="@+id/imageView"
-        android:layout_alignLeft="@+id/textView10"
-        android:layout_alignStart="@+id/midvertline" />
 
 </RelativeLayout>
 
