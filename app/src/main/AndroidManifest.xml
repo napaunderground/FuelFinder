@@ -15,18 +15,12 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <supports-screens
-        android:xlargeScreens="true"
-
-        android:resizeable="true"
-
-        android:normalScreens="true"
-
         android:anyDensity="true"
-
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
         android:smallScreens="true"
-
-        android:largeScreens="true"/>
-
+        android:xlargeScreens="true" />
 
     <application
         android:allowBackup="true"
@@ -89,6 +83,10 @@
         <activity
             android:name=".Activity.PickCheapestActivity"
             android:label="@string/title_activity_pick_cheapest" >
+        </activity>
+        <activity
+            android:name=".Activity.SelectFromDatabase"
+            android:label="@string/title_activity_select_from_database" >
         </activity>
     </application>
 
