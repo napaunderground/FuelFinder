@@ -18,6 +18,12 @@ import java.util.ArrayList;
 
 import fuelfinder.mann.R;
 
+/*
+// TODO ANSWER
+Nathan: when you created the new activity called from Settings, you need to pass whats inside
+Settings' bundle to the new activity. The mLat and mLng values stored in Settings were not being put
+into SelectFromDatabase, preventing StationPicker from having a saved lat/lng. I have fixed the problem.
+ */
 
 public class SelectFromDatabase extends Activity implements AdapterView.OnItemSelectedListener {
 
@@ -30,6 +36,8 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
     private Button pickFourButton;
 
 //TODO make the spinner actually pull from the database...
+    // answer: look how I do it in StationPickerActivity. It's
+    // all done with the datasource variable. Very easy!
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -93,8 +101,6 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
             }
         });
 
-// TODO: set a variable containing the mileage from the current vehicle and pass it to
-// station picker here and maybe in other places...???
 
         pickFourButton.setOnClickListener(new View.OnClickListener() {
             @Override
