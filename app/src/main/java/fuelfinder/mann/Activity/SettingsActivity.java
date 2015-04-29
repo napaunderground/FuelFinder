@@ -112,15 +112,10 @@ public class SettingsActivity extends Activity {
                             vehicleInfo.getUserMileage(), vehicleInfo.getModel(),
                             counter, vehicleInfo.getCarName(), vehicleInfo.getYear(),
                             vehicleInfo.getTransmission(), vehicleInfo.getVehicleID());
-
-
                     counter++;
-                    //          finish();
-                    //startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
                 } else {
                     startActivity(new Intent(SettingsActivity.this, SelectFromDatabase.class));
                 }
-
             }
         });
         final Intent mIntent = new Intent(this, MapsActivity.class);
