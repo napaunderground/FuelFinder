@@ -42,7 +42,6 @@ public class StartActivity extends ActionBarActivity implements
 
         super.onCreate(savedInstanceState);
 
-
         // Get the location manager
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         // Define the criteria how to select the locatioin provider -> use
