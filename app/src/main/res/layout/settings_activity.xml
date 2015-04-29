@@ -1,6 +1,16 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".DisplayContact"
+    android:background = "@color/white">
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-        android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingBottom="@dimen/activity_vertical_margin"
@@ -16,7 +26,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:hint="Give Your Car a Name!" />
+            android:hint="@string/hintGiveCarName" />
 
 
         <EditText
@@ -28,7 +38,7 @@
             android:layout_below="@+id/editTextCarName"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:hint="Enter Year of Manufacturer" />
+            android:hint="@string/hintYearOfManufacture" />
 
 
 
@@ -40,7 +50,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:ems="10"
             android:inputType="text"
-            android:hint="Enter Manufacturer"
+            android:hint="@string/hintManufacturer"
             android:layout_below="@+id/editTextYearOfMfr"
             android:layout_toStartOf="@+id/moreInputsButton"
             android:layout_toLeftOf="@+id/moreInputsButton"
@@ -55,7 +65,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:ems="10"
             android:inputType="text"
-            android:hint="Enter Vehicle Model"
+            android:hint="@string/hintModel"
             android:layout_below="@+id/editTextManufacturer"
             android:layout_toStartOf="@+id/moreInputsButton"
             android:layout_toLeftOf="@+id/moreInputsButton"
@@ -70,7 +80,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:ems="10"
             android:inputType="numberDecimal"
-            android:hint="Enter Fuel Mileage"
+            android:hint="@string/hintFuelMileage"
             android:layout_below="@+id/editTextTransmission"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
@@ -82,7 +92,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:ems="10"
             android:inputType="numberDecimal"
-            android:hint="Enter Engine Size"
+            android:hint="@string/hintEngineSize"
             android:layout_below="@+id/editTextVehModel"
             android:layout_alignLeft="@+id/editTextManufacturer"
             android:layout_alignStart="@+id/editTextManufacturer" />
@@ -94,48 +104,59 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:ems="10"
             android:inputType="text"
-            android:hint="Enter Transmission Type"
+            android:hint="@string/hintTransmission"
             android:layout_below="@+id/editTextEngineSize"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
         <Button
-            android:background="@color/blue"
+            android:background="@color/wallet_holo_blue_light"
             android:id="@+id/pickTheBestButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/map"
             android:width="120dp"
-            android:layout_marginTop="46dp"
-            android:layout_below="@+id/pickFourButton"
             android:layout_alignLeft="@+id/pickFourButton"
-            android:layout_alignStart="@+id/pickFourButton" />
+            android:layout_alignStart="@+id/pickFourButton"
+            android:layout_below="@+id/pickFourButton"
+            android:layout_alignParentBottom="true" />
 
 
         <Button
-            android:background="@color/blue"
+            android:background="@color/button_material_dark"
             android:id="@+id/moreInputsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/enter_another"
+            android:width="120dp"
             android:layout_below="@+id/editTextFuelMileage"
-            android:layout_centerHorizontal="true"
-            android:width="120dp"/>
+            android:layout_alignParentRight="true" />
 
 
         <Button
-            android:background="@color/blue"
+            android:background="@color/button_material_light"
             android:id="@+id/pickFourButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/station_grid"
             android:width="120dp"
             android:layout_below="@+id/moreInputsButton"
-            android:layout_alignLeft="@+id/moreInputsButton"
-            android:layout_alignStart="@+id/moreInputsButton"
-            android:layout_marginTop="46dp" />
+            android:layout_centerHorizontal="true" />
 
 
-         <requestFocus />
+        <Button
+            android:background="@color/button_material_dark"
+            android:id="@+id/selectVehicle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/selectVehicle"
+            android:width="120dp"
+            android:layout_alignBottom="@+id/moreInputsButton"
+            android:layout_alignParentStart="true" />
+
+
+
+        <requestFocus />
 
     </RelativeLayout>
+</ScrollView>

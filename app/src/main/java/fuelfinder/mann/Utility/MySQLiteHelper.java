@@ -1,8 +1,10 @@
 package fuelfinder.mann.Utility;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
 /**
  * Created by Action Johnny on 4/2/2015.
  */
@@ -21,19 +23,19 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String Transmission = "Transmission";
 
     public static final String VEHICLE_TABLE = "tbl_veh";
-    public static final String[] ALL_TABLES = { VEHICLE_TABLE };
+    public static final String[] ALL_TABLES = {VEHICLE_TABLE};
 
     private static final String DATABASE_NAME = "VehicleInfo.db";
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_CREATE = "create table "
             + NAME + "(" + VehicleID
             + " integer primary key autoincrement, " + Model
-            + " text not null, " +VehName+
+            + " text not null, " + VehName +
             " text not null, " + Year +
             " integer not null, " + Make +
             " text not null, " + Mileage +
             " real not null, " + Engine +
-            " double not null, " + Transmission +" text not null);";
+            " double not null, " + Transmission + " text not null);";
 
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -53,5 +55,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public static String getDATABASE_NAME() { return DATABASE_NAME; }
+    public static String getDATABASE_NAME() {
+        return DATABASE_NAME;
+    }
+
 }
