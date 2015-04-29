@@ -110,19 +110,6 @@
             android:layout_alignParentStart="true" />
 
         <Button
-            android:background="@color/wallet_holo_blue_light"
-            android:id="@+id/pickTheBestButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/map"
-            android:width="120dp"
-            android:layout_alignLeft="@+id/pickFourButton"
-            android:layout_alignStart="@+id/pickFourButton"
-            android:layout_below="@+id/pickFourButton"
-            android:layout_alignParentBottom="true" />
-
-
-        <Button
             android:background="@color/button_material_dark"
             android:id="@+id/moreInputsButton"
             android:layout_width="wrap_content"
@@ -131,17 +118,6 @@
             android:width="120dp"
             android:layout_below="@+id/editTextFuelMileage"
             android:layout_alignParentRight="true" />
-
-
-        <Button
-            android:background="@color/button_material_light"
-            android:id="@+id/pickFourButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/station_grid"
-            android:width="120dp"
-            android:layout_below="@+id/moreInputsButton"
-            android:layout_centerHorizontal="true" />
 
 
         <Button
