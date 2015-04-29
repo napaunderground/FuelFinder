@@ -119,7 +119,7 @@ public class SettingsActivity extends Activity {
                     //startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
                 } else {
                     finish();
-                    startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
+                    startActivity(new Intent(SettingsActivity.this, SelectFromDatabase.class));
                 }
 
             }
