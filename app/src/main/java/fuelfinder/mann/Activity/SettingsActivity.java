@@ -118,7 +118,6 @@ public class SettingsActivity extends Activity {
                     //          finish();
                     //startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
                 } else {
-                    finish();
                     startActivity(new Intent(SettingsActivity.this, SelectFromDatabase.class));
                 }
 
