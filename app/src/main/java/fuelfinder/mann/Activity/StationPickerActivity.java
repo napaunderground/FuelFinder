@@ -18,10 +18,17 @@ import fuelfinder.mann.Models.StationInfoModel;
 import fuelfinder.mann.R;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONException;
 
@@ -38,9 +45,13 @@ import fuelfinder.mann.Utility.MileageModelDataSource;
 
 public class StationPickerActivity extends Activity {
 
+    GoogleMap map;
+
     private MileageModelDataSource datasource;
     String myLat = "";
     String myLng = "";
+
+    MapView map1;
 
     String Choice1Cost;
     String Choice2Cost;
@@ -178,6 +189,9 @@ public class StationPickerActivity extends Activity {
         fourthChoice = (Button) findViewById(R.id.checkBox4);
         fourthChoice.setText(bestStations.get(3).FPM.stationID+ Html.fromHtml("<br /><small>4th Cost</small>"));
 
+        //http://api.mygasfeed.com/stations/radius/38.3356/-122.679/4/reg/Price/z7lq1tt911.json
+
+        int varval = 0;
         StationLogo1 = (ImageView) findViewById(R.id.imageView);
         if(bestStations.get(0).FPM.stationID.equals("Shell")){
             StationLogo1.setImageResource(R.mipmap.shell);}
@@ -189,10 +203,14 @@ public class StationPickerActivity extends Activity {
             StationLogo1.setImageResource(R.mipmap.chevron);}
         else if (bestStations.get(0).FPM.stationID.equals("7-Eleven")){
             StationLogo1.setImageResource(R.mipmap.seveneleven);}
+        else if (bestStations.get(0).FPM.stationID.equals("Gulf")){
+            StationLogo1.setImageResource(R.mipmap.gulf);}
+        else if (bestStations.get(0).FPM.stationID.equals("Seventy-six")){
+            StationLogo1.setImageResource(R.mipmap.seventysix);}
         else{
             StationLogo1.setImageResource(R.mipmap.ic_launcher);}
 
-
+        varval = 1;
         StationLogo2 = (ImageView) findViewById(R.id.imageView2);
         if(bestStations.get(1).FPM.stationID.equals("Shell")){
             StationLogo2.setImageResource(R.mipmap.shell);}
@@ -204,9 +222,13 @@ public class StationPickerActivity extends Activity {
             StationLogo2.setImageResource(R.mipmap.chevron);}
         else if (bestStations.get(1).FPM.stationID.equals("7-Eleven")){
             StationLogo2.setImageResource(R.mipmap.seveneleven);}
+        else if (bestStations.get(1).FPM.stationID.equals("Gulf")){
+            StationLogo2.setImageResource(R.mipmap.gulf);}
+        else if (bestStations.get(1).FPM.stationID.equals("Seventy-six")){
+            StationLogo2.setImageResource(R.mipmap.seventysix);}
         else{
             StationLogo2.setImageResource(R.mipmap.ic_launcher);}
-
+        varval = 2;
         StationLogo3 = (ImageView) findViewById(R.id.imageView3);
         if(bestStations.get(2).FPM.stationID.equals("Shell")){
             StationLogo3.setImageResource(R.mipmap.shell);}
@@ -218,9 +240,14 @@ public class StationPickerActivity extends Activity {
             StationLogo3.setImageResource(R.mipmap.chevron);}
         else if (bestStations.get(2).FPM.stationID.equals("7-Eleven")){
             StationLogo3.setImageResource(R.mipmap.seveneleven);}
+        else if (bestStations.get(varval).FPM.stationID.equals("Gulf")){
+            StationLogo3.setImageResource(R.mipmap.gulf);}
+        else if (bestStations.get(varval).FPM.stationID.equals("Seventy-six")){
+            StationLogo3.setImageResource(R.mipmap.seventysix);}
         else{
             StationLogo3.setImageResource(R.mipmap.ic_launcher);}
 
+        varval=3;
         StationLogo4 = (ImageView) findViewById(R.id.imageView4);
         if(bestStations.get(3).FPM.stationID.equals("Shell")){
             StationLogo4.setImageResource(R.mipmap.shell);}
@@ -232,6 +259,10 @@ public class StationPickerActivity extends Activity {
             StationLogo4.setImageResource(R.mipmap.chevron);}
         else if (bestStations.get(3).FPM.stationID.equals("7-Eleven")){
             StationLogo4.setImageResource(R.mipmap.seveneleven);}
+        else if (bestStations.get(varval).FPM.stationID.equals("Gulf")){
+            StationLogo4.setImageResource(R.mipmap.gulf);}
+        else if (bestStations.get(varval).FPM.stationID.equals("Seventy-six")){
+            StationLogo4.setImageResource(R.mipmap.seventysix);}
         else{
             StationLogo4.setImageResource(R.mipmap.ic_launcher);}
         //mapView.
