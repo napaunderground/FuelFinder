@@ -16,6 +16,8 @@ import fuelfinder.mann.Utility.MileageModelDataSource;
 
 public class SettingsActivity extends Activity {
 
+    String Lat;
+    String Lng;
     private Button selectVehicleButton;
     private Button moreInputsButton;
     private TextView tCarName;
@@ -39,12 +41,17 @@ public class SettingsActivity extends Activity {
 
         datasource = new MileageModelDataSource(this);
         datasource.open();
+        final Intent mIntent = new Intent(SettingsActivity.this, SelectFromDatabase.class);
+        Lat = getIntent().getStringExtra("mLat");
+        Lng = getIntent().getStringExtra("mLng");
+        mIntent.putExtra("mLat", Lat);
+        mIntent.putExtra("mLng", Lng);
 
         selectVehicleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                startActivity(new Intent(SettingsActivity.this, SelectFromDatabase.class));
+                startActivity(mIntent);
             }
 
         });
@@ -63,7 +70,7 @@ public class SettingsActivity extends Activity {
                     counter++;
                     finish();
                 } else {
-                    startActivity(new Intent(SettingsActivity.this, SelectFromDatabase.class));
+                    startActivity(mIntent);
                 }
 
             }
