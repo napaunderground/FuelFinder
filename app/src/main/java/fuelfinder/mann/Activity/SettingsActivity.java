@@ -12,17 +12,12 @@ import android.widget.TextView;
 import fuelfinder.mann.Models.MileageModel;
 import fuelfinder.mann.R;
 import fuelfinder.mann.Utility.MileageModelDataSource;
-import fuelfinder.mann.Utility.MySQLiteHelper;
 
 
 public class SettingsActivity extends Activity {
 
-    String myLat;
-    String myLng;
     private Button selectVehicleButton;
     private Button moreInputsButton;
-    private Button pickTheBestButton;
-    private Button pickFourButton;
     private TextView tCarName;
     private TextView tYear;
     private TextView tMake;
@@ -33,7 +28,6 @@ public class SettingsActivity extends Activity {
     private MileageModelDataSource datasource;
     MileageModel vehicleInfo = new MileageModel();
     public int counter = 0;
-    MySQLiteHelper Helper;
 
 
     @Override
@@ -41,47 +35,7 @@ public class SettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
 
-        myLat = getIntent().getStringExtra("mLat");
-        myLng = getIntent().getStringExtra("mLng");
-
-        selectVehicleButton = (Button) findViewById(R.id.selectVehicle);
-        moreInputsButton = (Button) findViewById(R.id.moreInputsButton);
-        pickTheBestButton = (Button) findViewById(R.id.pickTheBestButton);
-        pickFourButton = (Button) findViewById(R.id.pickFourButton);
-        tCarName = (EditText) findViewById(R.id.editTextCarName);
-        tYear = (EditText) findViewById(R.id.editTextYearOfMfr);
-        tMake = (EditText) findViewById(R.id.editTextManufacturer);
-        tVehModel = (EditText) findViewById(R.id.editTextVehModel);
-        tMileage = (EditText) findViewById(R.id.editTextFuelMileage);
-        tEngine = (EditText) findViewById(R.id.editTextEngineSize);
-        tTransmission = (EditText) findViewById(R.id.editTextTransmission);
-        /* TODO This is the stuff from the xml that I removed to fit the spinner...
-            <EditText
-            android:id="@+id/editTextEngineSize"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            android:hint="@string/hintEngineSize"
-            android:layout_below="@+id/editTextVehModel"
-            android:layout_alignLeft="@+id/editTextManufacturer"
-            android:layout_alignStart="@+id/editTextManufacturer" />
-
-        <EditText
-            android:id="@+id/editTextTransmission"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:ems="10"
-            android:inputType="text"
-            android:hint="@string/hintTransmission"
-            android:layout_below="@+id/editTextEngineSize"
-            android:layout_alignParentLeft="true"
-
-         */
-        //Helper = new MySQLiteHelper(this);
-
+        setFields();
 
         datasource = new MileageModelDataSource(this);
         datasource.open();
@@ -100,64 +54,26 @@ public class SettingsActivity extends Activity {
             public void onClick(View v) {
                 setModel(vehicleInfo);
 
-                double currMileage = vehicleInfo.getUserMileage();
-                if(currMileage == 0)
-                {
-                    finish();
-                    startActivity(new Intent(SettingsActivity.this, MapsActivity.class));
-                }
-                else if (counter < 8){
+                if (counter < 7){
 
                     datasource.createMileageModel(vehicleInfo.getEngine(), vehicleInfo.getMake(),
                             vehicleInfo.getUserMileage(), vehicleInfo.getModel(),
                             counter, vehicleInfo.getCarName(), vehicleInfo.getYear(),
                             vehicleInfo.getTransmission(), vehicleInfo.getVehicleID());
-
-
                     counter++;
-                    //          finish();
-                    //startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
-                } else {
                     finish();
-                    startActivity(new Intent(SettingsActivity.this, SettingsActivity.class));
+                } else {
+                    startActivity(new Intent(SettingsActivity.this, SelectFromDatabase.class));
                 }
 
             }
         });
-        final Intent mIntent = new Intent(this, MapsActivity.class);
-
-        pickTheBestButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                mIntent.putExtra("station", "0");
-
-                finish();
-                startActivity(mIntent);
-            }
-        });
-
-        final Intent StationIntent = new Intent(this, StationPickerActivity.class);
-
-        pickFourButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                StationIntent.putExtra("mLat", myLat);
-                StationIntent.putExtra("mLng", myLng);
-                finish();
-                startActivity(StationIntent);
-                setContentView(R.layout.activity_station_picker);
-
-            }
-        });
-
-
     }
+
+
+
     public void setModel(MileageModel currVeh)
     {
-        // should this be decomposed more????
-
-
         MileageModel vehicleInfo = currVeh;
 
         int year;
@@ -187,17 +103,25 @@ public class SettingsActivity extends Activity {
         vehicleInfo.setEngine(engine);
         vehicleInfo.setTransmission(String.valueOf(tTransmission));
         vehicleInfo.setUserMileage(mileage);
+
+
+    }
+
+    public void setFields() {
+
+
+        selectVehicleButton = (Button) findViewById(R.id.selectVehicle);
+        moreInputsButton = (Button) findViewById(R.id.moreInputsButton);
+        tCarName = (EditText) findViewById(R.id.editTextCarName);
+        tYear = (EditText) findViewById(R.id.editTextYearOfMfr);
+        tMake = (EditText) findViewById(R.id.editTextManufacturer);
+        tVehModel = (EditText) findViewById(R.id.editTextVehModel);
+        tMileage = (EditText) findViewById(R.id.editTextFuelMileage);
+        tEngine = (EditText) findViewById(R.id.editTextEngineSize);
+        tTransmission = (EditText) findViewById(R.id.editTextTransmission);
     }
 
 
-
-    /*
-
-        public void settings(View v) {
-
-            startActivity(new Intent(this, SettingsActivity.class));
-        }
-    */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_settings, menu);

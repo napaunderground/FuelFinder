@@ -5,10 +5,12 @@ package fuelfinder.mann.Activity;
  */
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -16,16 +18,29 @@ import java.util.ArrayList;
 
 import fuelfinder.mann.R;
 
+
 public class SelectFromDatabase extends Activity implements AdapterView.OnItemSelectedListener {
 
 
+    String myLat;
+    String myLng;
 
+    private Button moreInputsButton;
+    private Button pickTheBestButton;
+    private Button pickFourButton;
+
+//TODO make the spinner actually pull from the database...
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_from_database);
 
+
+        myLat = getIntent().getStringExtra("mLat");
+        myLng = getIntent().getStringExtra("mLng");
+
+        setFields();
         // Spinner element
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
@@ -49,6 +64,50 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
 
         // attaching data adapter to spinner
         spinner.setAdapter(adapter);
+
+
+        final Intent StationIntent = new Intent(this, StationPickerActivity.class);
+        final Intent mIntent = new Intent(this, MapsActivity.class);
+
+
+        pickTheBestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIntent.putExtra("station", "0");
+
+                SelectFromDatabase.this.finish();
+                SelectFromDatabase.this.startActivity(mIntent);
+            }
+        });
+
+
+
+        pickTheBestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mIntent.putExtra("station", "0");
+
+                finish();
+                startActivity(mIntent);
+            }
+        });
+
+// TODO: set a variable containing the mileage from the current vehicle and pass it to
+// station picker here and maybe in other places...???
+
+        pickFourButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StationIntent.putExtra("mLat", myLat);
+                StationIntent.putExtra("mLng", myLng);
+                finish();
+                startActivity(StationIntent);
+                setContentView(R.layout.activity_station_picker);
+
+            }
+        });
+
     }
 
     @Override
@@ -67,6 +126,31 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
 
     }
 
+    public void setFields() {
+        moreInputsButton = (Button) findViewById(R.id.moreInputsButton);
+        pickTheBestButton = (Button) findViewById(R.id.pickTheBestButton);
+        pickFourButton = (Button) findViewById(R.id.pickFourButton);
+        myLat = getIntent().getStringExtra("mLat");
+        myLng = getIntent().getStringExtra("mLng");
+    }
+
+
+
+    @Override
+    public void onBackPressed() {
+        this.finish();
+        return;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 }
 
 
