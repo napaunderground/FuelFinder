@@ -45,13 +45,9 @@ import fuelfinder.mann.Utility.MileageModelDataSource;
 
 public class StationPickerActivity extends Activity {
 
-    GoogleMap map;
-
     private MileageModelDataSource datasource;
     String myLat = "";
     String myLng = "";
-
-    MapView map1;
 
     String Choice1Cost;
     String Choice2Cost;
@@ -62,8 +58,6 @@ public class StationPickerActivity extends Activity {
     String TotalCost2;
     String TotalCost3;
     String TotalCost4;
-
-    View mapView;
 
     private Button firstChoice;
     private Button secondChoice;
@@ -205,8 +199,12 @@ public class StationPickerActivity extends Activity {
             StationLogo1.setImageResource(R.mipmap.seveneleven);}
         else if (bestStations.get(0).FPM.stationID.equals("Gulf")){
             StationLogo1.setImageResource(R.mipmap.gulf);}
-        else if (bestStations.get(0).FPM.stationID.equals("Seventy-six")){
+        else if (bestStations.get(0).FPM.stationID.equals("76")){
             StationLogo1.setImageResource(R.mipmap.seventysix);}
+        else if (bestStations.get(0).FPM.stationID.equals("Circle K")){
+            StationLogo1.setImageResource(R.mipmap.circlek);}
+        else if (bestStations.get(varval).FPM.stationID.equals("Texaco")){
+            StationLogo1.setImageResource(R.mipmap.texaco);}
         else{
             StationLogo1.setImageResource(R.mipmap.ic_launcher);}
 
@@ -224,10 +222,15 @@ public class StationPickerActivity extends Activity {
             StationLogo2.setImageResource(R.mipmap.seveneleven);}
         else if (bestStations.get(1).FPM.stationID.equals("Gulf")){
             StationLogo2.setImageResource(R.mipmap.gulf);}
-        else if (bestStations.get(1).FPM.stationID.equals("Seventy-six")){
+        else if (bestStations.get(1).FPM.stationID.equals("76")){
             StationLogo2.setImageResource(R.mipmap.seventysix);}
+        else if (bestStations.get(varval).FPM.stationID.equals("Circle K")){
+            StationLogo2.setImageResource(R.mipmap.circlek);}
+        else if (bestStations.get(varval).FPM.stationID.equals("Texaco")){
+            StationLogo2.setImageResource(R.mipmap.texaco);}
         else{
             StationLogo2.setImageResource(R.mipmap.ic_launcher);}
+
         varval = 2;
         StationLogo3 = (ImageView) findViewById(R.id.imageView3);
         if(bestStations.get(2).FPM.stationID.equals("Shell")){
@@ -242,8 +245,12 @@ public class StationPickerActivity extends Activity {
             StationLogo3.setImageResource(R.mipmap.seveneleven);}
         else if (bestStations.get(varval).FPM.stationID.equals("Gulf")){
             StationLogo3.setImageResource(R.mipmap.gulf);}
-        else if (bestStations.get(varval).FPM.stationID.equals("Seventy-six")){
+        else if (bestStations.get(varval).FPM.stationID.equals("76")){
             StationLogo3.setImageResource(R.mipmap.seventysix);}
+        else if (bestStations.get(varval).FPM.stationID.equals("Circle K")){
+            StationLogo3.setImageResource(R.mipmap.circlek);}
+        else if (bestStations.get(varval).FPM.stationID.equals("Texaco")){
+            StationLogo3.setImageResource(R.mipmap.texaco);}
         else{
             StationLogo3.setImageResource(R.mipmap.ic_launcher);}
 
@@ -261,8 +268,12 @@ public class StationPickerActivity extends Activity {
             StationLogo4.setImageResource(R.mipmap.seveneleven);}
         else if (bestStations.get(varval).FPM.stationID.equals("Gulf")){
             StationLogo4.setImageResource(R.mipmap.gulf);}
-        else if (bestStations.get(varval).FPM.stationID.equals("Seventy-six")){
+        else if (bestStations.get(varval).FPM.stationID.equals("76")){
             StationLogo4.setImageResource(R.mipmap.seventysix);}
+        else if (bestStations.get(varval).FPM.stationID.equals("Circle K")){
+            StationLogo4.setImageResource(R.mipmap.circlek);}
+        else if (bestStations.get(varval).FPM.stationID.equals("Texaco")){
+            StationLogo4.setImageResource(R.mipmap.texaco);}
         else{
             StationLogo4.setImageResource(R.mipmap.ic_launcher);}
         //mapView.
