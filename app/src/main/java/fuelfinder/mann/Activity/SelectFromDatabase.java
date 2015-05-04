@@ -3,30 +3,36 @@ package fuelfinder.mann.Activity;
 /**
  * Created by nathan on 4/28/15.
  */
-
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import fuelfinder.mann.R;
+import fuelfinder.mann.Utility.MySQLiteHelper;
 
-/*
-// TODO ANSWER
-Nathan: when you created the new activity called from Settings, you need to pass whats inside
-Settings' bundle to the new activity. The mLat and mLng values stored in Settings were not being put
-into SelectFromDatabase, preventing StationPicker from having a saved lat/lng. I have fixed the problem.
- */
 
 public class SelectFromDatabase extends Activity implements AdapterView.OnItemSelectedListener {
 
+
+    // Spinner element
+    Spinner spinner;
+
+    // Add button
+    Button btnAdd;
+
+    // Input text
+    EditText inputLabel;
 
     String myLat;
     String myLng;
@@ -48,35 +54,59 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
         myLat = getIntent().getStringExtra("mLat");
         myLng = getIntent().getStringExtra("mLng");
 
-        setFields();
         // Spinner element
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        spinner = (Spinner) findViewById(R.id.spinner);
+
+        // add button
+        btnAdd = (Button) findViewById(R.id.btn_add);
+
+        // new label input field
+        inputLabel = (EditText) findViewById(R.id.input_label);
 
         // Spinner click listener
         spinner.setOnItemSelectedListener(this);
 
+        // Loading spinner data from database
+        loadSpinnerData();
 
-        // Spinner Drop down elements
-        ArrayList<String> categories = new ArrayList<String>();
-        categories.add("Automobile");
-        categories.add("Business Services");
-        categories.add("Computers");
-        categories.add("Education");
-        categories.add("Personal");
-        categories.add("Travel");
+        /**
+         * Add new label button click listener
+         * */
+        btnAdd.setOnClickListener(new View.OnClickListener() {
 
-        // Creating adapter for spinner
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, categories);
-        // Drop down layout style - list view with radio button
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            @Override
+            public void onClick(View arg0) {
+                String label = inputLabel.getText().toString();
 
-        // attaching data adapter to spinner
-        spinner.setAdapter(adapter);
+                if (label.trim().length() > 0) {
+                    // database handler
+                    MySQLiteHelper db = new MySQLiteHelper(
+                            getApplicationContext());
 
+                    // inserting new label into database
+                    db.insertLabel(label);
+
+                    // making input filed text to blank
+                    inputLabel.setText("");
+
+                    // Hiding the keyboard
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(inputLabel.getWindowToken(), 0);
+
+                    // loading spinner with newly added data
+                    loadSpinnerData();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please enter label name",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+    }
 
         final Intent StationIntent = new Intent(this, StationPickerActivity.class);
         final Intent mIntent = new Intent(this, MapsActivity.class);
-
+/*
 
         pickTheBestButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,7 +155,7 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
         Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
 
     }
-
+*/
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
@@ -134,8 +164,8 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
 
     public void setFields() {
         moreInputsButton = (Button) findViewById(R.id.moreInputsButton);
-        pickTheBestButton = (Button) findViewById(R.id.pickTheBestButton);
-        pickFourButton = (Button) findViewById(R.id.pickFourButton);
+     //   pickTheBestButton = (Button) findViewById(R.id.pickTheBestButton);
+     //   pickFourButton = (Button) findViewById(R.id.pickFourButton);
         myLat = getIntent().getStringExtra("mLat");
         myLng = getIntent().getStringExtra("mLng");
     }
@@ -157,6 +187,41 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
     protected void onPause() {
         super.onPause();
     }
+    /**
+     * Function to load the spinner data from SQLite database
+     * */
+    private void loadSpinnerData() {
+        // database handler
+        MySQLiteHelper db = new MySQLiteHelper(getApplicationContext());
+
+        // Spinner Drop down elements
+        List<String> lables = db.getAllLabels();
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, lables);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spinner.setAdapter(dataAdapter);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position,
+                               long id) {
+        // On selecting a spinner item
+        String label = parent.getItemAtPosition(position).toString();
+
+        // Showing selected spinner item
+        Toast.makeText(parent.getContext(), "You selected: " + label,
+                Toast.LENGTH_LONG).show();
+
+    }
+
+
 }
 
 
