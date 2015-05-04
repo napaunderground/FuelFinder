@@ -27,7 +27,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String Mileage = "Mileage";
     public static final String Engine = "Engine";
     public static final String Transmission = "Transmission";
-    private static final String TABLE_LABELS = "labels";
+    private static final String TABLE_LABELS = "";
     public static final String VEHICLE_TABLE = "tbl_veh";
     public static final String[] ALL_TABLES = {VEHICLE_TABLE};
 
@@ -35,7 +35,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_CREATE = "create table "
             + NAME + "(" + VehicleID
-            + " integer primary key autoincrement, " + Model
+            + " integer primary key autoincrement unique, " + Model
             + " text not null, " + VehName +
             " text not null, " + Year +
             " integer not null, " + Make +
@@ -79,7 +79,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         List<String> labels = new ArrayList<String>();
 
         // Select All Query
-        String selectQuery = "SELECT  * FROM " + TABLE_LABELS;
+        String selectQuery = "SELECT  * FROM " + NAME;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);

@@ -41,9 +41,6 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
     private Button pickTheBestButton;
     private Button pickFourButton;
 
-//TODO make the spinner actually pull from the database...
-    // answer: look how I do it in StationPickerActivity. It's
-    // all done with the datasource variable. Very easy!
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -96,7 +93,7 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
                     // loading spinner with newly added data
                     loadSpinnerData();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Please enter label name",
+                    Toast.makeText(getApplicationContext(), "Please enter Vehicle name",
                             Toast.LENGTH_SHORT).show();
                 }
 
