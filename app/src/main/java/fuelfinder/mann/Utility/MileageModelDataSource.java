@@ -55,6 +55,7 @@ public class MileageModelDataSource{
                                    String Transmission, int VehicleID) {
         ContentValues values = new ContentValues();
 
+        values.put(MySQLiteHelper.VehicleID, VehicleID);
 /*
         ContentValues engValues = new ContentValues();
         engValues.put(MySQLiteHelper.Engine, Engine);
@@ -84,7 +85,7 @@ public class MileageModelDataSource{
         close();
 
         String test = "test";
-//        Cursor cursor = databas e.query(MySQLiteHelper.NAME,
+//        Cursor cursor = database.query(MySQLiteHelper.NAME,
 //                allColumns, MySQLiteHelper.VehicleID + " = " + insertId, null,
 //                null, null, null);
 //        cursor.moveToFirst();
@@ -132,5 +133,4 @@ public class MileageModelDataSource{
 
         return Model;
     }
-
 }
