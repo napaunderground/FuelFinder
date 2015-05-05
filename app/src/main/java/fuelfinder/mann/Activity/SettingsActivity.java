@@ -138,8 +138,8 @@ public class SettingsActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        this.finish();
-        return;
+        finish();
+        startActivity(new Intent(this, StartActivity.class));
     }
 
     @Override

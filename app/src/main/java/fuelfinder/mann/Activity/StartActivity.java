@@ -88,8 +88,7 @@ public class StartActivity extends ActionBarActivity implements
         savedMileage = prefs.getString("FuelMileage", "0");
         intMileage = Integer.parseInt(savedMileage);
 
-        if(intMileage == 0 && EndCond != 0)
-        {
+
 
 
             String MyLat = Double.toString(location.getLatitude());
@@ -99,17 +98,8 @@ public class StartActivity extends ActionBarActivity implements
             mIntent.putExtra("mLng", MyLong);
 
             startActivity(mIntent);
-        }
 
-        else if (intMileage != 0)
-            {
-                setContentView(R.layout.activity_start);
-                finish();
-                startActivity(new Intent(this, fuelfinder.mann.Activity.MapsActivity.class));
 
-         }
-        else
-            EndCond++;
     }
 
 
