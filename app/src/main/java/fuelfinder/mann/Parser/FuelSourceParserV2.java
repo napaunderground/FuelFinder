@@ -107,11 +107,17 @@ public class FuelSourceParserV2 {
             if (array.get(i) != null) {
                 JSONObject S = array.getJSONObject(i);
 
-                //invoking the parser and converting JSON string to FuelPriceModel
+                String RP = S.getString("reg_price");
+                if (RP.equals("N/A") || RP.equals("N\\/A"))
+                { int a = 0;}
+                else{
                 FuelPriceModel model = gson.fromJson(S.toString(), FuelPriceModel.class);
-                    Models.add(model);
+                    Models.add(model);}
 
             }
+
+
+
         }
         return Models;
 
