@@ -218,6 +218,10 @@ public class StationPickerActivity extends Activity {
             StationLogo1.setImageResource(R.mipmap.circlek);}
         else if (bestStations.get(varval).FPM.stationID.equals("Texaco")){
             StationLogo1.setImageResource(R.mipmap.texaco);}
+        else if (bestStations.get(varval).FPM.stationID.equals("Mobil")){
+            StationLogo1.setImageResource(R.mipmap.mobil);}
+        else if (bestStations.get(varval).FPM.stationID.equals("Sunoco")){
+            StationLogo1.setImageResource(R.mipmap.sunoco);}
         else{
             StationLogo1.setImageResource(R.mipmap.ic_launcher);}
 
@@ -241,6 +245,10 @@ public class StationPickerActivity extends Activity {
             StationLogo2.setImageResource(R.mipmap.circlek);}
         else if (bestStations.get(varval).FPM.stationID.equals("Texaco")){
             StationLogo2.setImageResource(R.mipmap.texaco);}
+        else if (bestStations.get(varval).FPM.stationID.equals("Mobil")){
+            StationLogo2.setImageResource(R.mipmap.mobil);}
+        else if (bestStations.get(varval).FPM.stationID.equals("Sunoco")){
+            StationLogo2.setImageResource(R.mipmap.sunoco);}
         else{
             StationLogo2.setImageResource(R.mipmap.ic_launcher);}
 
@@ -264,6 +272,10 @@ public class StationPickerActivity extends Activity {
             StationLogo3.setImageResource(R.mipmap.circlek);}
         else if (bestStations.get(varval).FPM.stationID.equals("Texaco")){
             StationLogo3.setImageResource(R.mipmap.texaco);}
+        else if (bestStations.get(varval).FPM.stationID.equals("Mobil")){
+            StationLogo3.setImageResource(R.mipmap.mobil);}
+        else if (bestStations.get(varval).FPM.stationID.equals("Sunoco")){
+            StationLogo3.setImageResource(R.mipmap.sunoco);}
         else{
             StationLogo3.setImageResource(R.mipmap.ic_launcher);}
 
@@ -287,6 +299,10 @@ public class StationPickerActivity extends Activity {
             StationLogo4.setImageResource(R.mipmap.circlek);}
         else if (bestStations.get(varval).FPM.stationID.equals("Texaco")){
             StationLogo4.setImageResource(R.mipmap.texaco);}
+        else if (bestStations.get(varval).FPM.stationID.equals("Mobil")){
+            StationLogo4.setImageResource(R.mipmap.mobil);}
+        else if (bestStations.get(varval).FPM.stationID.equals("Sunoco")){
+            StationLogo4.setImageResource(R.mipmap.sunoco);}
         else{
             StationLogo4.setImageResource(R.mipmap.ic_launcher);}
         //mapView.
