@@ -158,6 +158,19 @@ public class StationPickerActivity extends Activity {
         TotalCost3 ="$" +  Double.toString(TC3);
         TotalCost4 ="$" + Double.toString(TC4);
 
+        if (TotalCost1.length() == 4)
+            TotalCost1 += "0";
+        if (TotalCost2.length() == 4)
+            TotalCost2 += "0";
+
+        if (TotalCost3.length() == 4)
+            TotalCost3 += "0";
+
+        if (TotalCost4.length() == 4)
+            TotalCost4 += "0";
+
+
+
         TotalCostView1 = (TextView) findViewById(R.id.textView17);
         TotalCostView1.setText(TotalCost1);
 

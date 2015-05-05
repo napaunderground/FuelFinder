@@ -286,6 +286,7 @@ public class MapsActivity extends FragmentActivity implements
         Location bestResult = null;
         float bestAccuracy = Float.MAX_VALUE;
         long bestTime = Long.MIN_VALUE;
+        mMap.clear();
 
         // Get the best most recent location currently available
         Location mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);

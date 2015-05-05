@@ -109,7 +109,8 @@ public class FuelSourceParserV2 {
 
                 //invoking the parser and converting JSON string to FuelPriceModel
                 FuelPriceModel model = gson.fromJson(S.toString(), FuelPriceModel.class);
-                Models.add(model);
+                    Models.add(model);
+
             }
         }
         return Models;
