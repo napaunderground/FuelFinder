@@ -86,20 +86,26 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
             public void onClick(View arg0) {
                 MileageModel label = new MileageModel();
                 double Mileage;
-                Mileage = Double.parseDouble(inputMileage.getText().toString());
-                String carName = inputLabel.getText().toString();
 
-                //if (label.getUserMileage() > 0) {
+                if (inputLabel.getText().toString().equals("") || inputMileage.getText().toString().equals(""))
+                {
+                    Toast.makeText(getApplicationContext(), "Error: You must enter both a name and mileage.",
+                            Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Mileage = Double.parseDouble(inputMileage.getText().toString());
+                    String carName = inputLabel.getText().toString();
+                    //if (label.getUserMileage() > 0) {
                     // database handler
                     MySQLiteHelper db = new MySQLiteHelper(
                             getApplicationContext());
 
                     // inserting new label into database
-                datasource.createMileageModel(1, "",
-                        Mileage, "",
-                        carName, 10,
-                        "", counter);
-                counter++;
+                    datasource.createMileageModel(1, "",
+                            Mileage, "",
+                            carName, 10,
+                            "", counter);
+                    counter++;
 
 
                     // Hiding the keyboard
@@ -108,11 +114,11 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
 
                     // loading spinner with newly added data
                     loadSpinnerData();
-              //  } else {
+                    //  } else {
                     Toast.makeText(getApplicationContext(), "Vehicle entered into database " + label,
                             Toast.LENGTH_LONG).show();
-              //  }
-
+                    //  }
+                }
             }
         });
 
