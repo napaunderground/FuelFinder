@@ -33,6 +33,7 @@
 
         <!-- Label -->
         <TextView
+            android:id="@+id/addtext"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Add New Vehicle here?"
@@ -47,12 +48,21 @@
             android:layout_marginLeft="8dip"
             android:layout_marginRight="8dip"/>
 
+        <!-- Input Text -->
+        <EditText android:id="@+id/input_mileage"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/input_label"
+            android:inputType="number"
+            android:layout_marginLeft="8dip"
+            android:layout_marginRight="8dip"/>
+
         <!-- Add Button -->
         <Button android:id="@+id/btn_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Label"
-            android:layout_below="@+id/input_label"
+            android:text="Add Vehicle"
+            android:layout_below="@+id/input_mileage"
             android:layout_marginLeft="8dip"
             android:layout_marginTop="8dip"/>
 
@@ -60,20 +70,10 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Select Label"
+            android:text="Select Vehicle"
             android:padding="8dip" />
 
-        <Button
 
-            android:layout_marginTop="120dip"
-            android:background="@color/button_material_dark"
-            android:id="@+id/moreInputsButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/enter_another"
-            android:width="120dp"
-            android:layout_below="@+id/btn_add"
-            android:layout_centerHorizontal="true" />
 
 
         <Button
@@ -83,9 +83,24 @@
             android:layout_height="wrap_content"
             android:text="@string/station_grid"
             android:width="120dp"
-            android:layout_below="@+id/moreInputsButton"
-            android:layout_centerHorizontal="true" />
+            android:layout_below="@+id/addtext"
+            android:layout_marginLeft="17dp"/>
 
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="View top four stations, select which one to map"
+            android:layout_toRightOf="@+id/pickFourButton"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@+id/addtext"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Immediately map to cheapest station"
+            android:layout_toRightOf="@+id/pickFourButton"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@+id/pickFourButton"/>
 
         <Button
             android:background="@color/wallet_holo_blue_light"

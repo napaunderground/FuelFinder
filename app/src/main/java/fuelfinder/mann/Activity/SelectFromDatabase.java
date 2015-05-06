@@ -21,11 +21,13 @@ import java.util.List;
 
 import fuelfinder.mann.Models.MileageModel;
 import fuelfinder.mann.R;
+import fuelfinder.mann.Utility.MileageModelDataSource;
 import fuelfinder.mann.Utility.MySQLiteHelper;
 
 
 public class SelectFromDatabase extends Activity implements AdapterView.OnItemSelectedListener {
 
+    int counter = 0;
     //comment to test
     // Spinner element
     Spinner spinner;
@@ -33,10 +35,11 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
     String SelectedID;
     // Add button
     Button btnAdd;
+    MileageModelDataSource datasource;
 
     // Input text
     EditText inputLabel;
-
+    EditText inputMileage;
     String myLat;
     String myLng;
 
@@ -47,6 +50,8 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        datasource = new MileageModelDataSource(this);
+        datasource.open();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_from_database);
 
@@ -64,12 +69,14 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
         // new label input field
         inputLabel = (EditText) findViewById(R.id.input_label);
 
+        inputMileage = (EditText) findViewById(R.id.input_mileage);
         // Spinner click listener
         spinner.setOnItemSelectedListener(this);
 
         // Loading spinner data from database
         loadSpinnerData();
-
+        inputLabel.setHint("Enter vehicle name here");
+        inputMileage.setHint("Enter vehicle mileage here");
         /**
          * Add new label button click listener
          * */
@@ -78,17 +85,22 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
             @Override
             public void onClick(View arg0) {
                 MileageModel label = new MileageModel();
+                double Mileage;
+                Mileage = Double.parseDouble(inputMileage.getText().toString());
+                String carName = inputLabel.getText().toString();
 
-                if (label.getUserMileage() > 0) {
+                //if (label.getUserMileage() > 0) {
                     // database handler
                     MySQLiteHelper db = new MySQLiteHelper(
                             getApplicationContext());
 
                     // inserting new label into database
-                    db.insertLabel(label);
+                datasource.createMileageModel(1, "",
+                        Mileage, "",
+                        carName, 10,
+                        "", counter);
+                counter++;
 
-                    // making input filed text to blank
-                    inputLabel.setHint("Enter vehicle name here");
 
                     // Hiding the keyboard
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -96,10 +108,10 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
 
                     // loading spinner with newly added data
                     loadSpinnerData();
-                } else {
+              //  } else {
                     Toast.makeText(getApplicationContext(), "Vehicle entered into database " + label,
                             Toast.LENGTH_LONG).show();
-                }
+              //  }
 
             }
         });
