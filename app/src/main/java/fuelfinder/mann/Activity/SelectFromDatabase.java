@@ -52,6 +52,7 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
     public void onCreate(Bundle savedInstanceState) {
         datasource = new MileageModelDataSource(this);
         datasource.open();
+        counter = datasource.getAllVehicles().size();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_from_database);
 
@@ -115,7 +116,7 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
                     // loading spinner with newly added data
                     loadSpinnerData();
                     //  } else {
-                    Toast.makeText(getApplicationContext(), "Vehicle entered into database " + label,
+                    Toast.makeText(getApplicationContext(), "Vehicle entered into database: " + carName,
                             Toast.LENGTH_LONG).show();
                     //  }
                 }
@@ -133,7 +134,6 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
                 mIntent.putExtra("station", "0");
                 StationIntent.putExtra("ID", SelectedID);
 
-                finish();
                 startActivity(mIntent);
             }
         });
@@ -146,7 +146,6 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
 
                 mIntent.putExtra("station", "0");
                 StationIntent.putExtra("ID", SelectedID);
-                finish();
                 startActivity(mIntent);
             }
         });
@@ -158,7 +157,6 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
                 StationIntent.putExtra("mLat", myLat);
                 StationIntent.putExtra("mLng", myLng);
                 StationIntent.putExtra("ID", SelectedID);
-                finish();
                 startActivity(StationIntent);
                 setContentView(R.layout.activity_station_picker);
 
@@ -199,7 +197,6 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
 
     @Override
     public void onBackPressed() {
-        this.finish();
         return;
     }
 
