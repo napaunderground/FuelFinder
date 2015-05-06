@@ -3,6 +3,7 @@ package fuelfinder.mann.Activity;
 /**
  * Created by nathan on 4/28/15.
  */
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import fuelfinder.mann.Models.MileageModel;
 import fuelfinder.mann.R;
 import fuelfinder.mann.Utility.MySQLiteHelper;
 
@@ -74,9 +76,9 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
 
             @Override
             public void onClick(View arg0) {
-                String label = inputLabel.getText().toString();
+                MileageModel label = new MileageModel();
 
-                if (label.trim().length() > 0) {
+                if (label.getUserMileage() > 0) {
                     // database handler
                     MySQLiteHelper db = new MySQLiteHelper(
                             getApplicationContext());
@@ -85,7 +87,7 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
                     db.insertLabel(label);
 
                     // making input filed text to blank
-                    inputLabel.setText("");
+                    inputLabel.setHint("Enter vehicle name here");
 
                     // Hiding the keyboard
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -94,8 +96,8 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
                     // loading spinner with newly added data
                     loadSpinnerData();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Please enter Vehicle name",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Vehicle entered into database " + label,
+                            Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -199,11 +201,11 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
         MySQLiteHelper db = new MySQLiteHelper(getApplicationContext());
 
         // Spinner Drop down elements
-        List<String> lables = db.getAllLabels();
+        List<String> labels = db.getAllLabels();
 
         // Creating adapter for spinner
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, lables);
+                android.R.layout.simple_spinner_item, labels);
 
         // Drop down layout style - list view with radio button
         dataAdapter

@@ -11,6 +11,8 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import fuelfinder.mann.Models.MileageModel;
+
 /**
  * Created by Action Johnny on 4/2/2015.
  */
@@ -65,11 +67,18 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         return DATABASE_NAME;
     }
 
-    public void insertLabel(String label){
+    public void insertLabel(MileageModel label){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(VehName, label);
+        values.put(VehName, label.getCarName());
+        values.put(Mileage, label.getUserMileage());
+        values.put(Transmission, "any");
+        values.put(Engine, 2);
+        values.put(Make, "Ford");
+        values.put(Model, "Mustang");
+        values.put(Year, 2015);
+
 
         // Inserting Row
         db.insert(TABLE_LABELS, null, values);
