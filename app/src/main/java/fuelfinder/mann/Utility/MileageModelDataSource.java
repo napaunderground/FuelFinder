@@ -51,11 +51,11 @@ public class MileageModelDataSource{
 
     public void createMileageModel(double Engine, String Make, double Mileage,
                                    String Model,
-                                   int counter, String VehicleName, int Year,
-                                   String Transmission, int VehicleID) {
+                                   String VehicleName, int Year,
+                                   String Transmission, int counter) {
         ContentValues values = new ContentValues();
 
-        values.put(MySQLiteHelper.VehicleID, VehicleID);
+        values.put(MySQLiteHelper.VehicleID, counter);
 /*
         ContentValues engValues = new ContentValues();
         engValues.put(MySQLiteHelper.Engine, Engine);

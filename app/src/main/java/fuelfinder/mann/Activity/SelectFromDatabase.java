@@ -30,6 +30,7 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
     // Spinner element
     Spinner spinner;
 
+    String SelectedID;
     // Add button
     Button btnAdd;
 
@@ -113,8 +114,8 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
             public void onClick(View v) {
                 mIntent.putExtra("station", "0");
 
-                SelectFromDatabase.this.finish();
-                SelectFromDatabase.this.startActivity(mIntent);
+                finish();
+                startActivity(mIntent);
             }
         });
 
@@ -206,8 +207,7 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
                 android.R.layout.simple_spinner_item, labels);
 
         // Drop down layout style - list view with radio button
-        dataAdapter
-                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // attaching data adapter to spinner
         spinner.setAdapter(dataAdapter);
@@ -219,6 +219,7 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
         // On selecting a spinner item
         String label = parent.getItemAtPosition(position).toString();
 
+        SelectedID = ""+position;
         // Showing selected spinner item
         Toast.makeText(parent.getContext(), "You selected: " + label,
                 Toast.LENGTH_LONG).show();
