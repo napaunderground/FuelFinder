@@ -91,7 +91,7 @@ public class StartActivity extends ActionBarActivity implements
 
             String MyLat = Double.toString(location.getLatitude());
             String MyLong = Double.toString(location.getLongitude());
-            final Intent mIntent = new Intent(this, SettingsActivity.class);
+            final Intent mIntent = new Intent(this, SelectFromDatabase.class);
             mIntent.putExtra("mLat", MyLat);
             mIntent.putExtra("mLng", MyLong);
 

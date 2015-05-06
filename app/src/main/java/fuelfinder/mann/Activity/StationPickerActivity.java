@@ -43,6 +43,7 @@ import fuelfinder.mann.Service.CostCalculator;
 import fuelfinder.mann.Utility.GasStationHandler;
 import fuelfinder.mann.Utility.MileageModelDataSource;
 
+
 public class StationPickerActivity extends Activity {
 
     private MileageModelDataSource datasource;
