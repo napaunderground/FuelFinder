@@ -26,7 +26,7 @@ import fuelfinder.mann.Utility.MySQLiteHelper;
 
 public class SelectFromDatabase extends Activity implements AdapterView.OnItemSelectedListener {
 
-
+//comment to test
     // Spinner element
     Spinner spinner;
 
