@@ -61,12 +61,14 @@ public class SettingsActivity extends Activity {
             public void onClick(View v) {
                 setModel(vehicleInfo);
 
+                counter = datasource.getAllVehicles().size();
+
                 if (counter < 7){
 
                     datasource.createMileageModel(vehicleInfo.getEngine(), vehicleInfo.getMake(),
                             vehicleInfo.getUserMileage(), vehicleInfo.getModel(),
-                            counter, vehicleInfo.getCarName(), vehicleInfo.getYear(),
-                            vehicleInfo.getTransmission(), vehicleInfo.getVehicleID());
+                            vehicleInfo.getCarName(), vehicleInfo.getYear(),
+                            vehicleInfo.getTransmission(), counter);
                     counter++;
                     finish();
                 } else {

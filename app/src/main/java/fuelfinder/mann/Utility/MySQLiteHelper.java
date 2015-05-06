@@ -37,7 +37,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_CREATE = "create table "
             + NAME + "(" + VehicleID
-            + " integer primary key autoincrement unique, " + Model
+            + " integer primary key AUTOINCREMENT unique, " + Model
             + " text not null, " + VehName +
             " text not null, " + Year +
             " integer not null, " + Make +
@@ -96,7 +96,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                labels.add(cursor.getString(1));
+                labels.add(cursor.getString(2));
             } while (cursor.moveToNext());
         }
 
