@@ -3,19 +3,16 @@ package fuelfinder.mann.Activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.Toast;
 
-
-import android.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 
 import fuelfinder.mann.R;
@@ -88,7 +85,8 @@ public class StartActivity extends ActionBarActivity implements
         savedMileage = prefs.getString("FuelMileage", "0");
         intMileage = Integer.parseInt(savedMileage);
 
-
+        if(intMileage == 0 && EndCond != 0)
+        {
 
 
             String MyLat = Double.toString(location.getLatitude());
@@ -98,8 +96,17 @@ public class StartActivity extends ActionBarActivity implements
             mIntent.putExtra("mLng", MyLong);
 
             startActivity(mIntent);
+        }
 
+        else if (intMileage != 0)
+        {
+            setContentView(R.layout.activity_start);
+            finish();
+            startActivity(new Intent(this, fuelfinder.mann.Activity.MapsActivity.class));
 
+        }
+        else
+            EndCond++;
     }
 
 

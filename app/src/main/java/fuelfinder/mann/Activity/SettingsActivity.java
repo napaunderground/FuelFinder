@@ -103,14 +103,22 @@ public class SettingsActivity extends Activity {
             mileage = 0;
         }
 
-        vehicleInfo.setCarName(String.valueOf(tCarName));
-        vehicleInfo.setYear(year);
-        vehicleInfo.setMake(String.valueOf(tMake));
-        vehicleInfo.setModel(String.valueOf(tVehModel));
-        vehicleInfo.setEngine(engine);
-        vehicleInfo.setTransmission(String.valueOf(tTransmission));
-        vehicleInfo.setUserMileage(mileage);
 
+        /*
+           private EditText txtDescription = (EditText) layout.findViewById(R.id.txtDescription)
+
+    String string = txtDescription.getText().toString(); */
+        String CarName = tCarName.getText().toString();
+        String MakeString = tMake.getText().toString();
+        String ModelString = tVehModel.getText().toString();
+        String TransString = tTransmission.getText().toString();
+        vehicleInfo.setCarName(CarName);
+        vehicleInfo.setYear(year);
+        vehicleInfo.setMake(MakeString);
+        vehicleInfo.setModel(ModelString);
+        vehicleInfo.setEngine(engine);
+        vehicleInfo.setTransmission(TransString);
+        vehicleInfo.setUserMileage(mileage);
 
     }
 
