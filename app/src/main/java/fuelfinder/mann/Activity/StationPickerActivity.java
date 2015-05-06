@@ -46,6 +46,8 @@ import fuelfinder.mann.Utility.MileageModelDataSource;
 public class StationPickerActivity extends Activity {
 
     private MileageModelDataSource datasource;
+
+    MapView map1;
     String myLat = "";
     String myLng = "";
 
@@ -90,6 +92,10 @@ public class StationPickerActivity extends Activity {
         secondChoice = (Button)findViewById(R.id.checkBox2);
         thirdChoice = (Button)findViewById(R.id.checkBox3);
         fourthChoice = (Button)findViewById(R.id.checkBox4);
+
+        map1 = (com.google.android.gms.maps.MapView)findViewById(R.id.map1);
+        GoogleMap map11 = map1.getMap();
+
 
         Location mCurrentLocation = new Location("Here!");
         myLat = getIntent().getExtras().getString("mLat");
