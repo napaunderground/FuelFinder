@@ -38,8 +38,8 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
     String myLng;
 
     private Button moreInputsButton;
-    private Button pickTheBestButton;
-    private Button pickFourButton;
+    Button pickTheBestButton;
+    Button pickFourButton;
 
 
     @Override
@@ -51,6 +51,7 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
         myLat = getIntent().getStringExtra("mLat");
         myLng = getIntent().getStringExtra("mLng");
 
+        setFields();
         // Spinner element
         spinner = (Spinner) findViewById(R.id.spinner);
 
@@ -99,11 +100,11 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
 
             }
         });
-    }
+
 
         final Intent StationIntent = new Intent(this, StationPickerActivity.class);
         final Intent mIntent = new Intent(this, MapsActivity.class);
-/*
+
 
         pickTheBestButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,7 +143,7 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
         });
 
     }
-
+/*
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // On selecting a spinner item
@@ -154,6 +155,12 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
     }
 */
 
+
+
+
+
+
+
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
@@ -161,8 +168,8 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
 
     public void setFields() {
         moreInputsButton = (Button) findViewById(R.id.moreInputsButton);
-     //   pickTheBestButton = (Button) findViewById(R.id.pickTheBestButton);
-     //   pickFourButton = (Button) findViewById(R.id.pickFourButton);
+        pickTheBestButton = (Button) findViewById(R.id.pickTheBestButton);
+        pickFourButton = (Button) findViewById(R.id.pickFourButton);
         myLat = getIntent().getStringExtra("mLat");
         myLng = getIntent().getStringExtra("mLng");
     }
