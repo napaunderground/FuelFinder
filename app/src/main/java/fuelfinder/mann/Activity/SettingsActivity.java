@@ -116,7 +116,6 @@ public class SettingsActivity extends Activity {
 
     public void setFields() {
 
-
         selectVehicleButton = (Button) findViewById(R.id.selectVehicle);
         moreInputsButton = (Button) findViewById(R.id.moreInputsButton);
         tCarName = (EditText) findViewById(R.id.editTextCarName);
@@ -126,6 +125,7 @@ public class SettingsActivity extends Activity {
         tMileage = (EditText) findViewById(R.id.editTextFuelMileage);
         tEngine = (EditText) findViewById(R.id.editTextEngineSize);
         tTransmission = (EditText) findViewById(R.id.editTextTransmission);
+
     }
 
 
