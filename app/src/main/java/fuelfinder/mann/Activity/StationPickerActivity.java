@@ -46,7 +46,8 @@ import fuelfinder.mann.Utility.MileageModelDataSource;
 public class StationPickerActivity extends Activity {
 
     private MileageModelDataSource datasource;
-
+    String ID = "";
+    int IntID = 0;
     MapView map1;
     String myLat = "";
     String myLng = "";
@@ -100,6 +101,8 @@ public class StationPickerActivity extends Activity {
         Location mCurrentLocation = new Location("Here!");
         myLat = getIntent().getExtras().getString("mLat");
         myLng = getIntent().getExtras().getString("mLng");
+        ID = getIntent().getExtras().getString("ID");
+        IntID = Integer.parseInt(ID);
         if (getIntent().getExtras().getString("mLat") == null) {
             return;
         }
@@ -120,7 +123,7 @@ public class StationPickerActivity extends Activity {
         }
         GasStationHandler Handle = new GasStationHandler();
         ArrayList<StationInfoModel> bestStations = new ArrayList<>();
-        double MileageValue = datasource.getAllVehicles().get(0).getUserMileage();
+        double MileageValue = datasource.getAllVehicles().get(IntID).getUserMileage();
         bestStations = Handle.getBestStations(FPLoc, MileageValue, mCurrentLocation);
 
         Choice1Cost ="$" +  Double.toString(bestStations.get(0).FPM.pricePerGallon);

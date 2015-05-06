@@ -113,6 +113,7 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
             @Override
             public void onClick(View v) {
                 mIntent.putExtra("station", "0");
+                StationIntent.putExtra("ID", SelectedID);
 
                 finish();
                 startActivity(mIntent);
@@ -126,7 +127,7 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
             public void onClick(View v) {
 
                 mIntent.putExtra("station", "0");
-
+                StationIntent.putExtra("ID", SelectedID);
                 finish();
                 startActivity(mIntent);
             }
@@ -138,6 +139,7 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
             public void onClick(View v) {
                 StationIntent.putExtra("mLat", myLat);
                 StationIntent.putExtra("mLng", myLng);
+                StationIntent.putExtra("ID", SelectedID);
                 finish();
                 startActivity(StationIntent);
                 setContentView(R.layout.activity_station_picker);
@@ -221,7 +223,7 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
 
         SelectedID = ""+position;
         // Showing selected spinner item
-        Toast.makeText(parent.getContext(), "You selected: " + label,
+        Toast.makeText(parent.getContext(), "Vehicle selected: " + label,
                 Toast.LENGTH_LONG).show();
 
     }
