@@ -1,17 +1,12 @@
 package fuelfinder.mann.Activity;
 
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.content.IntentSender;
-import android.content.res.Resources;
 import android.location.Location;
-import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -19,30 +14,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import fuelfinder.mann.Models.StationInfoModel;
-import fuelfinder.mann.R;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
 import org.json.JSONException;
 
 import java.util.ArrayList;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 import fuelfinder.mann.Models.FuelPriceModel;
+import fuelfinder.mann.Models.StationInfoModel;
 import fuelfinder.mann.Parser.FuelSourceParserV2;
 import fuelfinder.mann.R;
 import fuelfinder.mann.Service.CostCalculator;
@@ -496,7 +473,7 @@ public class StationPickerActivity extends FragmentActivity {
     @Override
     public void onBackPressed() {
         finish();
-        startActivity(new Intent(this, StartActivity.class));
+        startActivity(new Intent(this, SelectFromDatabase.class));
     }
 
 }
