@@ -131,9 +131,12 @@ public class LocationFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        MapFragment f = (MapFragment) getFragmentManager()
-                .findFragmentById(R.id.map1);
-        if (f != null)
-            getFragmentManager().beginTransaction().remove(f).commit();
+        if (mMap != null) {
+            if (StationPickerActivity.fragmentManager.findFragmentById(R.id.location_map) != null)
+            {
+                StationPickerActivity.fragmentManager.beginTransaction().remove(StationPickerActivity.fragmentManager.findFragmentById(R.id.location_map)).commit();
+            }
+            mMap = null;
+        }
     }
 }

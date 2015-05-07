@@ -117,7 +117,7 @@ public class LocationFragment3 extends Fragment {
 
         if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
-            mMap = ((MapFragment) StationPickerActivity.fragmentManager
+            mMap = ((MapFragment) StationPickerActivity.fragmentManager3
                     .findFragmentById(ResID)).getMap(); // getMap is deprecated
             // Check if we were successful in obtaining the map.
             if (mMap != null)
@@ -131,9 +131,12 @@ public class LocationFragment3 extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        MapFragment f = (MapFragment) getFragmentManager()
-                .findFragmentById(R.id.map3);
-        if (f != null)
-            getFragmentManager().beginTransaction().remove(f).commit();
+        if (mMap != null) {
+            if (StationPickerActivity.fragmentManager3.findFragmentById(R.id.location_map3) != null)
+            {
+                StationPickerActivity.fragmentManager3.beginTransaction().remove(StationPickerActivity.fragmentManager3.findFragmentById(R.id.location_map3)).commit();
+            }
+            mMap = null;
+        }
     }
 }
