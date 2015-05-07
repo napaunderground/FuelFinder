@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -36,6 +37,8 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
     // Add button
     Button btnAdd;
     Button btnDel;
+    ImageButton WhatIsThis1;
+    ImageButton WhatIsThis2;
     MileageModelDataSource datasource;
 
     // Input text
@@ -68,6 +71,8 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
         // add button
         btnAdd = (Button) findViewById(R.id.btn_add);
         btnDel = (Button) findViewById(R.id.btn_del);
+        WhatIsThis1 = (ImageButton) findViewById(R.id.imageButton1);
+        WhatIsThis2 = (ImageButton) findViewById(R.id.imageButton2);
 
         // new label input field
         inputLabel = (EditText) findViewById(R.id.input_label);
@@ -134,6 +139,32 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
                     loadSpinnerData();
                     Toast.makeText(getApplicationContext(), "Vehicle deleted from database: " + label,
                             Toast.LENGTH_LONG).show();
+
+
+
+            }
+        });
+
+        WhatIsThis1.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+                Toast.makeText(getApplicationContext(), "This button automatically selects the station with the cheapest total cost and routes to it",
+                        Toast.LENGTH_LONG).show();
+
+
+
+            }
+        });
+
+        WhatIsThis2.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+                Toast.makeText(getApplicationContext(), "This button redirects to a selection of the four cheapest total costs near you",
+                        Toast.LENGTH_LONG).show();
 
 
 

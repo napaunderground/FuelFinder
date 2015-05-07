@@ -96,21 +96,26 @@
             android:layout_below="@+id/addtext"
             android:layout_marginLeft="17dp"/>
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="View top four stations, select which one to map"
+        <ImageButton
+            android:id="@+id/imageButton1"
+            android:contentDescription="whatisthis"
+            android:layout_width="15dp"
             android:layout_toRightOf="@+id/pickFourButton"
             android:layout_marginLeft="10dp"
-            android:layout_below="@+id/addtext"/>
+            android:layout_below="@+id/addtext"
+            android:background="@mipmap/questmark"
+            android:layout_height="15dp" />
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Immediately map to cheapest station"
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:contentDescription="whatisthis"
+            android:layout_width="15dp"
             android:layout_toRightOf="@+id/pickFourButton"
             android:layout_marginLeft="10dp"
-            android:layout_below="@+id/pickFourButton"/>
+            android:layout_below="@+id/pickFourButton"
+            android:background="@mipmap/questmark"
+            android:layout_height="15dp" />
 
         <Button
             android:background="@color/wallet_holo_blue_light"
