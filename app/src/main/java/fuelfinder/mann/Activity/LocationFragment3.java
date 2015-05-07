@@ -25,7 +25,7 @@ import fuelfinder.mann.R;
 /**
 
  */
-public class LocationFragment extends Fragment {
+public class LocationFragment3 extends Fragment {
     static String Num;
     static double DLat;
     static double DLng;
@@ -41,7 +41,7 @@ public class LocationFragment extends Fragment {
 
             fm = getChildFragmentManager();
         }
-            return (MapFragment) fm.findFragmentById(R.id.location_map);
+        return (MapFragment) fm.findFragmentById(R.id.location_map3);
 
     }
 
@@ -69,7 +69,7 @@ public class LocationFragment extends Fragment {
         if (container == null) {
             return null;
         }
-        view = (RelativeLayout) inflater.inflate(R.layout.location_fragment, container, false);
+        view = (RelativeLayout) inflater.inflate(R.layout.location_fragment3, container, false);
         // Passing harcoded values for latitude & longitude. Please change as per your need. This is just used to drop a Marker on the Map
 
         setUpMapIfNeeded(); // For setting up the MapFragment
@@ -132,7 +132,7 @@ public class LocationFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         MapFragment f = (MapFragment) getFragmentManager()
-                .findFragmentById(R.id.map1);
+                .findFragmentById(R.id.map3);
         if (f != null)
             getFragmentManager().beginTransaction().remove(f).commit();
     }

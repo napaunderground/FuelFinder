@@ -69,7 +69,7 @@ public class LocationFragment2 extends Fragment {
         if (container == null) {
             return null;
         }
-        view = (RelativeLayout) inflater.inflate(R.layout.location_fragment, container, false);
+        view = (RelativeLayout) inflater.inflate(R.layout.location_fragment2, container, false);
         // Passing harcoded values for latitude & longitude. Please change as per your need. This is just used to drop a Marker on the Map
 
         setUpMapIfNeeded(); // For setting up the MapFragment
@@ -129,12 +129,11 @@ public class LocationFragment2 extends Fragment {
      **** or else if the same it is passed on the next time then
      **** app will crash ****/
     @Override
-    public void onDestroyView()
-    {
+    public void onDestroyView() {
         super.onDestroyView();
-        Fragment fragment = (getFragmentManager().findFragmentById(ResID));
-        FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-        ft.remove(fragment);
-        ft.commit();
+        MapFragment f = (MapFragment) getFragmentManager()
+                .findFragmentById(R.id.map2);
+        if (f != null)
+            getFragmentManager().beginTransaction().remove(f).commit();
     }
 }
