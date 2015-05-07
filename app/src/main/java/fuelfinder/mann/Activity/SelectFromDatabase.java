@@ -95,6 +95,12 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
                 MileageModel label = new MileageModel();
                 double Mileage;
 
+                inputLabel.setHint("Enter vehicle name here");
+                inputMileage.setHint("Enter vehicle mileage here");
+
+                // Hiding the keyboard
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(inputLabel.getWindowToken(), 0);
 
                 MySQLiteHelper db = new MySQLiteHelper(
                         getApplicationContext());
@@ -117,7 +123,7 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
 
 
                         // Hiding the keyboard
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(inputLabel.getWindowToken(), 0);
 
                         // loading spinner with newly added data
@@ -126,6 +132,7 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
                         Toast.makeText(getApplicationContext(), "Vehicle entered into database: " + carName,
                                 Toast.LENGTH_LONG).show();
                         //  }
+
                     }
                 }
                 else
@@ -133,6 +140,7 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
                     Toast.makeText(getApplicationContext(), "Maximum stored vehicles reached, delete a vehicle to make room for another.",
                             Toast.LENGTH_LONG).show();
                 }
+
             }
         });
 
@@ -140,6 +148,12 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
 
             @Override
             public void onClick(View arg0) {
+
+
+
+                    // Hiding the keyboard
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(inputLabel.getWindowToken(), 0);
 
                     datasource.deleteVehFromName(label);
                     loadSpinnerData();

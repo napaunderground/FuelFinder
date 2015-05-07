@@ -103,10 +103,11 @@ public class MileageModelDataSource{
     }
 
     public void deleteVehFromName(String VName) {
+        open();
         System.out.println("Vehicle deleted with name: " + VName);
         database.delete(MySQLiteHelper.NAME, MySQLiteHelper.VehName
                 + " = \"" + VName +"\"", null);
-
+        close();
     }
 
     public List<MileageModel> getAllVehicles() {

@@ -39,7 +39,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             + NAME + "(" + VehicleID
             + " integer primary key AUTOINCREMENT unique, " + Model
             + " text not null, " + VehName +
-            " text not null, " + Year +
+            " text not null unique, " + Year +
             " integer not null, " + Make +
             " text not null, " + Mileage +
             " real not null, " + Engine +
