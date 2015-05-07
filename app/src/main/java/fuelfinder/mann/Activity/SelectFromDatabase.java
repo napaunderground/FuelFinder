@@ -35,10 +35,14 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
     String SelectedID;
     // Add button
     Button btnAdd;
+
+    // delete button
+    Button btnDelete;
     MileageModelDataSource datasource;
 
     // Input text
     EditText inputLabel;
+    EditText inputLabel2;
     EditText inputMileage;
     String myLat;
     String myLng;
@@ -66,9 +70,13 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
 
         // add button
         btnAdd = (Button) findViewById(R.id.btn_add);
+        // delete button
+
+        btnDelete = (Button) findViewById(R.id.btn_delete);
 
         // new label input field
         inputLabel = (EditText) findViewById(R.id.input_label);
+        inputLabel2 = (EditText) findViewById(R.id.input_label2);
 
         inputMileage = (EditText) findViewById(R.id.input_mileage);
         // Spinner click listener
@@ -122,6 +130,24 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
                 }
             }
         });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+
+                MileageModel label = new MileageModel();
+                MySQLiteHelper db = new MySQLiteHelper(getApplicationContext());
+                db.deleteMileageModel(label);
+                // loading spinner after deleting data
+                loadSpinnerData();
+
+                Toast.makeText(getApplicationContext(), "Vehicle to delete from database " + label,
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+
 
 
         final Intent StationIntent = new Intent(this, StationPickerActivity.class);
