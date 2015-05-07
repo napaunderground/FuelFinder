@@ -334,20 +334,66 @@
         android:layout_alignLeft="@+id/textView8"
         android:layout_alignStart="@+id/textView8" />
 
-    <com.google.android.gms.maps.MapView
+
+    <fragment
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:id="@+id/map1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/map1"
         android:layout_below="@+id/imageView"
-        android:layout_alignLeft="@+id/leftline"
         android:layout_alignRight="@+id/midvertline"
+        android:layout_alignLeft="@+id/leftline"
         android:layout_above="@+id/midhorizline"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-
+        android:layout_gravity="center_horizontal"
         />
 
+    <fragment
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:id="@+id/map2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:layout_alignRight="@+id/rightline"
+        android:layout_alignLeft="@+id/midvertline"
+        android:layout_above="@+id/midhorizline"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <fragment
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:id="@+id/map4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView4"
+        android:layout_alignRight="@+id/rightline"
+        android:layout_alignLeft="@+id/midvertline"
+        android:layout_above="@+id/botline"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <fragment
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:id="@+id/map3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView3"
+        android:layout_alignRight="@+id/midvertline"
+        android:layout_alignLeft="@+id/leftline"
+        android:layout_above="@+id/botline"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        />
 
 
 </RelativeLayout>

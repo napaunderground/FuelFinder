@@ -53,5 +53,8 @@
     <string name="title_activity_select_from_database">selectFromDatabase</string>
     <string name="delete_vehicle">delete</string>
 
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>
