@@ -76,11 +76,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Delete Vehicle"
-            android:layout_below="@+id/input_mileage"
-            android:layout_toRightOf="@+id/btn_add"
-            android:layout_marginLeft="8dip"
-            android:layout_marginTop="8dip"
-            android:background="@color/blue"/>
+            android:background="@color/blue"
+            android:layout_above="@+id/addtext"
+            android:layout_toRightOf="@+id/pickFourButton"
+            android:layout_toEndOf="@+id/pickFourButton" />
 
         <!-- Select Label -->
         <TextView
@@ -93,15 +92,15 @@
 
 
         <Button
-            android:background="@color/blue"
+            android:background="@color/button_material_light"
             android:id="@+id/pickFourButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/station_grid"
             android:width="120dp"
-            android:layout_below="@+id/addtext"
-            android:layout_marginLeft="8dip"
-            />
+            android:layout_alignTop="@+id/imageButton1"
+            android:layout_alignLeft="@+id/pickTheBestButton"
+            android:layout_alignStart="@+id/pickTheBestButton" />
 
         <ImageButton
             android:id="@+id/imageButton1"
@@ -125,15 +124,15 @@
             android:layout_height="15dp" />
 
         <Button
-            android:background="@color/blue"
+            android:background="@color/wallet_holo_blue_light"
             android:id="@+id/pickTheBestButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/map"
             android:width="120dp"
-            android:layout_alignLeft="@+id/pickFourButton"
-            android:layout_alignStart="@+id/pickFourButton"
-            android:layout_below="@+id/pickFourButton"/>
+            android:layout_below="@+id/pickFourButton"
+            android:layout_toRightOf="@+id/btn_add"
+            android:layout_toEndOf="@+id/btn_add" />
 
 
 

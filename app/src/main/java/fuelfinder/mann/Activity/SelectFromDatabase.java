@@ -265,8 +265,10 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
 
     @Override
     public void onBackPressed() {
+        
         finish();
         startActivity(new Intent(this, StartActivity.class));
+
     }
 
     @Override
