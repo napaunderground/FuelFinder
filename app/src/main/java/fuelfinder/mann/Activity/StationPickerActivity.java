@@ -1,8 +1,11 @@
 package fuelfinder.mann.Activity;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.res.Resources;
@@ -427,19 +430,17 @@ public class StationPickerActivity extends FragmentActivity {
 
 
         fragmentManager = getFragmentManager();
-
-
         fragmentManager.beginTransaction().replace(R.id.map1, Loc1).commit();
-        fragmentManager.executePendingTransactions();
+
         fragmentManager2 = getFragmentManager();
         fragmentManager2.beginTransaction().replace(R.id.map2, Loc2).commit();
-        fragmentManager2.executePendingTransactions();
+
         fragmentManager3 = getFragmentManager();
         fragmentManager3.beginTransaction().replace(R.id.map3, Loc3).commit();
-        fragmentManager3.executePendingTransactions();
+
         fragmentManager4 = getFragmentManager();
         fragmentManager4.beginTransaction().replace(R.id.map4, Loc4).commit();
-        fragmentManager4.executePendingTransactions();
+
 
 
 
@@ -495,8 +496,23 @@ public class StationPickerActivity extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
+
+        /*Intent MINTENT = new Intent(this, SelectFromDatabase.class);
+        MINTENT.putExtra("mLat", myLat);
+        MINTENT.putExtra("mLng", myLng);
+
+        fragmentManager4.beginTransaction().remove(fragmentManager4.findFragmentById(R.id.map4)).commit();
+        fragmentManager3.beginTransaction().remove(fragmentManager3.findFragmentById(R.id.map3)).commit();
+        fragmentManager2.beginTransaction().remove(fragmentManager2.findFragmentById(R.id.map2)).commit();
+        fragmentManager.beginTransaction().remove(fragmentManager.findFragmentById(R.id.map)).commit();
         finish();
-        startActivity(new Intent(this, StartActivity.class));
+        startActivity(MINTENT);*/
+        AlarmManager alm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        alm.set(AlarmManager.RTC, System.currentTimeMillis() + 1000, PendingIntent.getActivity(this, 0, new Intent(this, StartActivity.class), 0));
+        //Process.sendSignal(Process.myPid(), Process.SIGNAL_KILL);
+        System.exit(2);
+
+
     }
 
 }
