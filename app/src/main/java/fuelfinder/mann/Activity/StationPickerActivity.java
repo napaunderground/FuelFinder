@@ -409,4 +409,10 @@ public class StationPickerActivity extends Activity {
         return result;
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        startActivity(new Intent(this, StartActivity.class));
+    }
+
 }
