@@ -88,6 +88,7 @@
             android:name=".Activity.SelectFromDatabase"
             android:label="@string/title_activity_select_from_database" >
         </activity>
+
     </application>
 
 </manifest>

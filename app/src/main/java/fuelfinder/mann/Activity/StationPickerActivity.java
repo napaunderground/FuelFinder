@@ -1,12 +1,15 @@
 package fuelfinder.mann.Activity;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +32,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONException;
 
@@ -44,12 +48,14 @@ import fuelfinder.mann.Utility.GasStationHandler;
 import fuelfinder.mann.Utility.MileageModelDataSource;
 
 
-public class StationPickerActivity extends Activity {
+public class StationPickerActivity extends FragmentActivity {
+
+    static FragmentManager fragmentManager;
+    static FragmentTransaction ft1;
 
     private MileageModelDataSource datasource;
     String ID = "";
     int IntID = 0;
-    MapView map1;
     String myLat = "";
     String myLng = "";
 
@@ -95,8 +101,7 @@ public class StationPickerActivity extends Activity {
         thirdChoice = (Button)findViewById(R.id.checkBox3);
         fourthChoice = (Button)findViewById(R.id.checkBox4);
 
-        map1 = (com.google.android.gms.maps.MapView)findViewById(R.id.map1);
-        GoogleMap map11 = map1.getMap();
+        //startActivityFromFragment();
 
 
         Location mCurrentLocation = new Location("Here!");
@@ -359,6 +364,52 @@ public class StationPickerActivity extends Activity {
                 startActivity(mIntent);
             }
         });
+
+
+        Bundle m1 = new Bundle();
+        m1.putString("Lat", ""+bestStations.get(0).FPM.Lat);
+        m1.putString("Lng", ""+bestStations.get(0).FPM.Lng);
+        m1.putString("RID", ""+R.id.map1);
+        m1.putString("NUM", "1");
+        Bundle m2 = new Bundle();
+        m2.putString("Lat", ""+bestStations.get(1).FPM.Lat);
+        m2.putString("Lng", ""+bestStations.get(1).FPM.Lng);
+        m2.putString("RID", ""+R.id.map2);
+        m2.putString("NUM", "2");
+        Bundle m3 = new Bundle();
+        m3.putString("Lat", ""+bestStations.get(2).FPM.Lat);
+        m3.putString("Lng", "" + bestStations.get(2).FPM.Lng);
+        m3.putString("RID", ""+R.id.map3);
+        m3.putString("NUM", "3");
+        Bundle m4 = new Bundle();
+        m4.putString("Lat", ""+bestStations.get(3).FPM.Lat);
+        m4.putString("Lng", ""+bestStations.get(3).FPM.Lng);
+        m4.putString("RID", ""+R.id.map4);
+        m4.putString("NUM", "4");
+
+        LocationFragment Loc1=new LocationFragment();
+        Loc1.setArguments(m1);
+
+        LocationFragment2 Loc2=new LocationFragment2();
+        Loc2.setArguments(m2);
+
+        LocationFragment Loc3=new LocationFragment();
+        Loc3.setArguments(m3);
+
+        LocationFragment Loc4=new LocationFragment();
+        Loc4.setArguments(m4);
+
+
+
+
+        fragmentManager = getFragmentManager();
+
+
+        fragmentManager.beginTransaction().replace(R.id.map1, Loc1).commit();
+        //fragmentManager.beginTransaction().replace(R.id.map1, Loc2).commit();
+
+
+
     }
 
 
