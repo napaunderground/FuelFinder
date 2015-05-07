@@ -66,6 +66,16 @@
             android:layout_marginLeft="8dip"
             android:layout_marginTop="8dip"/>
 
+        <!-- Add Button -->
+        <Button android:id="@+id/btn_del"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete Vehicle"
+            android:layout_below="@+id/input_mileage"
+            android:layout_toRightOf="@+id/btn_add"
+            android:layout_marginLeft="8dip"
+            android:layout_marginTop="8dip"/>
+
         <!-- Select Label -->
         <TextView
             android:layout_width="fill_parent"

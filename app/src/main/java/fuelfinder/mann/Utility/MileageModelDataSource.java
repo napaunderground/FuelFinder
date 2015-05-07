@@ -95,11 +95,17 @@ public class MileageModelDataSource{
 
     }
 
-    public void deleteMileageModel(MileageModel Model) {
-        int id = Model.getVehicleID();
+    public void deleteMileageModel(int id) {
         System.out.println("Vehicle deleted with id: " + id);
         database.delete(MySQLiteHelper.NAME, MySQLiteHelper.VehicleID
                 + " = " + id, null);
+
+    }
+
+    public void deleteVehFromName(String VName) {
+        System.out.println("Vehicle deleted with name: " + VName);
+        database.delete(MySQLiteHelper.NAME, MySQLiteHelper.VehName
+                + " = \"" + VName +"\"", null);
 
     }
 

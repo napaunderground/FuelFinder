@@ -35,6 +35,7 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
     String SelectedID;
     // Add button
     Button btnAdd;
+    Button btnDel;
     MileageModelDataSource datasource;
 
     // Input text
@@ -42,6 +43,7 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
     EditText inputMileage;
     String myLat;
     String myLng;
+    String label;
 
     private Button moreInputsButton;
     Button pickTheBestButton;
@@ -66,6 +68,7 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
 
         // add button
         btnAdd = (Button) findViewById(R.id.btn_add);
+        btnDel = (Button) findViewById(R.id.btn_del);
 
         // new label input field
         inputLabel = (EditText) findViewById(R.id.input_label);
@@ -120,6 +123,19 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
                             Toast.LENGTH_LONG).show();
                     //  }
                 }
+            }
+        });
+
+        btnDel.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                datasource.deleteVehFromName(label);
+                loadSpinnerData();
+                Toast.makeText(getApplicationContext(), "Vehicle deleted from database: " + label,
+                        Toast.LENGTH_LONG).show();
+
+
             }
         });
 
@@ -234,7 +250,7 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
     public void onItemSelected(AdapterView<?> parent, View view, int position,
                                long id) {
         // On selecting a spinner item
-        String label = parent.getItemAtPosition(position).toString();
+        label = parent.getItemAtPosition(position).toString();
 
         SelectedID = ""+position;
         // Showing selected spinner item
