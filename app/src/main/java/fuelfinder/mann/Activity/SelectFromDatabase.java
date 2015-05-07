@@ -54,7 +54,6 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
     public void onCreate(Bundle savedInstanceState) {
         datasource = new MileageModelDataSource(this);
         datasource.open();
-        counter = datasource.getAllVehicles().size();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_from_database);
 
@@ -130,17 +129,12 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
 
             @Override
             public void onClick(View arg0) {
-                if (datasource.getAllVehicles().size() == 0)
-                {
-                    Toast.makeText(getApplicationContext(), "Error: No vehicles to delete.",
-                            Toast.LENGTH_LONG).show();
-                }
-                else {
+
                     datasource.deleteVehFromName(label);
                     loadSpinnerData();
                     Toast.makeText(getApplicationContext(), "Vehicle deleted from database: " + label,
                             Toast.LENGTH_LONG).show();
-                }
+
 
 
             }
