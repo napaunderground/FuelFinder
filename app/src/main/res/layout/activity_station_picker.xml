@@ -395,6 +395,15 @@
         android:layout_gravity="center_horizontal"
         />
 
+    <ImageButton
+        android:id="@+id/imageButtonS"
+        android:contentDescription="whatisthis"
+        android:layout_width="30dp"
+        android:layout_toRightOf="@+id/textView"
+        android:layout_below="@+id/checkBox"
+        android:background="@mipmap/questmark"
+        android:layout_height="30dp" />
+
 
 </RelativeLayout>
 
