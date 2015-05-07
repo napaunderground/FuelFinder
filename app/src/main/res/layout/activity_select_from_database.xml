@@ -41,8 +41,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Station Options"
+            android:padding="8dip"
             android:layout_below="@+id/btn_add"
-            android:padding="8dip" />
+            android:layout_toRightOf="@+id/btn_add"
+            android:layout_toEndOf="@+id/btn_add" />
 
         <!-- Input Text -->
         <EditText android:id="@+id/input_label"
