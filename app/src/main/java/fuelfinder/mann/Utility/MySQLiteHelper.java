@@ -107,4 +107,30 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         // returning lables
         return labels;
     }
+
+
+
+    public int getAllCount() {
+        int count = 0;
+
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + NAME;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                count++;
+            } while (cursor.moveToNext());
+        }
+
+        // closing connection
+        cursor.close();
+        db.close();
+
+        // returning lables
+        return count;
+    }
 }

@@ -95,37 +95,43 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
                 MileageModel label = new MileageModel();
                 double Mileage;
 
-                if (inputLabel.getText().toString().equals("") || inputMileage.getText().toString().equals(""))
-                {
-                    Toast.makeText(getApplicationContext(), "Error: You must enter both a name and mileage.",
-                            Toast.LENGTH_LONG).show();
+
+                MySQLiteHelper db = new MySQLiteHelper(
+                        getApplicationContext());
+                if(db.getAllCount() < 8) {
+                    if (inputLabel.getText().toString().equals("") || inputMileage.getText().toString().equals("")) {
+                        Toast.makeText(getApplicationContext(), "Error: You must enter both a name and mileage.",
+                                Toast.LENGTH_LONG).show();
+                    } else {
+                        Mileage = Double.parseDouble(inputMileage.getText().toString());
+                        String carName = inputLabel.getText().toString();
+                        //if (label.getUserMileage() > 0) {
+                        // database handler
+
+                        // inserting new label into database
+                        datasource.createMileageModel(1, "",
+                                Mileage, "",
+                                carName, 10,
+                                "", counter);
+                        counter++;
+
+
+                        // Hiding the keyboard
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(inputLabel.getWindowToken(), 0);
+
+                        // loading spinner with newly added data
+                        loadSpinnerData();
+                        //  } else {
+                        Toast.makeText(getApplicationContext(), "Vehicle entered into database: " + carName,
+                                Toast.LENGTH_LONG).show();
+                        //  }
+                    }
                 }
-                else {
-                    Mileage = Double.parseDouble(inputMileage.getText().toString());
-                    String carName = inputLabel.getText().toString();
-                    //if (label.getUserMileage() > 0) {
-                    // database handler
-                    MySQLiteHelper db = new MySQLiteHelper(
-                            getApplicationContext());
-
-                    // inserting new label into database
-                    datasource.createMileageModel(1, "",
-                            Mileage, "",
-                            carName, 10,
-                            "", counter);
-                    counter++;
-
-
-                    // Hiding the keyboard
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(inputLabel.getWindowToken(), 0);
-
-                    // loading spinner with newly added data
-                    loadSpinnerData();
-                    //  } else {
-                    Toast.makeText(getApplicationContext(), "Vehicle entered into database: " + carName,
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Maximum stored vehicles reached, delete a vehicle to make room for another.",
                             Toast.LENGTH_LONG).show();
-                    //  }
                 }
             }
         });
