@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".DisplayContact"
-    android:background = "@color/white">
+    android:background = "#DEDEDE">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -15,7 +15,18 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingBottom="@dimen/activity_vertical_margin"
         tools:context="fuelfinder.mann.Activity.SettingsActivity"
-        android:background="#ffffff">
+        android:background="#DEDEDE">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#DEDEDE"/>
+        <View
+            android:id="@+id/topline"
+            android:layout_width="fill_parent"
+            android:layout_height="6dp"
+            android:background="@color/blue"/>
+
 
 
         <Spinner
@@ -36,7 +47,7 @@
             android:id="@+id/addtext"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Add New Vehicle here?"
+            android:text="Station Options"
             android:layout_below="@+id/btn_add"
             android:padding="8dip" />
 
@@ -64,7 +75,8 @@
             android:text="Add Vehicle"
             android:layout_below="@+id/input_mileage"
             android:layout_marginLeft="8dip"
-            android:layout_marginTop="8dip"/>
+            android:layout_marginTop="8dip"
+            android:background="@color/blue"/>
 
         <!-- Add Button -->
         <Button android:id="@+id/btn_del"
@@ -74,7 +86,8 @@
             android:layout_below="@+id/input_mileage"
             android:layout_toRightOf="@+id/btn_add"
             android:layout_marginLeft="8dip"
-            android:layout_marginTop="8dip"/>
+            android:layout_marginTop="8dip"
+            android:background="@color/blue"/>
 
         <!-- Select Label -->
         <TextView
@@ -87,14 +100,15 @@
 
 
         <Button
-            android:background="@color/button_material_light"
+            android:background="@color/blue"
             android:id="@+id/pickFourButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/station_grid"
             android:width="120dp"
             android:layout_below="@+id/addtext"
-            android:layout_marginLeft="17dp"/>
+            android:layout_marginLeft="8dip"
+            />
 
         <ImageButton
             android:id="@+id/imageButton1"
@@ -118,7 +132,7 @@
             android:layout_height="15dp" />
 
         <Button
-            android:background="@color/wallet_holo_blue_light"
+            android:background="@color/blue"
             android:id="@+id/pickTheBestButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -126,7 +140,7 @@
             android:width="120dp"
             android:layout_alignLeft="@+id/pickFourButton"
             android:layout_alignStart="@+id/pickFourButton"
-            android:layout_below="@+id/pickFourButton" />
+            android:layout_below="@+id/pickFourButton"/>
 
 
 
