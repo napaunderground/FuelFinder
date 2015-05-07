@@ -220,7 +220,8 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
 
     @Override
     public void onBackPressed() {
-        return;
+        finish();
+        startActivity(new Intent(this, StartActivity.class));
     }
 
     @Override
@@ -265,6 +266,8 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
                 Toast.LENGTH_LONG).show();
 
     }
+
+
 
 
 }
