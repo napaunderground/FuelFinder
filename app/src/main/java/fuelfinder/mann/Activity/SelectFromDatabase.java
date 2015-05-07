@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -35,17 +36,17 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
     String SelectedID;
     // Add button
     Button btnAdd;
-
-    // delete button
-    Button btnDelete;
+    Button btnDel;
+    ImageButton WhatIsThis1;
+    ImageButton WhatIsThis2;
     MileageModelDataSource datasource;
 
     // Input text
     EditText inputLabel;
-    EditText inputLabel2;
     EditText inputMileage;
     String myLat;
     String myLng;
+    String label;
 
     private Button moreInputsButton;
     Button pickTheBestButton;
@@ -56,7 +57,6 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
     public void onCreate(Bundle savedInstanceState) {
         datasource = new MileageModelDataSource(this);
         datasource.open();
-        counter = datasource.getAllVehicles().size();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_from_database);
 
@@ -70,13 +70,12 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
 
         // add button
         btnAdd = (Button) findViewById(R.id.btn_add);
-        // delete button
-
-        btnDelete = (Button) findViewById(R.id.btn_delete);
+        btnDel = (Button) findViewById(R.id.btn_del);
+        WhatIsThis1 = (ImageButton) findViewById(R.id.imageButton1);
+        WhatIsThis2 = (ImageButton) findViewById(R.id.imageButton2);
 
         // new label input field
         inputLabel = (EditText) findViewById(R.id.input_label);
-        inputLabel2 = (EditText) findViewById(R.id.input_label2);
 
         inputMileage = (EditText) findViewById(R.id.input_mileage);
         // Spinner click listener
@@ -131,23 +130,46 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
             }
         });
 
-        btnDelete.setOnClickListener(new View.OnClickListener() {
+        btnDel.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
 
+                    datasource.deleteVehFromName(label);
+                    loadSpinnerData();
+                    Toast.makeText(getApplicationContext(), "Vehicle deleted from database: " + label,
+                            Toast.LENGTH_LONG).show();
 
-                MileageModel label = new MileageModel();
-                MySQLiteHelper db = new MySQLiteHelper(getApplicationContext());
-                db.deleteMileageModel(label);
-                // loading spinner after deleting data
-                loadSpinnerData();
 
-                Toast.makeText(getApplicationContext(), "Vehicle to delete from database " + label,
-                        Toast.LENGTH_LONG).show();
+
             }
         });
 
+        WhatIsThis1.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+                Toast.makeText(getApplicationContext(), "This button automatically selects the station with the cheapest total cost and routes to it",
+                        Toast.LENGTH_LONG).show();
+
+
+
+            }
+        });
+
+        WhatIsThis2.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+                Toast.makeText(getApplicationContext(), "This button redirects to a selection of the four cheapest total costs near you",
+                        Toast.LENGTH_LONG).show();
+
+
+
+            }
+        });
 
 
         final Intent StationIntent = new Intent(this, StationPickerActivity.class);
@@ -223,7 +245,8 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
 
     @Override
     public void onBackPressed() {
-        return;
+        finish();
+        startActivity(new Intent(this, StartActivity.class));
     }
 
     @Override
@@ -260,7 +283,7 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
     public void onItemSelected(AdapterView<?> parent, View view, int position,
                                long id) {
         // On selecting a spinner item
-        String label = parent.getItemAtPosition(position).toString();
+        label = parent.getItemAtPosition(position).toString();
 
         SelectedID = ""+position;
         // Showing selected spinner item
@@ -268,6 +291,8 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
                 Toast.LENGTH_LONG).show();
 
     }
+
+
 
 
 }
