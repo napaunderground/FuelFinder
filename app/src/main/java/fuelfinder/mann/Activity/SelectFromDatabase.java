@@ -130,10 +130,17 @@ public class SelectFromDatabase extends Activity implements AdapterView.OnItemSe
 
             @Override
             public void onClick(View arg0) {
-                datasource.deleteVehFromName(label);
-                loadSpinnerData();
-                Toast.makeText(getApplicationContext(), "Vehicle deleted from database: " + label,
-                        Toast.LENGTH_LONG).show();
+                if (datasource.getAllVehicles().size() == 0)
+                {
+                    Toast.makeText(getApplicationContext(), "Error: No vehicles to delete.",
+                            Toast.LENGTH_LONG).show();
+                }
+                else {
+                    datasource.deleteVehFromName(label);
+                    loadSpinnerData();
+                    Toast.makeText(getApplicationContext(), "Vehicle deleted from database: " + label,
+                            Toast.LENGTH_LONG).show();
+                }
 
 
             }
