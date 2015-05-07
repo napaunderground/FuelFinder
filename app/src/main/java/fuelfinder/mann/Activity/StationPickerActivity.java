@@ -14,8 +14,10 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import fuelfinder.mann.Models.StationInfoModel;
 import fuelfinder.mann.R;
@@ -72,6 +74,8 @@ public class StationPickerActivity extends FragmentActivity {
     String TotalCost3;
     String TotalCost4;
 
+    ImageButton WhatIsThis1;
+
     private Button firstChoice;
     private Button secondChoice;
     private Button thirdChoice;
@@ -98,6 +102,8 @@ public class StationPickerActivity extends FragmentActivity {
         setContentView(R.layout.activity_station_picker);
         datasource = new MileageModelDataSource(this);
         datasource.open();
+
+        WhatIsThis1 = (ImageButton) findViewById(R.id.imageButtonS);
 
         firstChoice = (Button)findViewById(R.id.checkBox);
         secondChoice = (Button)findViewById(R.id.checkBox2);
@@ -133,6 +139,7 @@ public class StationPickerActivity extends FragmentActivity {
         GasStationHandler Handle = new GasStationHandler();
         ArrayList<StationInfoModel> bestStations = new ArrayList<>();
         double MileageValue = datasource.getAllVehicles().get(IntID).getUserMileage();
+        datasource.close();
         bestStations = Handle.getBestStations(FPLoc, MileageValue, mCurrentLocation);
 
         Choice1Cost ="$" +  Double.toString(bestStations.get(0).FPM.pricePerGallon);
@@ -326,6 +333,20 @@ public class StationPickerActivity extends FragmentActivity {
         //mapView.
 
         final Intent mIntent = new Intent(this, MapsActivity.class);
+
+
+        WhatIsThis1.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+
+                Toast.makeText(getApplicationContext(), "The large blue button above will route you directly to this station!",
+                        Toast.LENGTH_LONG).show();
+
+
+
+            }
+        });
 
         firstChoice.setOnClickListener(new View.OnClickListener() {
             @Override
