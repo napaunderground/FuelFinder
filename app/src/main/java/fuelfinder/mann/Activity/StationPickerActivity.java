@@ -51,6 +51,9 @@ import fuelfinder.mann.Utility.MileageModelDataSource;
 public class StationPickerActivity extends FragmentActivity {
 
     static FragmentManager fragmentManager;
+    static FragmentManager fragmentManager2;
+    static FragmentManager fragmentManager3;
+    static FragmentManager fragmentManager4;
     static FragmentTransaction ft1;
 
     private MileageModelDataSource datasource;
@@ -393,10 +396,10 @@ public class StationPickerActivity extends FragmentActivity {
         LocationFragment2 Loc2=new LocationFragment2();
         Loc2.setArguments(m2);
 
-        LocationFragment Loc3=new LocationFragment();
+        LocationFragment3 Loc3=new LocationFragment3();
         Loc3.setArguments(m3);
 
-        LocationFragment Loc4=new LocationFragment();
+        LocationFragment4 Loc4=new LocationFragment4();
         Loc4.setArguments(m4);
 
 
@@ -406,7 +409,16 @@ public class StationPickerActivity extends FragmentActivity {
 
 
         fragmentManager.beginTransaction().replace(R.id.map1, Loc1).commit();
-        //fragmentManager.beginTransaction().replace(R.id.map1, Loc2).commit();
+        fragmentManager.executePendingTransactions();
+        fragmentManager2 = getFragmentManager();
+        fragmentManager2.beginTransaction().replace(R.id.map2, Loc2).commit();
+        fragmentManager2.executePendingTransactions();
+        fragmentManager3 = getFragmentManager();
+        fragmentManager3.beginTransaction().replace(R.id.map3, Loc3).commit();
+        fragmentManager3.executePendingTransactions();
+        fragmentManager4 = getFragmentManager();
+        fragmentManager4.beginTransaction().replace(R.id.map4, Loc4).commit();
+        fragmentManager4.executePendingTransactions();
 
 
 
